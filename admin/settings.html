@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en-IN" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Settings | Space Design Admin</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/accessibility.css">
+<link rel="stylesheet" href="../css/admin.css">
+<script src="../js/boot.js"></script>
+</head>
+<body class="admin" data-page="admin" data-admin-page="settings">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="admin-loading" data-admin-loading role="status">Checking access…</div>
+<div class="admin-shell" data-admin-shell hidden>
+  <div class="admin-mobile-bar" data-admin-bar>
+    <span class="brand"><span class="brand-text"><span class="brand-name">SPACE DESIGN</span></span></span>
+    <button type="button" aria-expanded="false" aria-controls="admin-sidebar">Menu</button>
+  </div>
+  <aside class="admin-sidebar" id="admin-sidebar" data-admin-sidebar aria-label="Admin navigation"></aside>
+  <main class="admin-main" id="main" tabindex="-1">
+    <header class="admin-head">
+      <div><span class="label label--blue">Site</span><h1>Settings</h1></div>
+      <div class="admin-actions"><span class="coords" data-env-status></span></div>
+    </header>
+    <section class="panel" aria-labelledby="st-hero">
+      <div class="panel-head"><h2 id="st-hero">Home hero</h2><p>Leave empty to use the built-in illustration.</p></div>
+      <form class="form" data-hero-form>
+        <div class="form-grid">
+          <div class="field span-2"><label for="h-img">Hero image URL</label><input id="h-img" name="image_url" type="url"><label class="btn-xs mt-4">Upload image<input class="hidden-file" type="file" accept="image/jpeg,image/png,image/webp,image/avif" data-hero-upload="image_url"></label></div>
+          <div class="field span-2"><label for="h-alt">Hero image alt text</label><input id="h-alt" name="image_alt" maxlength="300" placeholder="Factual description of the photograph"></div>
+          <div class="field"><label for="h-vid">Background video URL (optional)</label><input id="h-vid" name="video_url" type="url" aria-describedby="h-vid-h"><p class="field-hint" id="h-vid-h">Muted, looped, desktop only. Never autoplays on mobile, data-saver or reduced motion. Keep it under ~8 MB.</p><label class="btn-xs mt-4">Upload video<input class="hidden-file" type="file" accept="video/mp4,video/webm" data-hero-upload="video_url"></label></div>
+          <div class="field"><label for="h-poster">Video poster URL</label><input id="h-poster" name="poster_url" type="url"><label class="btn-xs mt-4">Upload poster<input class="hidden-file" type="file" accept="image/jpeg,image/png,image/webp" data-hero-upload="poster_url"></label></div>
+        </div>
+        <div class="admin-actions"><button type="submit" class="btn btn--sm">Save hero</button></div>
+      </form>
+    </section>
+
+    <section class="panel" id="seo" aria-labelledby="st-seo">
+      <div class="panel-head"><h2 id="st-seo">SEO: page titles &amp; descriptions</h2><p>Optional overrides. Project SEO is edited inside each project.</p></div>
+      <form class="form" data-seo-form>
+        <div data-seo-fields></div>
+        <p class="field-hint">Search engines that do not run JavaScript see the default titles written in each HTML file. For permanent changes, also update the &lt;title&gt; and meta description in the page file.</p>
+        <div class="admin-actions"><button type="submit" class="btn btn--sm">Save SEO</button></div>
+      </form>
+    </section>
+
+    <div class="two-col">
+      <section class="panel" aria-labelledby="st-ret">
+        <div class="panel-head"><h2 id="st-ret">Enquiry retention</h2></div>
+        <form class="form" data-retention-form>
+          <div class="field"><label for="r-days">Keep enquiries for (days)</label><input id="r-days" name="days" type="number" min="30" max="3650"></div>
+          <p class="field-hint mb-0">Match this to the period stated in the Privacy Policy. Old enquiries are flagged on the Enquiries page for deletion.</p>
+          <div class="admin-actions"><button type="submit" class="btn btn--sm">Save</button></div>
+        </form>
+      </section>
+      <section class="panel" aria-labelledby="st-pw">
+        <div class="panel-head"><h2 id="st-pw">Change password</h2></div>
+        <form class="form" data-password-form>
+          <div class="field"><label for="pw1">New password</label><input id="pw1" name="password" type="password" autocomplete="new-password" minlength="12" required></div>
+          <div class="field"><label for="pw2">Confirm new password</label><input id="pw2" name="confirm" type="password" autocomplete="new-password" minlength="12" required></div>
+          <div class="admin-actions"><button type="submit" class="btn btn--sm">Update password</button></div>
+        </form>
+      </section>
+    </div>
+
+  </main>
+</div>
+<script src="../js/config.js" defer></script>
+<script src="../js/vendor/supabase.js" defer></script>
+<script src="../js/utils.js" defer></script>
+<script src="../js/supabase.js" defer></script>
+<script src="../js/seo.js" defer></script>
+<script src="../js/auth.js" defer></script>
+<script src="../js/admin.js" defer></script>
+</body>
+</html>

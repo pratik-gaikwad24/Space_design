@@ -1,0 +1,17 @@
+# Secrets — never commit real environment files
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Local tooling
+.dist/
+__pycache__/
+*.log
+node_modules/

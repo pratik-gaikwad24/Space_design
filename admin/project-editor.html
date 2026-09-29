@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en-IN" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Project editor | Space Design Admin</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/accessibility.css">
+<link rel="stylesheet" href="../css/admin.css">
+<script src="../js/boot.js"></script>
+</head>
+<body class="admin" data-page="admin" data-admin-page="project-editor">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="admin-loading" data-admin-loading role="status">Checking access…</div>
+<div class="admin-shell" data-admin-shell hidden>
+  <div class="admin-mobile-bar" data-admin-bar>
+    <span class="brand"><span class="brand-text"><span class="brand-name">SPACE DESIGN</span></span></span>
+    <button type="button" aria-expanded="false" aria-controls="admin-sidebar">Menu</button>
+  </div>
+  <aside class="admin-sidebar" id="admin-sidebar" data-admin-sidebar aria-label="Admin navigation"></aside>
+  <main class="admin-main" id="main" tabindex="-1">
+    <header class="admin-head">
+      <div><span class="label label--blue">Portfolio CMS</span><h1>Project editor</h1></div>
+      <div class="admin-actions"><a class="btn btn--sm btn--ghost" href="projects.html">← All projects</a></div>
+    </header>
+    <div class="flex-between mb-6"><h2 class="h-lg" data-editor-title>New project</h2><p class="mb-0" data-editor-badges></p></div>
+    <form class="editor-grid" data-project-form novalidate>
+      <div>
+        <section class="panel" aria-labelledby="ed-basic">
+          <div class="panel-head"><h2 id="ed-basic">Project information</h2><p>Only fill in facts you can verify. Empty fields are hidden on the website.</p></div>
+          <div class="form-grid">
+            <div class="field span-2"><label for="e-title">Project title <span class="req" aria-hidden="true">*</span></label><input id="e-title" name="title" type="text" required maxlength="200"></div>
+            <div class="field"><label for="e-slug">Slug (URL) <span class="req" aria-hidden="true">*</span></label><input id="e-slug" name="slug" type="text" required maxlength="120" pattern="[a-z0-9]+(-[a-z0-9]+)*" aria-describedby="e-slug-h"><p class="field-hint" id="e-slug-h">portfolio-detail.html?slug=<em>this-value</em></p></div>
+            <div class="field"><label for="e-sort">Sort order</label><input id="e-sort" name="sort_order" type="number" value="0" aria-describedby="e-sort-h"><p class="field-hint" id="e-sort-h">Lower numbers appear first.</p></div>
+            <div class="field span-2"><label for="e-sub">Subtitle</label><input id="e-sub" name="subtitle" type="text" maxlength="300"></div>
+            <div class="field"><label for="e-cat">Category</label><input id="e-cat" name="category" type="text" list="dl-cat" maxlength="80"></div>
+            <div class="field"><label for="e-type">Project type</label><input id="e-type" name="project_type" type="text" list="dl-type" maxlength="80"></div>
+            <div class="field"><label for="e-loc">Location</label><input id="e-loc" name="location" type="text" maxlength="160" placeholder="e.g. Vashi, Navi Mumbai"></div>
+            <div class="field"><label for="e-year">Year</label><input id="e-year" name="year" type="text" maxlength="20" placeholder="e.g. 2021 or 2019–2021"></div>
+            <div class="field"><label for="e-area">Area</label><input id="e-area" name="area" type="text" maxlength="80" placeholder="e.g. 12,000 sq ft"></div>
+            <div class="field"><label for="e-status">Status</label><input id="e-status" name="status" type="text" list="dl-status" maxlength="80"></div>
+            <div class="field span-2"><label for="e-client">Client</label><input id="e-client" name="client" type="text" maxlength="160" aria-describedby="e-client-h"><p class="field-hint" id="e-client-h">Only publish a client name with the client’s permission.</p></div>
+            <fieldset class="field span-2"><legend class="field-label">Services on this project</legend>
+              <div class="toolbar mt-4">
+                <div class="check"><input id="sv1" type="checkbox" name="services" value="Architecture"><label for="sv1">Architecture</label></div>
+                <div class="check"><input id="sv2" type="checkbox" name="services" value="Planning"><label for="sv2">Planning</label></div>
+                <div class="check"><input id="sv3" type="checkbox" name="services" value="Interior Design"><label for="sv3">Interior Design</label></div>
+                <div class="check"><input id="sv4" type="checkbox" name="services" value="Project Management Consultancy"><label for="sv4">Project Management Consultancy</label></div>
+              </div>
+            </fieldset>
+          </div>
+          <datalist id="dl-cat"><option value="Architecture"><option value="Planning"><option value="Interior Design"><option value="Project Management"></datalist>
+          <datalist id="dl-type"><option value="Residential"><option value="Commercial"><option value="Institutional"><option value="Hospitality"></datalist>
+          <datalist id="dl-status"><option value="Completed"><option value="Under construction"><option value="Ongoing"><option value="Concept"></datalist>
+        </section>
+
+        <section class="panel" aria-labelledby="ed-text">
+          <div class="panel-head"><h2 id="ed-text">Descriptions</h2><p>Leave a blank line between paragraphs.</p></div>
+          <div class="form-grid">
+            <div class="field span-2"><label for="e-short">Short description</label><textarea id="e-short" name="short_description" maxlength="600" rows="3"></textarea></div>
+            <div class="field span-2"><label for="e-desc">Project overview (full description)</label><textarea id="e-desc" class="tall" name="description" maxlength="12000"></textarea></div>
+            <div class="field span-2"><label for="e-concept">Concept</label><textarea id="e-concept" name="concept" maxlength="8000" rows="6"></textarea></div>
+            <div class="field span-2"><label for="e-approach">Design approach</label><textarea id="e-approach" name="design_approach" maxlength="8000" rows="6"></textarea></div>
+            <div class="field span-2"><label for="e-details">Project details</label><textarea id="e-details" name="details" maxlength="8000" rows="6"></textarea></div>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="ed-seo" id="seo">
+          <div class="panel-head"><h2 id="ed-seo">SEO &amp; sharing</h2><p>Optional. Defaults are generated from the title and short description.</p></div>
+          <div class="form-grid">
+            <div class="field span-2"><label for="e-seot">SEO title</label><input id="e-seot" name="seo_title" type="text" maxlength="70"></div>
+            <div class="field span-2"><label for="e-seod">SEO description</label><textarea id="e-seod" name="seo_description" maxlength="170" rows="3"></textarea></div>
+            <div class="field span-2"><label for="e-og">Open Graph image URL</label><input id="e-og" name="og_image" type="url" maxlength="1000" aria-describedby="e-og-h"><p class="field-hint" id="e-og-h">1200×630 JPG/PNG recommended. <button type="button" class="link-btn text-link" data-og-from-cover>Use cover image</button></p></div>
+          </div>
+          <p class="label label--muted mt-6 mb-4">Search result preview</p>
+          <div class="serp" aria-hidden="true"><p class="serp-url" data-serp-url></p><p class="serp-title" data-serp-title></p><p class="serp-desc" data-serp-desc></p></div>
+        </section>
+
+        <section class="panel" id="media" aria-labelledby="ed-media" hidden>
+          <div class="panel-head"><h2 id="ed-media">Media</h2><p data-media-count></p></div>
+          <div class="dropzone" data-dropzone>
+            <div class="dropzone-row">
+              <div class="field"><label for="u-type">Media type</label>
+                <select id="u-type" data-upload-type><option value="image">Images (JPEG, PNG, WebP, AVIF · 15 MB)</option><option value="video">Videos (MP4, WebM · 50 MB)</option><option value="drawing">Drawings (image or PDF · 25 MB)</option><option value="plan">Plans (image or PDF · 25 MB)</option></select></div>
+              <div class="field"><label for="u-files">Files</label><input id="u-files" type="file" multiple data-upload-files></div>
+              <button type="button" class="btn btn--sm" data-upload-btn>Upload</button>
+            </div>
+            <div class="toolbar mb-0">
+              <div class="check"><input id="u-opt" type="checkbox" checked data-optimise><label for="u-opt">Optimise JPEG/PNG to WebP (max 2400 px)</label></div>
+              <div class="check" data-video-opts hidden><input id="u-poster" type="checkbox" checked data-auto-poster><label for="u-poster">Create a poster image from the video</label></div>
+            </div>
+            <p class="field-hint mb-0">You can also drag files onto this box. After uploading, add factual alt text to every image and drawing.</p>
+            <ul class="upload-queue" data-upload-queue aria-live="polite"></ul>
+          </div>
+          <ul class="media-list" data-media-list></ul>
+        </section>
+      </div>
+
+      <aside class="editor-side" aria-label="Publishing">
+        <section class="panel">
+          <div class="panel-head"><h2>Publishing</h2></div>
+          <div class="toggle-row"><label for="e-pub">Published (visible on website)</label><span class="switch"><input id="e-pub" name="published" type="checkbox"></span></div>
+          <div class="toggle-row"><label for="e-feat">Featured on home page</label><span class="switch"><input id="e-feat" name="featured" type="checkbox"></span></div>
+          <div class="admin-actions mt-6">
+            <button type="submit" class="btn btn--sm" data-save>Save project</button>
+            <a class="btn btn--sm btn--ghost" data-view-link target="_blank" rel="noopener" hidden>View ↗</a>
+          </div>
+          <button type="button" class="btn-xs btn-xs--danger mt-6" data-delete hidden>Delete project</button>
+        </section>
+        <section class="panel">
+          <div class="panel-head"><h2>Guidance</h2></div>
+          <ul class="unstyled-list field-hint">
+            <li>• Never invent areas, years, clients or awards.</li>
+            <li>• Alt text describes what is visible: “Residential building exterior in Pune”.</li>
+            <li>• Videos need a poster and, if they contain speech, captions.</li>
+            <li>• The cover image appears on listings and the project hero.</li>
+          </ul>
+        </section>
+      </aside>
+    </form>
+
+  </main>
+</div>
+<script src="../js/config.js" defer></script>
+<script src="../js/vendor/supabase.js" defer></script>
+<script src="../js/utils.js" defer></script>
+<script src="../js/supabase.js" defer></script>
+<script src="../js/seo.js" defer></script>
+<script src="../js/auth.js" defer></script>
+<script src="../js/admin.js" defer></script>
+<script src="../js/project-editor.js" defer></script>
+</body>
+</html>

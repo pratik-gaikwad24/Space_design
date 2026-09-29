@@ -1,0 +1,92 @@
+/* =====================================================================
+   SPACE DESIGN — Accessibility layer (WCAG 2.2 AA target)
+   Loaded after style.css / responsive.css so it wins where it matters.
+   ===================================================================== */
+
+/* Visible, consistent focus indicator (2.4.7, 2.4.11 / 2.4.13) */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+.section--dark :focus-visible,
+.site-footer :focus-visible,
+.contact-left :focus-visible,
+.lightbox :focus-visible {
+  outline-color: var(--space-blue-light);
+}
+.cta-blue :focus-visible { outline-color: var(--space-white); }
+:focus:not(:focus-visible) { outline: none; }
+
+/* Keep focused elements from hiding under the fixed header (2.4.11) */
+:where(a, button, input, select, textarea, summary, [tabindex]) { scroll-margin-top: calc(var(--header-h) + 1.5rem); scroll-margin-bottom: 6rem; }
+
+/* Minimum target size (2.5.8) */
+.footer-legal a, .breadcrumb a {
+  min-height: 24px;
+  display: inline-flex;
+  align-items: center;
+}
+.footer-contacts a, .office-contacts dd a, .contact-office a {
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+/* Underline links inside running text so colour is not the only cue (1.4.1) */
+.prose a, .legal-body a, .split-body p a, .faq-answer a, .form-note a, .check a {
+  color: var(--space-blue);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* Main landmark focus target for skip link */
+main:focus { outline: none; }
+
+/* High-contrast / forced colours */
+@media (forced-colors: active) {
+  .btn, .filter-btn[aria-pressed="true"], .icon-btn { border: 1px solid ButtonText; }
+  .btn::before { display: none; }
+  .check input:checked::after, .switch input:checked::after { background: Highlight; forced-color-adjust: none; }
+  .scroll-progress, .hero-grid-lines, .cta-blue::before, .contact-left::before { display: none; }
+  .filter-btn[aria-pressed="true"] { text-decoration: underline; }
+  .cta-blue-title .outline { color: CanvasText; -webkit-text-stroke: 0; }
+}
+
+/* Reduced motion: remove non-essential animation (2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+  }
+  .js [data-reveal],
+  .js [data-reveal="image"],
+  .js [data-reveal="line"],
+  .js .line-mask > span,
+  .js .hero .hero-media .media,
+  .js .hero .hero-fade,
+  .js .hero .hero-line,
+  .js .hero .line-mask > span,
+  .js .hero .hero-media .media img {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+  .js .index[data-reveal]::after { transform: none !important; }
+  .scroll-cue-line::after { display: none; }
+  .cursor-view, .page-veil { display: none !important; }
+  @view-transition { navigation: none; }
+}
+
+/* Users who prefer more contrast */
+@media (prefers-contrast: more) {
+  :root {
+    --text-muted: #3F464D;
+    --line: #9AA3AC;
+    --space-grey: #4E565E;
+  }
+  .hero-title .muted, .display .muted, .page-hero-title .muted, .nf-title .muted { color: #4E565E; }
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Replace https://your-domain.com with the production domain.
+  Project pages (portfolio-detail.html?slug=...) are added by listing each
+  published slug below. See README "Sitemap" for the SQL query that
+  generates these <url> entries.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://your-domain.com/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://your-domain.com/about.html</loc><changefreq>yearly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://your-domain.com/services.html</loc><changefreq>yearly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://your-domain.com/portfolio.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://your-domain.com/contact.html</loc><changefreq>yearly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://your-domain.com/privacy-policy.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://your-domain.com/terms.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://your-domain.com/cookie-policy.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://your-domain.com/refund-policy.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://your-domain.com/accessibility.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <!-- PROJECTS: add one line per published project, e.g.
+  <url><loc>https://your-domain.com/portfolio-detail.html?slug=project-slug</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  -->
+</urlset>

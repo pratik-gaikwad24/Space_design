@@ -1,0 +1,11 @@
+# Space Design — robots.txt
+# Replace your-domain.com with the production domain before launch.
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /supabase/
+Disallow: /partials/
+Disallow: /tools/
+
+Sitemap: https://your-domain.com/sitemap.xml

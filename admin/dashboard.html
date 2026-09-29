@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en-IN" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard | Space Design Admin</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/accessibility.css">
+<link rel="stylesheet" href="../css/admin.css">
+<script src="../js/boot.js"></script>
+</head>
+<body class="admin" data-page="admin" data-admin-page="dashboard">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="admin-loading" data-admin-loading role="status">Checking access…</div>
+<div class="admin-shell" data-admin-shell hidden>
+  <div class="admin-mobile-bar" data-admin-bar>
+    <span class="brand"><span class="brand-text"><span class="brand-name">SPACE DESIGN</span></span></span>
+    <button type="button" aria-expanded="false" aria-controls="admin-sidebar">Menu</button>
+  </div>
+  <aside class="admin-sidebar" id="admin-sidebar" data-admin-sidebar aria-label="Admin navigation"></aside>
+  <main class="admin-main" id="main" tabindex="-1">
+    <header class="admin-head">
+      <div><span class="label label--blue">Overview</span><h1>Dashboard</h1></div>
+      <div class="admin-actions"><a class="btn btn--sm" href="project-editor.html">New project <span class="btn-arrow" aria-hidden="true">→</span></a></div>
+    </header>
+    <div class="stats">
+      <a class="stat" href="projects.html"><dl class="mb-0"><dt>Total projects</dt><dd data-stat>–</dd></dl></a>
+      <a class="stat" href="projects.html"><dl class="mb-0"><dt>Published</dt><dd data-stat>–</dd></dl></a>
+      <a class="stat" href="projects.html"><dl class="mb-0"><dt>Featured</dt><dd data-stat>–</dd></dl></a>
+      <a class="stat stat--accent" href="enquiries.html"><dl class="mb-0"><dt>New enquiries</dt><dd data-stat>–</dd></dl></a>
+      <a class="stat" href="media.html"><dl class="mb-0"><dt>Media files</dt><dd data-stat>–</dd></dl></a>
+    </div>
+    <div class="two-col">
+      <section class="panel" aria-labelledby="re-title">
+        <div class="panel-head"><h2 id="re-title">Recent enquiries</h2><a class="link-arrow" href="enquiries.html">All enquiries <span class="btn-arrow" aria-hidden="true">→</span></a></div>
+        <div class="table-wrap" data-recent-enquiries><p class="table-empty">Loading…</p></div>
+      </section>
+      <section class="panel" aria-labelledby="rp-title">
+        <div class="panel-head"><h2 id="rp-title">Recently updated projects</h2><a class="link-arrow" href="projects.html">All projects <span class="btn-arrow" aria-hidden="true">→</span></a></div>
+        <div class="table-wrap" data-recent-projects><p class="table-empty">Loading…</p></div>
+      </section>
+    </div>
+    <section class="panel" aria-labelledby="qs-title">
+      <div class="panel-head"><h2 id="qs-title">Before launch</h2></div>
+      <ul class="unstyled-list muted">
+        <li>• Replace all illustration placeholders with client-supplied photography (Settings → Home hero; project media).</li>
+        <li>• Every image and drawing needs factual alt text. Media → “Missing alt text” lists the gaps.</li>
+        <li>• Add captions (.vtt) to any video with speech.</li>
+        <li>• Review the legal pages with a lawyer before launch.</li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+<script src="../js/config.js" defer></script>
+<script src="../js/vendor/supabase.js" defer></script>
+<script src="../js/utils.js" defer></script>
+<script src="../js/supabase.js" defer></script>
+<script src="../js/seo.js" defer></script>
+<script src="../js/auth.js" defer></script>
+<script src="../js/admin.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" preserveAspectRatio="xMidYMid slice">
+  <!-- ILLUSTRATION PLACEHOLDER: DETAIL (section study). -->
+  <defs>
+    <pattern id="conc" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="14" stroke="#15191D" stroke-opacity=".3" stroke-width="1.5"/></pattern>
+    <pattern id="ins" width="40" height="20" patternUnits="userSpaceOnUse"><path d="M0 10 Q 10 0 20 10 T 40 10" fill="none" stroke="#15191D" stroke-opacity=".35" stroke-width="1.5"/></pattern>
+  </defs>
+  <rect width="1200" height="1500" fill="#FFFFFF"/>
+  <rect x="200" y="200" width="160" height="1100" fill="url(#conc)" stroke="#15191D" stroke-width="3"/>
+  <rect x="360" y="200" width="90" height="1100" fill="url(#ins)" stroke="#15191D" stroke-width="2"/>
+  <rect x="450" y="200" width="20" height="1100" fill="#15191D"/>
+  <rect x="470" y="200" width="30" height="1100" fill="#E7EBEF" stroke="#15191D" stroke-width="1"/>
+  <rect x="200" y="560" width="760" height="120" fill="url(#conc)" stroke="#15191D" stroke-width="3"/>
+  <rect x="500" y="680" width="440" height="16" fill="#0066B1"/>
+  <g stroke="#15191D" stroke-width="1.5">
+    <line x1="500" y1="760" x2="900" y2="1060"/><line x1="900" y1="1060" x2="1080" y2="1060"/>
+    <line x1="410" y1="400" x2="780" y2="300"/><line x1="780" y1="300" x2="1080" y2="300"/>
+  </g>
+  <g fill="#15191D"><circle cx="500" cy="760" r="6"/><circle cx="410" cy="400" r="6"/></g>
+  <g fill="#0066B1"><rect x="900" y="1040" width="180" height="2"/><rect x="780" y="280" width="300" height="2"/></g>
+  <g stroke="#0066B1" stroke-width="2"><line x1="200" y1="1360" x2="500" y2="1360"/><line x1="200" y1="1345" x2="200" y2="1375"/><line x1="500" y1="1345" x2="500" y2="1375"/></g>
+</svg>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en-IN" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Media library | Space Design Admin</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/accessibility.css">
+<link rel="stylesheet" href="../css/admin.css">
+<script src="../js/boot.js"></script>
+</head>
+<body class="admin" data-page="admin" data-admin-page="media">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="admin-loading" data-admin-loading role="status">Checking access…</div>
+<div class="admin-shell" data-admin-shell hidden>
+  <div class="admin-mobile-bar" data-admin-bar>
+    <span class="brand"><span class="brand-text"><span class="brand-name">SPACE DESIGN</span></span></span>
+    <button type="button" aria-expanded="false" aria-controls="admin-sidebar">Menu</button>
+  </div>
+  <aside class="admin-sidebar" id="admin-sidebar" data-admin-sidebar aria-label="Admin navigation"></aside>
+  <main class="admin-main" id="main" tabindex="-1">
+    <header class="admin-head">
+      <div><span class="label label--blue">Portfolio CMS</span><h1>Media library</h1></div>
+      <div class="admin-actions"><span class="coords" data-media-total></span></div>
+    </header>
+    <div class="toolbar">
+      <div class="seg" role="group" aria-label="Filter media" data-media-filter>
+        <button type="button" aria-pressed="true" data-filter="all">All</button>
+        <button type="button" aria-pressed="false" data-filter="image">Images</button>
+        <button type="button" aria-pressed="false" data-filter="video">Videos</button>
+        <button type="button" aria-pressed="false" data-filter="drawing">Drawings</button>
+        <button type="button" aria-pressed="false" data-filter="plan">Plans</button>
+        <button type="button" aria-pressed="false" data-filter="missing-alt">Missing alt text</button>
+      </div>
+    </div>
+    <p class="muted">Media is managed inside each project (upload, replace, reorder, delete, alt text, captions). Select a card to open its project.</p>
+    <ul class="lib-grid" data-media-grid><li class="table-empty">Loading…</li></ul>
+
+  </main>
+</div>
+<script src="../js/config.js" defer></script>
+<script src="../js/vendor/supabase.js" defer></script>
+<script src="../js/utils.js" defer></script>
+<script src="../js/supabase.js" defer></script>
+<script src="../js/seo.js" defer></script>
+<script src="../js/auth.js" defer></script>
+<script src="../js/admin.js" defer></script>
+</body>
+</html>

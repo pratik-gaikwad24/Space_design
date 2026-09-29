@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en-IN" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Enquiries | Space Design Admin</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/accessibility.css">
+<link rel="stylesheet" href="../css/admin.css">
+<script src="../js/boot.js"></script>
+</head>
+<body class="admin" data-page="admin" data-admin-page="enquiries">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="admin-loading" data-admin-loading role="status">Checking access…</div>
+<div class="admin-shell" data-admin-shell hidden>
+  <div class="admin-mobile-bar" data-admin-bar>
+    <span class="brand"><span class="brand-text"><span class="brand-name">SPACE DESIGN</span></span></span>
+    <button type="button" aria-expanded="false" aria-controls="admin-sidebar">Menu</button>
+  </div>
+  <aside class="admin-sidebar" id="admin-sidebar" data-admin-sidebar aria-label="Admin navigation"></aside>
+  <main class="admin-main" id="main" tabindex="-1">
+    <header class="admin-head">
+      <div><span class="label label--blue">Contact form</span><h1>Enquiries</h1></div>
+      <div class="admin-actions"><button type="button" class="btn btn--sm btn--ghost" data-export>Export CSV</button></div>
+    </header>
+    <div class="panel">
+      <p class="mb-4" data-retention-note>Loading…</p>
+      <button type="button" class="btn-xs btn-xs--danger" data-purge hidden>Delete enquiries past retention</button>
+    </div>
+    <div class="toolbar">
+      <div class="field"><label for="q-search">Search</label><input id="q-search" type="search" data-enq-search placeholder="Name, email, message…"></div>
+      <div class="seg" role="group" aria-label="Filter enquiries" data-enq-filter>
+        <button type="button" aria-pressed="true" data-filter="active">Active</button>
+        <button type="button" aria-pressed="false" data-filter="new">New</button>
+        <button type="button" aria-pressed="false" data-filter="replied">Replied</button>
+        <button type="button" aria-pressed="false" data-filter="archived">Archived</button>
+        <button type="button" aria-pressed="false" data-filter="all">All</button>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="table-wrap">
+        <table class="table">
+          <caption class="visually-hidden">Enquiries</caption>
+          <thead><tr><th scope="col">From</th><th scope="col">Project</th><th scope="col">Received</th><th scope="col">Status</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+          <tbody data-enq-body><tr><td colspan="5" class="table-empty">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+    <p class="field-hint">Enquiries contain personal data. Only authorised staff should access this page. Delete records you no longer need.</p>
+
+  </main>
+</div>
+<script src="../js/config.js" defer></script>
+<script src="../js/vendor/supabase.js" defer></script>
+<script src="../js/utils.js" defer></script>
+<script src="../js/supabase.js" defer></script>
+<script src="../js/seo.js" defer></script>
+<script src="../js/auth.js" defer></script>
+<script src="../js/admin.js" defer></script>
+<script src="../js/enquiries.js" defer></script>
+</body>
+</html>

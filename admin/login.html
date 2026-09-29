@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en-IN" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sign in | Space Design Admin</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/accessibility.css">
+<link rel="stylesheet" href="../css/admin.css">
+<script src="../js/boot.js"></script>
+</head>
+<body class="admin" data-page="admin" data-admin-page="login">
+<main class="login" id="main">
+  <section class="login-art" aria-hidden="true">
+    <span class="brand"><svg class="brand-mark" viewBox="0 0 32 32"><rect x="1.25" y="1.25" width="29.5" height="29.5" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="1.25" y="17" width="13.75" height="13.75" fill="#0066B1"/><path d="M15 1.25V11M21 17h9.75" stroke="currentColor" stroke-width="2.5"/></svg><span class="brand-text"><span class="brand-name">SPACE DESIGN</span><span class="brand-sub">Content admin</span></span></span>
+    <p class="h-xl mb-0">Portfolio<br><span class="serif-accent">CMS</span></p>
+    <p class="coords mb-0">Authorised administrators only</p>
+  </section>
+  <section class="login-panel" aria-labelledby="login-title">
+    <form class="login-form form" data-login-form novalidate>
+      <div>
+        <p class="index mb-5">Admin</p>
+        <h1 class="h-lg" id="login-title">Sign in</h1>
+      </div>
+      <div class="config-warning" data-config-warning hidden>Supabase is not configured. Add <code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code> to <code>js/config.js</code> (see README).</div>
+      <div class="alert" role="alert" tabindex="-1" data-login-alert hidden></div>
+      <div class="field"><label for="l-email">Email</label><input id="l-email" name="email" type="email" autocomplete="username" required></div>
+      <div class="field"><label for="l-pass">Password</label><input id="l-pass" name="password" type="password" autocomplete="current-password" required></div>
+      <button type="submit" class="btn"><span data-label>Sign in</span> <span class="btn-arrow" aria-hidden="true">→</span></button>
+      <p class="form-note mb-0">There is no public registration. Accounts are created by the site owner in Supabase. Forgotten password? Ask the owner to send a reset from the Supabase dashboard.</p>
+      <p class="form-note mb-0"><a class="text-link" href="../index.html">← Back to website</a></p>
+    </form>
+  </section>
+</main>
+<script src="../js/config.js" defer></script>
+<script src="../js/vendor/supabase.js" defer></script>
+<script src="../js/utils.js" defer></script>
+<script src="../js/supabase.js" defer></script>
+<script src="../js/auth.js" defer></script>
+</body>
+</html>
