@@ -112,7 +112,7 @@
   <div class="portfolio-tools">
     <div class="container portfolio-tools-inner">
       <div class="filters" role="group" aria-label="Filter projects" data-filters>
-        <button type="button" class="filter-btn" aria-pressed="true" data-filter="all">All</button>
+        <button type="button" class="filter-btn filter-btn--all" aria-pressed="true" data-filter="all">All</button>
       </div>
       <div class="search">
         <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="5.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M11 11l4 4" stroke="currentColor" stroke-width="1.5"/></svg>
@@ -124,15 +124,16 @@
   </div>
 
   <section class="container" aria-label="Projects">
-    <div data-demo-banner hidden></div>
     <p class="visually-hidden" role="status" aria-live="polite" data-status></p>
-    <div class="project-grid" data-portfolio-grid aria-busy="true">
-      <div class="project-card project-card--l"><div class="project-card-media skeleton"></div></div>
-      <div class="project-card project-card--s"><div class="project-card-media skeleton"></div></div>
+    <div class="work-grid" data-portfolio-grid aria-busy="true">
+      <div class="project-card work-lead"><div class="project-card-media skeleton"></div></div>
+      <div class="project-card work-side"><div class="project-card-media skeleton"></div></div>
+      <div class="project-card work-side"><div class="project-card-media skeleton"></div></div>
     </div>
     <div class="load-more-wrap">
-      <button type="button" class="btn btn--ghost" data-load-more hidden>Load more projects</button>
+      <button type="button" class="btn btn--ghost" data-load-more hidden>Load more projects <span class="btn-arrow" aria-hidden="true">↓</span></button>
     </div>
+    <div class="mt-7" data-demo-banner hidden></div>
   </section>
 
   <section class="section" aria-labelledby="cta-title">

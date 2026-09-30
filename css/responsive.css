@@ -296,16 +296,31 @@
 
 /* ---------- Home · Selected work grid ---------- */
 @media (max-width: 1024px) {
-  .work-grid .work-lead { grid-column: 1 / -1; grid-row: auto; }
+  .work-grid .work-lead, .work-grid .work-lead.is-mirror { grid-column: 1 / -1; grid-row: auto; }
   .work-grid .work-lead .project-card-media { flex: none; min-height: 0; aspect-ratio: 16 / 10; }
-  .work-grid .work-side, .work-grid .work-third, .work-grid .work-half { grid-column: span 6; }
+  .work-grid .work-side, .work-grid .work-side.is-mirror, .work-grid .work-third, .work-grid .work-half { grid-column: span 6; }
   /* odd third at the end of a row fills the width */
   .work-grid .work-third:last-child:nth-child(even) { grid-column: 1 / -1; }
+  .work-grid .work-third:last-child:nth-child(even) .project-card-media { aspect-ratio: 16 / 9; }
 }
 @media (max-width: 600px) {
   .work-grid { row-gap: 3rem; }
-  .work-grid .project-card, .work-grid .work-side, .work-grid .work-third, .work-grid .work-half { grid-column: 1 / -1; }
+  .work-grid .project-card, .work-grid .work-side, .work-grid .work-side.is-mirror, .work-grid .work-third, .work-grid .work-half { grid-column: 1 / -1; }
   .work-grid .work-lead .project-card-media { aspect-ratio: 4 / 5; }
   .work-grid .project-card-media { aspect-ratio: 4 / 3; }
   .work-foot .btn { width: 100%; }
+}
+
+/* Portfolio tools: one scrolling row of filters on tablets & phones */
+@media (max-width: 1180px) {
+  .portfolio-tools-inner { grid-template-columns: minmax(0, 1fr) minmax(12rem, 16rem); }
+  .results-count { display: none; }
+}
+@media (max-width: 1024px) {
+  .portfolio-tools-inner { display: flex; flex-direction: column; align-items: stretch; gap: 0; padding-block: 0.5rem; }
+  .search { order: -1; }
+  .filters { display: flex; flex-wrap: nowrap; overflow-x: auto; column-gap: 1.25rem; }
+  .filters .filter-btn--all { grid-row: auto; }
+  .filters .filter-group { flex-wrap: nowrap; padding-left: 1.25rem; }
+  .filter-group-label { min-width: 0; }
 }

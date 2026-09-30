@@ -150,6 +150,44 @@
       '</article>';
   }
 
+  /**
+   * Structured project layout on a 12-column grid, in repeating blocks of six:
+   *   lead (7 cols × 2 rows) + two stacked side cards (5 cols), then a row of thirds.
+   * Every second block is mirrored (lead on the right). Short remainders
+   * become halves or a full-width card, so no row is ever left ragged.
+   * Returns one { slot, mirror } per project.
+   */
+  function workLayout(n) {
+    var out = [];
+    var block = 0;
+    var i = 0;
+    while (i < n) {
+      var left = n - i;
+      var mirror = block % 2 === 1;
+      if (left === 1) { out.push({ slot: 'full' }); i += 1; }
+      else if (left === 2) { out.push({ slot: 'half' }, { slot: 'half' }); i += 2; }
+      else {
+        out.push({ slot: 'lead', mirror: mirror }, { slot: 'side', mirror: mirror }, { slot: 'side', mirror: mirror });
+        i += 3;
+        left = n - i;
+        if (left >= 3 && left !== 4) { out.push({ slot: 'third' }, { slot: 'third' }, { slot: 'third' }); i += 3; }
+        else if (left === 4 || left === 2) { out.push({ slot: 'half' }, { slot: 'half' }); i += 2; }
+        else if (left === 1) { out.push({ slot: 'full' }); i += 1; }
+      }
+      block += 1;
+    }
+    return out;
+  }
+
+  /** Render projects into a .work-grid using workLayout(). */
+  function workGrid(projects) {
+    var slots = workLayout(projects.length);
+    return projects.map(function (p, i) {
+      var s = slots[i];
+      return projectCard(p, i, s.slot, 'work-' + s.slot + (s.mirror ? ' is-mirror' : ''));
+    }).join('');
+  }
+
   function demoBanner() {
     return '<div class="demo-banner" role="note"><strong>DEMO MODE</strong><span>Supabase is not configured yet, so the projects shown are clearly labelled demo placeholders, not Space Design projects. Add your Supabase keys in <code>js/config.js</code> and publish real projects from the admin to replace them.</span></div>';
   }
@@ -160,5 +198,5 @@
     prefersReducedMotion: prefersReducedMotion, saveData: saveData, isSmallScreen: isSmallScreen,
     mediaUrl: mediaUrl, srcset: srcset, announce: announce
   };
-  SD.ui = { projectCard: projectCard, mediaThumb: mediaThumb, demoBanner: demoBanner };
+  SD.ui = { projectCard: projectCard, mediaThumb: mediaThumb, demoBanner: demoBanner, workLayout: workLayout, workGrid: workGrid };
 })();

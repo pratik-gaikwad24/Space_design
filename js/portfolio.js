@@ -1,37 +1,51 @@
 /* =====================================================================
    SPACE DESIGN — Portfolio listing
-   Dynamic filters (only categories/types actually used), search,
-   asymmetric editorial grid, incremental rendering.
+   Grouped filters (Discipline / Type — only values actually used), search,
+   structured 12-column project grid (SD.ui.workGrid), incremental loading.
    ===================================================================== */
 (function () {
   'use strict';
   var SD = window.SD || {};
   var U = SD.utils;
 
-  var PAGE_SIZE = 10;
-  // 60/40 · 40/60 · full → 6+4, 4+6, 10 in a 10-col grid
-  var PATTERN = ['l', 's', 's', 'l', 'full'];
-  var PREFERRED_ORDER = ['Architecture', 'Interior Design', 'Planning', 'Project Management', 'Residential', 'Commercial', 'Institutional', 'Hospitality'];
+  var PAGE_SIZE = 12; // two full layout blocks of six
+  var DISCIPLINES = ['Architecture', 'Interior Design', 'Planning', 'Project Management'];
+  var TYPES = ['Residential', 'Commercial', 'Institutional', 'Hospitality'];
 
   var state = { all: [], filtered: [], filter: 'all', query: '', shown: 0, demo: false };
   var els = {};
 
   function valuesOf(p) { return [p.category, p.project_type].filter(Boolean); }
 
-  function buildFilters() {
-    var counts = {};
-    state.all.forEach(function (p) {
-      valuesOf(p).forEach(function (v) { counts[v] = (counts[v] || 0) + 1; });
-    });
-    var used = Object.keys(counts).sort(function (a, b) {
-      var ia = PREFERRED_ORDER.indexOf(a), ib = PREFERRED_ORDER.indexOf(b);
+  function ordered(values, preferred) {
+    return values.sort(function (a, b) {
+      var ia = preferred.indexOf(a), ib = preferred.indexOf(b);
       return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib) || a.localeCompare(b);
     });
-    var html = '<button type="button" class="filter-btn" aria-pressed="true" data-filter="all">All<sup aria-hidden="true">' + state.all.length + '</sup></button>';
-    used.forEach(function (v) {
-      html += '<button type="button" class="filter-btn" aria-pressed="false" data-filter="' + U.esc(U.slugify(v)) + '" data-value="' + U.esc(v) + '">' +
-        U.esc(v) + '<sup aria-hidden="true">' + counts[v] + '</sup><span class="visually-hidden">, ' + counts[v] + ' projects</span></button>';
+  }
+
+  function filterBtn(value, count) {
+    return '<button type="button" class="filter-btn" aria-pressed="false" data-filter="' + U.esc(U.slugify(value)) + '">' +
+      U.esc(value) + '<sup aria-hidden="true">' + count + '</sup><span class="visually-hidden">, ' + count + ' projects</span></button>';
+  }
+
+  function buildFilters() {
+    var cat = {}, type = {};
+    state.all.forEach(function (p) {
+      if (p.category) cat[p.category] = (cat[p.category] || 0) + 1;
+      if (p.project_type) type[p.project_type] = (type[p.project_type] || 0) + 1;
     });
+    var html = '<button type="button" class="filter-btn filter-btn--all" aria-pressed="true" data-filter="all">All<sup aria-hidden="true">' + state.all.length + '</sup></button>';
+    var catKeys = ordered(Object.keys(cat), DISCIPLINES);
+    var typeKeys = ordered(Object.keys(type), TYPES);
+    if (catKeys.length) {
+      html += '<div class="filter-group" role="group" aria-label="Discipline"><span class="filter-group-label" aria-hidden="true">Discipline</span>' +
+        catKeys.map(function (v) { return filterBtn(v, cat[v]); }).join('') + '</div>';
+    }
+    if (typeKeys.length) {
+      html += '<div class="filter-group" role="group" aria-label="Project type"><span class="filter-group-label" aria-hidden="true">Type</span>' +
+        typeKeys.map(function (v) { return filterBtn(v, type[v]); }).join('') + '</div>';
+    }
     els.filters.innerHTML = html;
   }
 
@@ -47,25 +61,20 @@
     return true;
   }
 
-  function cardHtml(p, i) {
-    var v = PATTERN[i % PATTERN.length];
-    var last = i === state.filtered.length - 1;
-    // a lone card at the start of a pair spans the full row
-    if (last && (i % PATTERN.length === 0 || i % PATTERN.length === 2)) v = 'full';
-    return SD.ui.projectCard(p, i, v, '');
-  }
-
+  /**
+   * Show the next page. The whole visible list is re-laid-out so the grid
+   * stays structured (a partial block is completed rather than left ragged);
+   * cards that were already visible do not animate again.
+   */
   function renderMore() {
-    var next = state.filtered.slice(state.shown, state.shown + PAGE_SIZE);
-    var start = state.shown;
-    var tmp = document.createElement('div');
-    tmp.innerHTML = next.map(function (p, k) { return cardHtml(p, start + k); }).join('');
-    var firstNew = tmp.firstElementChild;
-    while (tmp.firstChild) els.grid.appendChild(tmp.firstChild);
-    state.shown += next.length;
+    var before = state.shown;
+    state.shown = Math.min(state.filtered.length, state.shown + PAGE_SIZE);
+    els.grid.innerHTML = SD.ui.workGrid(state.filtered.slice(0, state.shown));
+    var cards = els.grid.querySelectorAll('.project-card');
+    for (var i = 0; i < before && i < cards.length; i++) cards[i].classList.add('is-in');
     els.more.hidden = state.shown >= state.filtered.length;
     SD.motion.reveal(els.grid);
-    return firstNew;
+    return cards[before] || null;
   }
 
   function render(animate) {

@@ -2237,3 +2237,60 @@ body[data-page="contact"] .site-header { background: var(--space-white); border-
 }
 .work-grid .empty-state { grid-column: 1 / -1; }
 .work-grid .skeleton { min-height: 14rem; }
+
+/* Mirrored layout blocks (every second block of six): lead on the right.
+   `dense` lets the two side cards fill the rows beside the lead. */
+.work-grid { grid-auto-flow: row dense; }
+.work-grid .work-lead.is-mirror { grid-column: 6 / -1; }
+.work-grid .work-side.is-mirror { grid-column: 1 / span 5; }
+.work-grid .project-card { transition: opacity 500ms var(--ease-out), transform 700ms var(--ease-out); }
+.work-grid.is-filtering .project-card { opacity: 0; transform: translateY(16px); }
+
+/* ---------------------------------------------------------------------
+   34. Portfolio tools: grouped filters (Discipline / Type) + search
+   --------------------------------------------------------------------- */
+.portfolio-tools-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem) auto;
+  align-items: center;
+  column-gap: 2rem;
+  padding-block: 0.75rem;
+}
+.filters {
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 1.5rem;
+  overflow: visible;
+}
+.filter-btn--all { padding-right: 0.25rem; }
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 1.25rem;
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--space-border);
+}
+.filter-group-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--space-blue);
+  margin-right: 0.25rem;
+}
+.search { flex: none; }
+.load-more-wrap { border-top: 1px solid var(--space-charcoal); padding-top: 2rem; }
+.load-more-wrap:has([data-load-more][hidden]) { border-top: 0; padding-top: 0; }
+
+/* Filter bar as a two-row table: [All] | Discipline row / Type row */
+.filters {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 1.5rem;
+  row-gap: 0;
+  align-items: center;
+}
+.filters .filter-btn--all { grid-row: 1 / span 2; align-self: center; }
+.filters .filter-group { grid-column: 2; border-left: 1px solid var(--space-border); padding-left: 1.5rem; }
+.filter-group-label { display: inline-block; min-width: 6.5rem; }
