@@ -4,6 +4,43 @@
    ===================================================================== */
 
 /* ---------------------------------------------------------------------
+   0. Self-hosted fonts (SIL Open Font License — see assets/fonts/OFL-*.txt)
+   No third-party font CDN: nothing is requested from Google.
+   --------------------------------------------------------------------- */
+@font-face {
+  font-family: "Inter Tight";
+  src: url("../assets/fonts/inter-tight-latin-wght-normal.woff2") format("woff2-variations"),
+       url("../assets/fonts/inter-tight-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter Tight";
+  src: url("../assets/fonts/inter-tight-latin-ext-wght-normal.woff2") format("woff2-variations"),
+       url("../assets/fonts/inter-tight-latin-ext-wght-normal.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("../assets/fonts/instrument-serif-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("../assets/fonts/instrument-serif-latin-400-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ---------------------------------------------------------------------
    1. Tokens
    --------------------------------------------------------------------- */
 :root {
@@ -18,7 +55,8 @@
   --space-grey: #6F7780;            /* decorative / large text */
   --space-grey-text: #5A626A;       /* body-size muted text: AA on white & off-white */
   --space-light-grey: #E7EBEF;
-  --space-border: #DDE3E8;
+  --space-border: #C9D1D8;          /* crisper hairlines (was #DDE3E8) */
+  --space-edge: rgba(21, 25, 29, 0.22); /* 1px edge around images */
 
   /* Semantic */
   --bg: var(--space-white);
@@ -32,8 +70,8 @@
   --success: #1B6B3A;
 
   /* Type */
-  --font-sans: "Helvetica Neue", "Neue Haas Grotesk Text Pro", "Inter", "Segoe UI", Roboto, Arial, sans-serif;
-  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --font-sans: "Inter Tight", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+  --font-serif: "Instrument Serif", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, "Liberation Mono", monospace;
 
   --fs-micro: 0.6875rem;                               /* 11px */
@@ -51,7 +89,7 @@
   --lh-snug: 1.1;
   --lh-body: 1.65;
   --track-label: 0.18em;
-  --track-tight: -0.035em;
+  --track-tight: -0.022em;
 
   /* Spacing (architectural 8pt scale) */
   --s-1: 0.25rem;  --s-2: 0.5rem;  --s-3: 0.75rem; --s-4: 1rem;
@@ -93,6 +131,7 @@ body {
   font-family: var(--font-sans);
   font-size: var(--fs-base);
   line-height: var(--lh-body);
+  letter-spacing: 0.006em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -217,7 +256,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 .h-lg {
   font-size: var(--fs-xl);
   line-height: 1.02;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.018em;
   font-weight: 500;
 }
 .h-md { font-size: var(--fs-lg); line-height: 1.15; font-weight: 500; letter-spacing: -0.015em; }
@@ -488,7 +527,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
   padding: 1.1rem 0;
   font-size: clamp(2rem, 9vw, 3.25rem);
   font-weight: 600;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.018em;
   line-height: 1;
   text-transform: uppercase;
   text-decoration: none;
@@ -532,6 +571,18 @@ body.menu-open { overflow: hidden; }
   overflow: hidden;
   background: var(--space-light-grey);
 }
+/* Crisp 1px edge on every image frame so pale photography never melts into
+   the page. Drawn as an inset shadow so it never changes layout. */
+.media::before,
+.project-card-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  box-shadow: inset 0 0 0 1px var(--space-edge);
+  pointer-events: none;
+}
+.section--dark .media::before, .cta-blue .media::before { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18); }
 .media img, .media video {
   width: 100%;
   height: 100%;
@@ -665,7 +716,7 @@ body.menu-open { overflow: hidden; }
 .hero-title {
   font-size: clamp(2.75rem, min(0.6rem + 5.2vw, 8.2vh), 7.75rem);
   line-height: 0.9;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.03em;
   font-weight: 600;
   text-transform: uppercase;
   margin-block: 1.25rem 1.75rem;
@@ -713,7 +764,7 @@ body.menu-open { overflow: hidden; }
   font-size: clamp(3.5rem, 2rem + 4vw, 6rem);
   font-weight: 600;
   line-height: 0.8;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.034em;
   color: var(--space-blue);
 }
 .hero-years span { font-size: var(--fs-xs); letter-spacing: var(--track-label); text-transform: uppercase; line-height: 1.5; }
@@ -809,7 +860,7 @@ body.menu-open { overflow: hidden; }
   font-size: var(--fs-mega);
   font-weight: 700;
   line-height: 0.74;
-  letter-spacing: -0.07em;
+  letter-spacing: -0.05em;
   color: var(--space-white);
   margin-left: -0.05em;
 }
@@ -817,7 +868,7 @@ body.menu-open { overflow: hidden; }
 .years-heading {
   font-size: clamp(1.5rem, 0.9rem + 2.6vw, 3.75rem);
   line-height: 0.95;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.022em;
   font-weight: 500;
   text-transform: uppercase;
   padding-bottom: 0.25em;
@@ -868,12 +919,25 @@ body.menu-open { overflow: hidden; }
    12. Section heads
    --------------------------------------------------------------------- */
 .section-head {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--col-gap);
   align-items: end;
   margin-bottom: clamp(3rem, 6vw, 6rem);
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
+  border-top: 1px solid var(--space-charcoal);
 }
+/* end ticks on the section rule, like a dimension line */
+.section-head::before, .section-head::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  width: 1px; height: 9px;
+  background: var(--space-charcoal);
+}
+.section-head::before { left: 0; }
+.section-head::after { right: 0; }
 .section-head-title { grid-column: 1 / span 8; }
 .section-head-title .index { margin-bottom: 1.5rem; }
 .section-head-aside { grid-column: 9 / -1; color: var(--text-muted); }
@@ -893,14 +957,14 @@ body.menu-open { overflow: hidden; }
   font-size: clamp(4rem, 2rem + 6vw, 8.5rem);
   font-weight: 200;
   line-height: 0.8;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.042em;
   color: var(--space-blue);
   margin-bottom: 1.5rem;
 }
 .service-title {
   font-size: clamp(2rem, 1.2rem + 3vw, 4.25rem);
   line-height: 0.95;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.026em;
   font-weight: 600;
   text-transform: uppercase;
   margin-bottom: 1.5rem;
@@ -1065,7 +1129,7 @@ body.menu-open { overflow: hidden; }
   font-size: clamp(2rem, 1.2rem + 3.2vw, 4.5rem);
   font-weight: 600;
   line-height: 1;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.03em;
   text-transform: uppercase;
 }
 .approach-trigger .plus { width: 14px; height: 14px; position: relative; align-self: center; }
@@ -1124,7 +1188,7 @@ body.menu-open { overflow: hidden; }
   font-size: clamp(2.5rem, 1.4rem + 4.2vw, 6rem);
   font-weight: 600;
   line-height: 0.9;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.034em;
   text-transform: uppercase;
 }
 .office address { font-size: var(--fs-md); line-height: 1.6; max-width: 34ch; }
@@ -1159,7 +1223,7 @@ body.menu-open { overflow: hidden; }
   font-size: clamp(3rem, 1.4rem + 7vw, 10rem);
   font-weight: 600;
   line-height: 0.88;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.034em;
   text-transform: uppercase;
 }
 .cta-blue-title .outline { color: transparent; -webkit-text-stroke: 1.5px var(--space-white); }
@@ -1193,7 +1257,7 @@ body.menu-open { overflow: hidden; }
 .page-hero-title {
   font-size: clamp(2.75rem, 1.2rem + 6.4vw, 9rem);
   line-height: 0.88;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.034em;
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -1271,7 +1335,7 @@ body.menu-open { overflow: hidden; }
   font-size: clamp(3rem, 1.4rem + 6vw, 8rem);
   font-weight: 600;
   line-height: 0.86;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.038em;
   text-transform: uppercase;
   margin-block: 1.5rem 2rem;
 }
@@ -1355,7 +1419,7 @@ body.menu-open { overflow: hidden; }
   font-size: clamp(5rem, 2rem + 10vw, 14rem);
   font-weight: 200;
   line-height: 0.75;
-  letter-spacing: -0.07em;
+  letter-spacing: -0.05em;
   color: var(--space-blue);
 }
 .service-block-title {
@@ -1363,7 +1427,7 @@ body.menu-open { overflow: hidden; }
   font-size: clamp(2.5rem, 1.2rem + 5vw, 7rem);
   font-weight: 600;
   line-height: 0.88;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.034em;
   text-transform: uppercase;
 }
 .service-block-body { row-gap: 3rem; }
@@ -1498,7 +1562,7 @@ body.menu-open { overflow: hidden; }
   grid-column: 1 / span 9;
   font-size: clamp(2.5rem, 1.1rem + 6vw, 8.5rem);
   line-height: 0.88;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.034em;
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -1648,7 +1712,7 @@ body.menu-open { overflow: hidden; }
 .contact-title {
   font-size: clamp(2.75rem, 1.2rem + 5vw, 7.25rem);
   line-height: 0.88;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.034em;
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -1687,7 +1751,7 @@ body.menu-open { overflow: hidden; }
   min-height: 3rem;
   padding: 0.75rem 0;
   border: 0;
-  border-bottom: 1px solid var(--space-grey);
+  border-bottom: 1px solid var(--space-charcoal);
   border-radius: 0;
   background: transparent;
   font-size: var(--fs-md);
@@ -1755,7 +1819,7 @@ body.menu-open { overflow: hidden; }
   padding: clamp(2rem, 4vw, 3rem) 0;
   border-top: 1px solid var(--space-blue);
 }
-.form-success h2 { font-size: var(--fs-2xl); text-transform: uppercase; letter-spacing: -0.04em; line-height: 0.95; font-weight: 600; }
+.form-success h2 { font-size: var(--fs-2xl); text-transform: uppercase; letter-spacing: -0.026em; line-height: 0.95; font-weight: 600; }
 .form-success h2:focus { outline: none; }
 
 .spinner { width: 14px; height: 14px; border: 1.5px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite; }
@@ -1830,7 +1894,7 @@ body.menu-open { overflow: hidden; }
 .nf-title {
   font-size: clamp(3rem, 1.4rem + 7vw, 10rem);
   line-height: 0.86;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.034em;
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -1898,7 +1962,7 @@ body.menu-open { overflow: hidden; }
   font-size: clamp(2.25rem, 1.2rem + 4.2vw, 5.5rem);
   font-weight: 600;
   line-height: 0.95;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.03em;
   text-transform: uppercase;
 }
 .footer-tagline .serif-accent { color: var(--space-blue-light); font-size: 0.92em; }
@@ -1960,7 +2024,7 @@ body.menu-open { overflow: hidden; }
   padding: 1.5rem;
   display: grid;
   gap: 1rem;
-  box-shadow: 0 20px 60px -30px rgba(13, 17, 21, 0.35);
+  box-shadow: 6px 6px 0 var(--space-blue); /* hard offset, no blur */
 }
 .cookie-banner h2 { font-size: var(--fs-base); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
 .cookie-banner p { margin: 0; font-size: var(--fs-sm); color: var(--text-muted); }
@@ -2051,6 +2115,78 @@ body.menu-open { overflow: hidden; }
   padding-top: 2rem;
   border-top: 1px solid var(--space-charcoal);
 }
+/* ---------------------------------------------------------------------
+   32. Sharpness pass: registration corners, crisper rules
+   --------------------------------------------------------------------- */
+/* Blue architectural corner marks on project images (hover / focus) */
+.project-card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  --c: var(--space-blue);
+  --l: 22px;
+  --t: 2px;
+  background:
+    linear-gradient(var(--c), var(--c)) left top / var(--l) var(--t) no-repeat,
+    linear-gradient(var(--c), var(--c)) left top / var(--t) var(--l) no-repeat,
+    linear-gradient(var(--c), var(--c)) right top / var(--l) var(--t) no-repeat,
+    linear-gradient(var(--c), var(--c)) right top / var(--t) var(--l) no-repeat,
+    linear-gradient(var(--c), var(--c)) left bottom / var(--l) var(--t) no-repeat,
+    linear-gradient(var(--c), var(--c)) left bottom / var(--t) var(--l) no-repeat,
+    linear-gradient(var(--c), var(--c)) right bottom / var(--l) var(--t) no-repeat,
+    linear-gradient(var(--c), var(--c)) right bottom / var(--t) var(--l) no-repeat;
+  opacity: 0;
+  transform: scale(1.02);
+  transition: opacity var(--t-med) var(--ease-out), transform var(--t-med) var(--ease-out);
+}
+.project-card-link:hover .project-card-media::after,
+.project-card-link:focus-visible .project-card-media::after { opacity: 1; transform: none; }
+/* Always-on (subtle charcoal) corners on hero & service imagery */
+.hero-media .media::after,
+.service-media .media::after,
+.service-block-media .media::after,
+.project-hero-media .media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  --c: var(--space-charcoal);
+  background:
+    linear-gradient(var(--c), var(--c)) left top / 16px 1.5px no-repeat,
+    linear-gradient(var(--c), var(--c)) left top / 1.5px 16px no-repeat,
+    linear-gradient(var(--c), var(--c)) right bottom / 16px 1.5px no-repeat,
+    linear-gradient(var(--c), var(--c)) right bottom / 1.5px 16px no-repeat;
+}
+/* Card rule under images: charcoal instead of pale grey */
+.project-card-meta { border-top-color: var(--space-charcoal); }
+/* Solid header gets a firm bottom edge */
+.site-header.is-solid { border-bottom-color: var(--space-charcoal); }
+/* Hero column lines slightly crisper */
+.hero-grid-lines { background-image: linear-gradient(to right, rgba(21, 25, 29, 0.075) 1px, transparent 1px); }
+/* Footer rules: clearer on dark */
+.footer-signature, .footer-bottom { border-color: rgba(255, 255, 255, 0.2); }
+/* Filter bar & portfolio tools: firm rule */
+.portfolio-tools { border-bottom-color: var(--space-charcoal); }
+/* Crisper text rendering for large display type */
+.display, .h-xl, .hero-title, .page-hero-title, .service-title, .service-block-title,
+.project-hero-title, .cta-blue-title, .office-city, .principal-name, .contact-title, .nf-title, .footer-tagline {
+  text-rendering: geometricPrecision;
+  font-kerning: normal;
+}
+
 /* Contact page: the left column is dark, so the header starts solid. */
 body[data-page="contact"] .site-header { background: var(--space-white); border-bottom-color: var(--line); }
 .contact-left .index { color: var(--space-blue-light); }
+
+/* Inter Tight is already tightly fitted: large display type needs only a
+   light negative track, otherwise letters touch at big sizes. */
+.hero-title, .page-hero-title, .project-hero-title, .principal-name, .contact-title,
+.nf-title, .cta-blue-title, .service-block-title, .service-title, .office-city,
+.years-heading, .approach-trigger .t, .footer-tagline, .h-xl, .display {
+  letter-spacing: -0.012em;
+}
+.years-number { letter-spacing: -0.03em; }
+.project-card-title, .h-lg { letter-spacing: -0.008em; }

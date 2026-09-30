@@ -5,6 +5,7 @@ Principal Architect: **Milind Fulzele**. 30 years of experience. Offices in **Na
 
 - **Frontend:** raw HTML5, CSS3 and vanilla JavaScript. No frameworks, no build step, no Node backend.
 - **Backend:** Supabase (PostgreSQL, Auth, Storage) through the Supabase JS client, served from this site (`js/vendor/supabase.js`, v2.117.2).
+- **Fonts:** Inter Tight + Instrument Serif, self-hosted in `assets/fonts/` (SIL Open Font License; no Google Fonts requests).
 - **Hosting:** any static host (Netlify, Vercel, Cloudflare Pages, GitHub Pages, S3 and others).
 
 > **Status:** the code is complete. Before it goes live it needs the Supabase project, real photography, the `[CLIENT TO PROVIDE]` items and a legal review. See §23.
