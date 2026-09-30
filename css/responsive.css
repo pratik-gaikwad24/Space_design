@@ -293,3 +293,19 @@
   .section--dark, .cta-blue, .site-footer, .contact-left { background: #fff !important; color: #000 !important; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.8em; }
 }
+
+/* ---------- Home · Selected work grid ---------- */
+@media (max-width: 1024px) {
+  .work-grid .work-lead { grid-column: 1 / -1; grid-row: auto; }
+  .work-grid .work-lead .project-card-media { flex: none; min-height: 0; aspect-ratio: 16 / 10; }
+  .work-grid .work-side, .work-grid .work-third, .work-grid .work-half { grid-column: span 6; }
+  /* odd third at the end of a row fills the width */
+  .work-grid .work-third:last-child:nth-child(even) { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  .work-grid { row-gap: 3rem; }
+  .work-grid .project-card, .work-grid .work-side, .work-grid .work-third, .work-grid .work-half { grid-column: 1 / -1; }
+  .work-grid .work-lead .project-card-media { aspect-ratio: 4 / 5; }
+  .work-grid .project-card-media { aspect-ratio: 4 / 3; }
+  .work-foot .btn { width: 100%; }
+}

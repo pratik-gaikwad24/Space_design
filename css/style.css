@@ -2190,3 +2190,50 @@ body[data-page="contact"] .site-header { background: var(--space-white); border-
 }
 .years-number { letter-spacing: -0.03em; }
 .project-card-title, .h-lg { letter-spacing: -0.008em; }
+
+/* ---------------------------------------------------------------------
+   33. Home · Selected work — structured grid
+   Lead project (7 cols × 2 rows) + two stacked side projects (5 cols),
+   then equal rows of thirds / halves. Every card shares one meta structure,
+   so titles and "View project" links line up across each row.
+   --------------------------------------------------------------------- */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  row-gap: clamp(2.5rem, 4vw, 4rem);
+}
+.work-grid .project-card { grid-column: span 4; margin: 0; padding: 0; }
+.work-grid .work-lead  { grid-column: 1 / span 7; grid-row: span 2; }
+.work-grid .work-side  { grid-column: 8 / -1; }
+.work-grid .work-third { grid-column: span 4; }
+.work-grid .work-half  { grid-column: span 6; }
+.work-grid .work-full  { grid-column: 1 / -1; }
+
+/* lead card stretches to the exact height of the two side cards */
+.work-grid .work-lead .project-card-link { display: flex; flex-direction: column; height: 100%; }
+.work-grid .work-lead .project-card-media { flex: 1 1 auto; min-height: 24rem; aspect-ratio: auto; }
+.work-grid .work-side .project-card-media  { aspect-ratio: 16 / 10; }
+.work-grid .work-third .project-card-media { aspect-ratio: 4 / 3; }
+.work-grid .work-half .project-card-media  { aspect-ratio: 3 / 2; }
+.work-grid .work-full .project-card-media  { aspect-ratio: 21 / 9; }
+
+/* one consistent meta block: number | title | category, then location | view */
+.work-grid .project-card-meta { grid-template-columns: 2.25rem 1fr auto; margin-top: 1rem; padding-top: 1rem; }
+.work-grid .project-card-sub { margin-top: 0.4rem; }
+.work-grid .work-side .project-card-title,
+.work-grid .work-third .project-card-title { font-size: clamp(1.25rem, 1rem + 0.7vw, 1.625rem); }
+.work-grid .work-lead .project-card-title { font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.75rem); }
+
+.work-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: clamp(3rem, 5vw, 4.5rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--space-charcoal);
+}
+.work-grid .empty-state { grid-column: 1 / -1; }
+.work-grid .skeleton { min-height: 14rem; }

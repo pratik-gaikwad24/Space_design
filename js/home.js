@@ -69,13 +69,26 @@
   }
 
   /* ---------- Featured projects ---------- */
-  // Editorial rhythm in a 10-col grid: 6+4 · 10 · 4+6 · …
-  var PATTERN = [['l', ''], ['s', 'is-offset'], ['full', ''], ['s', ''], ['l', '']];
+  // Structured layout on a 12-col grid:
+  //   row 1: lead project (7 cols, spans two rows) + two stacked side projects (5 cols)
+  //   next rows: equal cards, 3 per row (a remainder of 2 → halves, 1 → full width)
+  function layout(n) {
+    if (n === 1) return ['full'];
+    if (n === 2) return ['half', 'half'];
+    var slots = ['lead', 'side', 'side'];
+    var rest = n - 3;
+    while (rest > 0) {
+      if (rest === 1) { slots.push('full'); rest -= 1; }
+      else if (rest === 2 || rest === 4) { slots.push('half', 'half'); rest -= 2; }
+      else { slots.push('third', 'third', 'third'); rest -= 3; }
+    }
+    return slots.slice(0, n);
+  }
 
   async function featured() {
     var grid = document.querySelector('[data-featured-projects]');
     if (!grid) return;
-    var res = await SD.api.listProjects({ featured: true, limit: 5 });
+    var res = await SD.api.listProjects({ featured: true, limit: 6 });
     grid.setAttribute('aria-busy', 'false');
 
     if (res.error) {
@@ -91,12 +104,12 @@
       var banner = document.querySelector('[data-demo-banner]');
       if (banner) { banner.innerHTML = SD.ui.demoBanner(); banner.hidden = false; }
     }
+    var slots = layout(items.length);
     grid.innerHTML = items.map(function (p, i) {
-      var v = PATTERN[i % PATTERN.length];
-      // a lone final card fills the row
-      var variant = (i === items.length - 1 && v[0] !== 'full' && i % PATTERN.length !== 1 && i % PATTERN.length !== 4) ? 'full' : v[0];
-      return SD.ui.projectCard(p, i, variant, variant === v[0] ? v[1] : '');
+      return SD.ui.projectCard(p, i, slots[i], 'work-' + slots[i]);
     }).join('');
+    var count = document.querySelector('[data-work-count]');
+    if (count) count.textContent = U.pad(items.length) + (items.length === 1 ? ' featured project' : ' featured projects');
     SD.motion.reveal(grid);
   }
 
