@@ -372,44 +372,12 @@
   .service-block-title { font-size: clamp(1.9rem, 9.4vw, 3rem); overflow-wrap: anywhere; }
 }
 
-/* Quick contact: labelled bottom bar on phones */
+/* Quick contact on tablets & phones: no hint label, slightly smaller button */
+@media (max-width: 1024px) { .fab-hint { display: none; } }
 @media (max-width: 600px) {
-  .contact-dock {
-    left: 0; right: 0; bottom: 0;
-    flex-direction: row;
-    border: 0;
-    border-top: 1px solid var(--space-charcoal);
-    box-shadow: 0 -10px 24px -18px rgba(13, 17, 21, 0.35);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-    animation: none;
-  }
-  .dock-title { display: none; }
-  .dock-btn {
-    flex: 1;
-    width: auto; height: 3.75rem;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem;
-    border-top: 0;
-    border-left: 1px solid var(--space-border);
-  }
-  .dock-title + .dock-btn { border-left: 0; }
-  .dock-btn::before { display: none; }
-  .dock-btn svg { width: 1.375rem; height: 1.375rem; }
-  /* WhatsApp is the primary action on phones */
-  .dock-btn--whatsapp { background: #128C7E; color: var(--space-white); border-left-color: #128C7E; }
-  .dock-btn--whatsapp + .dock-btn { border-left-color: #128C7E; }
-  .dock-label {
-    position: static;
-    opacity: 1; transform: none;
-    padding: 0; border: 0;
-    background: transparent;
-    color: inherit;
-    font-size: 0.6875rem;
-    letter-spacing: 0.14em;
-  }
-  .dock-label::after { display: none; }
-  .dock-btn:hover .dock-label, .dock-btn:focus-visible .dock-label { transform: none; }
-  body { padding-bottom: calc(3.75rem + env(safe-area-inset-bottom, 0px)); }
-  .site-footer .footer-bottom { padding-right: 0; }
-  .cookie-banner { bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px)); }
+  .fab-trigger { width: 3.5rem; height: 3.5rem; }
+  .fab-glyph svg { width: 1.45rem; height: 1.45rem; }
+  .site-footer .footer-bottom { padding-right: 4.5rem; }
+  .cookie-banner { bottom: calc(5.25rem + env(safe-area-inset-bottom, 0px)); }
 }
-@media print { .contact-dock { display: none !important; } }
+@media print { .contact-fab { display: none !important; } }
