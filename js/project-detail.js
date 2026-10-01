@@ -20,7 +20,7 @@
     var fm = p.featured_media || (p.media || []).filter(function (m) { return m.media_type === 'image'; })[0];
     var fv = p.featured_video;
     var canAutoplay = fv && !U.prefersReducedMotion() && !U.saveData() && !U.isSmallScreen();
-    var html = '<div class="media ar-21x9" data-reveal="image">';
+    var html = '<div class="media ar-21x9 ' + (canAutoplay ? '' : U.fitClass(fm)) + '" data-reveal="image">';
     if (canAutoplay) {
       html += '<video muted loop playsinline autoplay preload="metadata" aria-hidden="true"' +
         (fv.poster_url ? ' poster="' + esc(U.safeUrl(fv.poster_url)) + '"' : '') + '>' +
@@ -69,6 +69,22 @@
     '</div>';
   }
 
+  /** "Label: value" lines → a two-column specification list. */
+  function specSection(num, label, text) {
+    if (!text || !String(text).trim()) return '';
+    var lines = String(text).split(/\n+/).map(function (l) { return l.trim(); }).filter(Boolean);
+    var isSpec = lines.length > 1 && lines.filter(function (l) { return /^[^:]{2,40}:\s/.test(l); }).length >= lines.length / 2;
+    if (!isSpec) return textSection(num, label, text);
+    var rows = lines.map(function (l) {
+      var m = /^([^:]{2,40}):\s*(.+)$/.exec(l);
+      return m ? '<div><dt>' + esc(m[1]) + '</dt><dd>' + esc(m[2]) + '</dd></div>' : '<div class="spec-note"><dd>' + esc(l) + '</dd></div>';
+    }).join('');
+    return '<div class="grid-12 project-section">' +
+      '<p class="label" aria-hidden="true"><span class="index">' + num + '</span></p>' +
+      '<div class="project-section-body"><h2 class="h-md mb-5">' + esc(label) + '</h2><dl class="spec-list">' + rows + '</dl></div>' +
+    '</div>';
+  }
+
   function gallery(images) {
     if (!images.length) return '';
     return '<section class="section section--alt" aria-labelledby="gallery-title"><div class="container">' +
@@ -76,7 +92,7 @@
       '<ul class="gallery unstyled-list">' + images.map(function (m, i) {
         return '<li><figure>' +
           '<button type="button" class="gallery-btn" data-lb-group="gallery" data-lb-index="' + i + '" aria-label="Open image ' + (i + 1) + ' of ' + images.length + (m.alt_text ? ': ' + esc(m.alt_text) : '') + '">' +
-            '<span class="media zoom-on-hover">' + '<img src="' + esc(U.mediaUrl(m.media_url, 1280)) + '" alt="' + esc(m.alt_text || '') + '" loading="lazy" decoding="async"' +
+            '<span class="media zoom-on-hover ' + U.fitClass(m) + '">' + '<img src="' + esc(U.mediaUrl(m.media_url, 1280)) + '" alt="' + esc(m.alt_text || '') + '" loading="lazy" decoding="async"' +
             (m.width && m.height ? ' width="' + Number(m.width) + '" height="' + Number(m.height) + '"' : '') + '></span>' +
           '</button>' +
           (m.caption ? '<figcaption><span>' + esc(m.caption) + '</span><span class="coords">' + U.pad(i + 1) + '</span></figcaption>' : '') +
@@ -230,12 +246,12 @@
 
     /* Body */
     var n = 0;
-    function num() { n += 1; return U.pad(n); }
+    function num(text) { if (text && String(text).trim()) n += 1; return U.pad(n); }
     var sections = '';
-    sections += textSection(num(), 'Project overview', p.description || p.short_description);
-    sections += textSection(num(), 'Concept', p.concept);
-    sections += textSection(num(), 'Design approach', p.design_approach);
-    sections += textSection(num(), 'Project details', p.details);
+    sections += textSection(num(p.description || p.short_description), 'Project overview', p.description || p.short_description);
+    sections += textSection(num(p.concept), 'Concept', p.concept);
+    sections += textSection(num(p.design_approach), 'Design approach', p.design_approach);
+    sections += specSection(num(p.details), 'Project details', p.details);
 
     var body = '<section class="section" aria-label="Project information"><div class="container">' +
       (p.is_demo ? SD.ui.demoBanner() : '') + infoList(p) +

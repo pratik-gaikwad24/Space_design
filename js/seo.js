@@ -10,7 +10,7 @@
 
   var BUSINESS = Object.freeze({
     name: 'Space Design',
-    description: 'Architects, planners, interior designers and project management consultant with 30 years of experience. Offices in Navi Mumbai and Pune.',
+    description: 'Architects, planners, interior designers and project management consultant specialising in housing-society redevelopment, with 30 years of experience. Offices in Navi Mumbai and Pune.',
     principal: 'Milind Fulzele',
     offices: [
       {
@@ -69,9 +69,10 @@
       '@id': SITE + '/#organization',
       name: BUSINESS.name,
       url: SITE + '/',
-      logo: SITE + '/assets/icons/favicon.svg',
+      logo: SITE + '/assets/icons/logo-mark.svg',
       description: BUSINESS.description,
-      knowsAbout: ['Architecture', 'Planning', 'Interior Design', 'Project Management Consultancy'],
+      knowsAbout: ['Housing society redevelopment', 'Self-redevelopment', 'MHADA redevelopment', 'Project Management Consultancy', 'Architecture', 'Layout planning', 'Interior Design'],
+      founder: { '@id': SITE + '/#milind-fulzele' },
       department: BUSINESS.offices.map(function (o) { return { '@id': SITE + '/#' + o.id }; })
     };
   }
@@ -91,7 +92,7 @@
     });
   }
   function person() {
-    return { '@type': 'Person', '@id': SITE + '/#milind-fulzele', name: BUSINESS.principal, jobTitle: 'Principal Architect', worksFor: { '@id': SITE + '/#organization' } };
+    return { '@type': 'Person', '@id': SITE + '/#milind-fulzele', name: BUSINESS.principal, honorificPrefix: 'Ar.', jobTitle: 'Founder and Principal Architect', worksFor: { '@id': SITE + '/#organization' }, alumniOf: { '@type': 'CollegeOrUniversity', name: 'Sir J.J. College of Architecture, University of Mumbai' }, memberOf: { '@type': 'Organization', name: 'The Indian Institute of Architects' } };
   }
   function webPage(o) {
     return {

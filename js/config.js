@@ -18,8 +18,8 @@ window.SD_CONFIG = Object.freeze({
      "https://your-domain.com" in the HTML files, sitemap.xml and robots.txt. */
   SITE_URL: 'https://your-domain.com',
 
-  /* While Supabase is NOT configured, show clearly-labelled demo projects so
-     the design can be reviewed. Has no effect once Supabase is configured. */
+  /* While Supabase is NOT configured, show the built-in projects from the
+     company profile (js/projects-data.js). Ignored once Supabase is configured. */
   SHOW_DEMO_CONTENT_WHEN_UNCONFIGURED: true,
 
   /* Supabase Image Transformations (paid plans). When true, portfolio images

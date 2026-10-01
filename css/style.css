@@ -434,7 +434,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
   color: var(--space-charcoal);
   margin-right: auto;
 }
-.brand-mark { width: 30px; height: 30px; flex: none; }
+.brand-mark { width: 34px; height: 34px; flex: none; object-fit: contain; }
 .brand-text { display: flex; flex-direction: column; line-height: 1; }
 .brand-name {
   font-size: 0.9375rem;
@@ -2294,3 +2294,152 @@ body[data-page="contact"] .site-header { background: var(--space-white); border-
 .filters .filter-btn--all { grid-row: 1 / span 2; align-self: center; }
 .filters .filter-group { grid-column: 2; border-left: 1px solid var(--space-border); padding-left: 1.5rem; }
 .filter-group-label { display: inline-block; min-width: 6.5rem; }
+
+/* ---------------------------------------------------------------------
+   35. Image fitting for renders & plans (see SD.utils.fitClass)
+   Tall tower renders are shown whole on a sky gradient that matches the
+   backdrop baked into the image; plans are shown whole on white.
+   --------------------------------------------------------------------- */
+.fit-sky { background: linear-gradient(180deg, #D6E0E9 0%, #F2F4F6 100%); }
+.fit-sky img { object-fit: contain; object-position: center bottom; }
+.fit-white { background: #FFFFFF; }
+.fit-white img { object-fit: contain; }
+.project-card-link:hover .fit-sky img,
+.project-card-link:focus-visible .fit-sky img,
+.zoom-on-hover:hover .fit-sky img { transform: scale(1.025); transform-origin: center bottom; }
+.filters .filter-btn--all { grid-row: 1 / span 3; }
+.filters .filter-group + .filter-group { margin-top: 0; }
+
+/* ---------------------------------------------------------------------
+   36. Portfolio · project record tables
+   --------------------------------------------------------------------- */
+.record-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(2rem, 4vw, 4rem); align-items: start; }
+.record-grid > :first-child { grid-row: span 2; }
+.record-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--space-charcoal); }
+.record-head .h-md { text-transform: uppercase; font-weight: 600; letter-spacing: 0.01em; font-size: var(--fs-md); }
+.record-table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+.record-table th { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.record-table td { padding: 0.7rem 0.75rem 0.7rem 0; border-bottom: 1px solid var(--space-border); vertical-align: baseline; }
+.record-table td:last-child { text-align: right; color: var(--text-muted); white-space: nowrap; padding-right: 0; font-size: var(--fs-xs); letter-spacing: 0.08em; text-transform: uppercase; }
+.record-table .rec-no { width: 2.5rem; font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--space-blue); }
+.record-table tr:hover td { background: var(--space-white); }
+.record-note { margin: 1rem 0 0; font-size: var(--fs-sm); font-weight: 600; }
+
+/* ---------------------------------------------------------------------
+   37. Home · figures, process steps, empanelment
+   --------------------------------------------------------------------- */
+.stat-list {
+  grid-column: 1 / -1;
+  margin-top: clamp(3rem, 6vw, 6rem);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+}
+.stat-list > div {
+  padding: 1.75rem 1.5rem 0 0;
+  margin-right: 1.5rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+.stat-list > div:last-child { border-right: 0; margin-right: 0; }
+.stat-list dt { font-size: var(--fs-xs); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.72); }
+.stat-list dd {
+  font-size: clamp(2.75rem, 1.6rem + 3.4vw, 5rem);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--space-white);
+}
+.stat-list dd span { color: var(--space-blue-light); }
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--space-charcoal);
+  border-left: 1px solid var(--space-border);
+}
+.steps li {
+  padding: 1.75rem 1.5rem 2rem;
+  border-right: 1px solid var(--space-border);
+  border-bottom: 1px solid var(--space-border);
+  min-height: 15rem;
+  display: flex;
+  flex-direction: column;
+}
+.steps .step-no { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--space-blue); }
+.steps h3 { margin: auto 0 0.75rem; padding-top: 2.5rem; font-size: var(--fs-md); font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; }
+.steps p { margin: 0; font-size: var(--fs-sm); color: var(--text-muted); }
+.steps li:last-child { background: var(--space-off-white); }
+
+.empanel {
+  margin-top: clamp(3rem, 5vw, 4.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: 2rem var(--col-gap);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--space-dark);
+  color: var(--space-white);
+}
+.empanel .label--blue { color: var(--space-blue-light); }
+.empanel-head .h-md { margin-top: 1rem; text-transform: uppercase; font-weight: 600; font-size: var(--fs-lg); line-height: 1.15; }
+.empanel-list { display: grid; gap: 0; }
+.empanel-list li { display: grid; grid-template-columns: 14rem minmax(0, 1fr); gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.14); font-size: var(--fs-sm); }
+.empanel-list li:first-child { padding-top: 0; }
+.empanel-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+.empanel-list .label--muted { color: rgba(255, 255, 255, 0.68); }
+
+/* ---------------------------------------------------------------------
+   38. About · why, team, consultants, developers
+   --------------------------------------------------------------------- */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--space-charcoal);
+  border-left: 1px solid var(--space-border);
+}
+.why-grid li { padding: 1.75rem 1.5rem 2rem; border-right: 1px solid var(--space-border); border-bottom: 1px solid var(--space-border); background: var(--space-white); }
+.why-grid h3 { margin: 2rem 0 0.6rem; font-size: var(--fs-md); font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; }
+.why-grid p { margin: 0; font-size: var(--fs-sm); color: var(--text-muted); }
+
+.principal-facts dd { font-size: var(--fs-base); line-height: 1.4; }
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  border-top: 1px solid var(--space-charcoal);
+}
+.team-grid li { padding: 1.5rem 0; border-bottom: 1px solid var(--space-border); }
+.team-name { margin: 0; font-size: var(--fs-md); font-weight: 600; letter-spacing: -0.005em; }
+.team-role { margin: 0.35rem 0 0.75rem; font-size: var(--fs-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--space-blue); }
+.team-exp { margin: 0; font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.55; }
+
+.consult-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--col-gap); }
+.consult-col { border-top: 1px solid var(--space-charcoal); padding-top: 1.25rem; }
+.consult-col ul { margin-top: 1.25rem; display: grid; }
+.consult-col li { padding: 0.7rem 0; border-bottom: 1px solid var(--space-border); font-size: var(--fs-sm); }
+.clients { margin-top: clamp(3rem, 5vw, 4.5rem); padding-top: 1.25rem; border-top: 1px solid var(--space-charcoal); }
+.client-list { margin-top: 1.25rem; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-left: 1px solid var(--space-border); border-top: 1px solid var(--space-border); }
+.client-list li { padding: 1.25rem 1rem; border-right: 1px solid var(--space-border); border-bottom: 1px solid var(--space-border); font-size: var(--fs-sm); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; background: var(--space-white); }
+
+/* Project detail · specification list */
+.spec-list { border-top: 1px solid var(--space-charcoal); }
+.spec-list > div { display: grid; grid-template-columns: minmax(10rem, 16rem) minmax(0, 1fr); gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--space-border); }
+.spec-list dt { font-size: var(--fs-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); padding-top: 0.15rem; }
+.spec-list dd { font-size: var(--fs-base); font-weight: 500; }
+.spec-list .spec-note { grid-template-columns: 1fr; }
+.spec-list .spec-note dd { font-weight: 400; color: var(--text-muted); }
+@media (max-width: 600px) { .spec-list > div { grid-template-columns: 1fr; gap: 0.25rem; } }
+.steps li:nth-child(7) { background: transparent; }
+.steps li.steps-cta { background: var(--space-blue); color: var(--space-white); }
+.steps .steps-cta .step-no { color: rgba(255, 255, 255, 0.85); }
+.steps .steps-cta h3 { color: var(--space-white); }
+.steps .steps-cta .link-arrow, .steps .steps-cta .link-arrow .btn-arrow { color: var(--space-white); align-self: flex-start; }
+.steps .steps-cta .link-arrow:hover { color: var(--space-white); }
+.steps .steps-cta :focus-visible { outline-color: var(--space-white); }
+/* lead card: the frame sets the height (from the two side cards), never the image */
+.work-grid .work-lead .project-card-media { position: relative; }
+.work-grid .work-lead .project-card-media img { position: absolute; inset: 0; width: 100%; height: 100%; }

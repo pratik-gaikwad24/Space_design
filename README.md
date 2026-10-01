@@ -49,8 +49,7 @@ python -m http.server 8080        # or: npx serve .
 # open http://localhost:8080
 ```
 
-Until Supabase is configured, the site runs in **demo mode**:
-- The portfolio shows six **clearly labelled demo projects** ("DEMO · REPLACE BEFORE LAUNCH"). They are not Space Design projects and are marked `noindex`.
+Until Supabase is configured, the site shows the **11 real projects from the company profile**, built into `js/projects-data.js` (renders and layout plans in `assets/img/projects/`). Once Supabase is connected, projects come from the database instead; `supabase/seed-projects.sql` loads the same 11 projects there (§6).
 - The contact form validates, but it tells the visitor to email or call instead of submitting.
 - The admin shows a "Supabase is not configured" notice.
 
@@ -81,7 +80,7 @@ space_design/
 │   ├── vendor/supabase.js   Supabase JS client (self-hosted)
 │   ├── supabase.js          client + data-access layer (SD.api)
 │   ├── utils.js             escaping, URL safety, shared renderers
-│   ├── demo-data.js         demo projects (used only when Supabase is unconfigured)
+│   ├── projects-data.js     built-in projects from the company profile (used until Supabase is connected)
 │   ├── seo.js               meta updates + reusable JSON-LD builders
 │   ├── cookie-consent.js    consent banner/preferences (inactive until analytics is enabled)
 │   ├── navigation.js        header, progress bar, accessible mobile menu
@@ -132,6 +131,8 @@ The script creates:
 - **Indexes:** `projects.slug`, `published`, `featured`, `category`, `location`, `year`; `project_media.project_id`; `contact_submissions.created_at`.
 - **Triggers:** `updated_at` timestamps; an enquiry guard that normalises input, forces `status='new'`, rejects link spam and rate-limits by hashed IP (5/hour) and by email (3/day).
 - **Seed data:** only facts you supplied: the two offices, the four services and default settings. **No portfolio projects are inserted.**
+
+**Then load the projects:** paste and run `supabase/seed-projects.sql`. It inserts the 11 projects from the company profile (skipping any slug that already exists), with their images served from `assets/img/projects/`.
 
 The script is safe to re-run: it uses `if not exists` and drops and recreates policies. It was syntax-checked with PostgreSQL's parser (libpg_query) but has **not** yet been run against a live Supabase project, so run it on a fresh project first and check for errors.
 
@@ -212,7 +213,9 @@ In the editor's **Media** panel:
 5. **↑ / ↓** reorder items (the order is saved immediately). **Replace file** swaps the file in place. **Delete** removes the row and the stored file.
 6. PDFs uploaded as drawings or plans appear as "Open PDF" cards; image drawings open in the accessible lightbox.
 
-**Replacing the placeholder illustrations:** the home, services and about pages use `assets/img/placeholders/*.svg` with the tag "Illustration · replace before launch". Replace each `<img src>` with licensed or client-supplied photography, export it to WebP, and **delete the matching `<span class="demo-tag">`**. The home hero can instead be set from **Admin → Settings → Home hero** without editing code.
+**Remaining placeholder:** only the Interior Design service still uses an illustration (`assets/img/placeholders/interiors.svg`, tagged "replace with interior photography") on the home and services pages. Replace it with interior photography and delete the matching `<span class="demo-tag">`. The home hero can be changed from **Admin → Settings → Home hero** without editing code.
+
+**Tall renders and plans:** portrait images (towers) are shown whole on a sky gradient, and plans/drawings whole on white, instead of being cropped (`SD.utils.fitClass`). Photographs fill their frame as normal.
 
 ## 14. Video uploads
 
@@ -311,9 +314,9 @@ Paste the output into `sitemap.xml`, deploy, then submit `https://your-domain.co
 - [ ] Company history and milestones (about.html, "Our journey")
 - [ ] Confirm the philosophy, approach and service-process wording (about.html, services.html)
 - [ ] Real projects with verified details, photography, alt text and captions
-- [ ] Licensed or client photography to replace every `placeholders/*.svg`, then remove the `demo-tag` spans
+- [ ] Interior photography to replace `placeholders/interiors.svg`, then remove its `demo-tag` spans
 - [ ] Legal placeholders: hosting provider, Supabase region, retention period, response time, grievance contact, court jurisdiction
-- [ ] Optional: delete `js/demo-data.js` and its line in `partials/scripts.html`, then run `python tools/sync-partials.py`
+- [ ] Confirm the brochure discrepancies listed under "Content sources" below
 
 **Technical**
 - [ ] `js/config.js` filled in; `schema.sql` run; sign-ups disabled; admin created and given the role
@@ -325,3 +328,30 @@ Paste the output into `sitemap.xml`, deploy, then submit `https://your-domain.co
 - [ ] Sitemap updated and submitted (§21); Google Business Profiles aligned
 - [ ] **Legal review of all legal pages before launch.** They are implementation templates, not legal advice or a guarantee of compliance.
 - [ ] Optional: email notification for enquiries (§16); prerendering for per-project social previews (§15)
+
+---
+
+## Content sources
+
+Company content comes from the client's **company profile PDF (July 2026)**: About Us, team, consultants, empanelments, completed, ongoing and pipeline project lists, project data sheets, developer client base and contact details. Original brief items (four disciplines, 30 years, offices) are unchanged.
+
+Not used from the brochure: the MHADA logo (a government mark, so empanelment is stated in text only), stock photos and clip-art icons, and the personal names and addresses of developers' directors (only firm names are listed). The puffery line about "inspiring industry-wide adoption" was left out.
+
+Typing errors corrected silently: fungible, consumption, hectare, Vikhroli, Dindoshi, "Bldg NP/NOP" → "No.".
+
+**Discrepancies to confirm with the client** (the site currently uses the value in bold):
+
+| Item | Brochure says | Site uses |
+|---|---|---|
+| Navi Mumbai second landline | 022-45003902 (cover) and 022-46043902 (contact page) | **022-45003902** (original brief) |
+| Second mobile | 9867416273 (cover), 9869556926 (contact page) | **9869076963** (original brief). Three different numbers; confirm which is current |
+| Completed projects | "125+" (About Us) vs "more than 100" (project list) | **125+** |
+| Milind Fulzele's experience | 30 years (team page) vs 25+ years (partners page) | **30 years** |
+| Pragati Reventa (Bldg 48, Pant Nagar) | Listed as completed, but described as "proposed" | **Completed** |
+| Bldg 18, Tagore Nagar tenements | 32 + 217 = 249, but total printed as 243 | **32 rehab + 217 sale** (total omitted) |
+| Bldg 80, Kannamwar Nagar 1 BHK | "3750.00 sq ft" | **375.00 sq ft** (assumed typo) |
+| Haware Legacy 1 BHK | "370 00 sq ft" | **370.00 sq ft** |
+| Saint Tukaram Nagar status | Not in the ongoing/revision list | **No status shown** |
+| Completed list numbering | Skips No. 13 | Renumbered 1–18 |
+
+Brand colours: the logo mark keeps its original blue (`#44789F`); the website accent stays `#0066B1` as briefed.

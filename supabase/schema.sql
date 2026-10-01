@@ -474,22 +474,22 @@ insert into public.locations (slug, label, city, address, phones, mobiles, email
 on conflict (slug) do nothing;
 
 insert into public.services (slug, number, title, summary, category_key, sort_order, process) values
-  ('architecture', '01', 'Architecture',
-   'Architectural design shaped by context, functionality and the way people use space.',
-   'Architecture', 1,
-   '[{"title":"Brief","text":"Understanding requirements, site and constraints."},{"title":"Concept","text":"Exploring form, planning and spatial options."},{"title":"Development","text":"Resolving design, drawings and coordination."},{"title":"Delivery","text":"Supporting execution through to completion."}]'),
-  ('planning', '02', 'Planning',
-   'Planning that organises sites, buildings and movement into clear, workable layouts.',
-   'Planning', 2,
-   '[{"title":"Study","text":"Site analysis, context and applicable parameters."},{"title":"Framework","text":"Zoning, access, circulation and built-form strategy."},{"title":"Layout","text":"Detailed layouts and area planning."},{"title":"Documentation","text":"Drawings for review and approvals."}]'),
-  ('interior-design', '03', 'Interior Design',
+  ('project-management', '01', 'Redevelopment PMC',
+   'Independent project management consultancy for housing societies, from the first feasibility study to handover.',
+   'Redevelopment', 1,
+   '[{"title": "Society appointment", "text": "Society appoints PMC for redevelopment guidance."}, {"title": "Property study & feasibility", "text": "Land potential, FSI, rules and project feasibility."}, {"title": "Member consultation", "text": "Benefits and requirements explained; member inputs collected."}, {"title": "Tender & developer selection", "text": "Offers invited, proposals compared, developer selected."}, {"title": "Agreement & approvals", "text": "Legal documentation, planning and government approvals."}, {"title": "Project monitoring", "text": "Quality, timelines, construction progress and transparency."}, {"title": "Handover & completion", "text": "Possession, amenities and completion for society members."}]'),
+  ('architecture', '02', 'Architecture',
+   'Architecture for redevelopment and new buildings, with smart, efficient and affordable space planning.',
+   'Redevelopment', 2,
+   '[{"title": "Brief", "text": "Requirements, plot, FSI and applicable rules."}, {"title": "Planning", "text": "Efficient layouts for rehab and sale tenements."}, {"title": "Approvals", "text": "Drawings for planning and municipal approvals."}, {"title": "Execution", "text": "Working drawings and site supervision."}]'),
+  ('planning', '03', 'Planning',
+   'MHADA layout planning and layout revisions for large housing schemes.',
+   'Layout Planning', 3,
+   '[{"title": "Study", "text": "Existing layout, land areas and site conditions."}, {"title": "Framework", "text": "Residential, commercial, amenity and open-space areas."}, {"title": "Layout", "text": "Plots, roads and circulation."}, {"title": "Documentation", "text": "Area statements and drawings for approval."}]'),
+  ('interior-design', '04', 'Interior Design',
    'Interiors that bring together space, light, material and detail.',
-   'Interior Design', 3,
-   '[{"title":"Brief","text":"Needs, use patterns and character of the space."},{"title":"Layout","text":"Space planning and furniture arrangement."},{"title":"Materials","text":"Finishes, lighting and detailing."},{"title":"Execution","text":"Coordination on site through completion."}]'),
-  ('project-management', '04', 'Project Management Consultancy',
-   'Consultancy that helps projects move from drawings to delivery with clarity and control.',
-   'Project Management', 4,
-   '[{"title":"Planning","text":"Scope, schedule and sequencing."},{"title":"Coordination","text":"Consultants, contractors and vendors."},{"title":"Monitoring","text":"Progress, quality and site reviews."},{"title":"Close-out","text":"Handover and documentation."}]')
+   'Interior Design', 4,
+   '[{"title": "Brief", "text": "Needs, use patterns and character of the space."}, {"title": "Layout", "text": "Space planning and furniture arrangement."}, {"title": "Materials", "text": "Finishes, lighting and detailing."}, {"title": "Execution", "text": "Coordination on site through completion."}]')
 on conflict (slug) do nothing;
 
 insert into public.site_settings (key, value, is_public, description) values

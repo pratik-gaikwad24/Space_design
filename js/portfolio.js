@@ -9,13 +9,14 @@
   var U = SD.utils;
 
   var PAGE_SIZE = 12; // two full layout blocks of six
-  var DISCIPLINES = ['Architecture', 'Interior Design', 'Planning', 'Project Management'];
-  var TYPES = ['Residential', 'Commercial', 'Institutional', 'Hospitality'];
+  var DISCIPLINES = ['Redevelopment', 'Architecture', 'Layout Planning', 'Planning', 'Interior Design', 'Project Management'];
+  var TYPES = ['Residential', 'Housing Layout', 'Commercial', 'Institutional', 'Hospitality'];
+  var STATUSES = ['Completed', 'Ongoing', 'Proposed'];
 
   var state = { all: [], filtered: [], filter: 'all', query: '', shown: 0, demo: false };
   var els = {};
 
-  function valuesOf(p) { return [p.category, p.project_type].filter(Boolean); }
+  function valuesOf(p) { return [p.category, p.project_type, p.status].filter(Boolean); }
 
   function ordered(values, preferred) {
     return values.sort(function (a, b) {
@@ -30,10 +31,11 @@
   }
 
   function buildFilters() {
-    var cat = {}, type = {};
+    var cat = {}, type = {}, status = {};
     state.all.forEach(function (p) {
       if (p.category) cat[p.category] = (cat[p.category] || 0) + 1;
       if (p.project_type) type[p.project_type] = (type[p.project_type] || 0) + 1;
+      if (p.status && STATUSES.indexOf(p.status) > -1) status[p.status] = (status[p.status] || 0) + 1;
     });
     var html = '<button type="button" class="filter-btn filter-btn--all" aria-pressed="true" data-filter="all">All<sup aria-hidden="true">' + state.all.length + '</sup></button>';
     var catKeys = ordered(Object.keys(cat), DISCIPLINES);
@@ -46,6 +48,11 @@
       html += '<div class="filter-group" role="group" aria-label="Project type"><span class="filter-group-label" aria-hidden="true">Type</span>' +
         typeKeys.map(function (v) { return filterBtn(v, type[v]); }).join('') + '</div>';
     }
+    var statusKeys = ordered(Object.keys(status), STATUSES);
+    if (statusKeys.length) {
+      html += '<div class="filter-group" role="group" aria-label="Status"><span class="filter-group-label" aria-hidden="true">Status</span>' +
+        statusKeys.map(function (v) { return filterBtn(v, status[v]); }).join('') + '</div>';
+    }
     els.filters.innerHTML = html;
   }
 
@@ -55,7 +62,7 @@
       if (!ok) return false;
     }
     if (state.query) {
-      var hay = [p.title, p.subtitle, p.location, p.category, p.project_type].filter(Boolean).join(' ').toLowerCase();
+      var hay = [p.title, p.subtitle, p.location, p.category, p.project_type, p.status, p.client].filter(Boolean).join(' ').toLowerCase();
       return state.query.split(/\s+/).every(function (term) { return hay.indexOf(term) !== -1; });
     }
     return true;

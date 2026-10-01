@@ -161,7 +161,7 @@
     var aside = document.querySelector('[data-admin-sidebar]');
     aside.innerHTML =
       '<a class="brand" href="dashboard.html" aria-label="Space Design admin dashboard">' +
-        '<svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="1.25" y="1.25" width="29.5" height="29.5" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="1.25" y="17" width="13.75" height="13.75" fill="#0066B1"/><path d="M15 1.25V11M21 17h9.75" stroke="currentColor" stroke-width="2.5"/></svg>' +
+        '<img class="brand-mark" src="../assets/icons/logo-mark-light.svg" alt="" width="34" height="34">' +
         '<span class="brand-text"><span class="brand-name">SPACE DESIGN</span><span class="brand-sub">Content admin</span></span></a>' +
       '<p class="admin-env">Supabase · RLS protected</p>' +
       '<nav class="admin-nav" aria-label="Admin"><ul>' + NAV.map(function (n, i) {

@@ -111,6 +111,19 @@
 
   /* ---------------- Shared renderers ---------------- */
 
+  /**
+   * How an image should sit in its frame:
+   *  - plans / drawings → whole sheet on white ("fit-white")
+   *  - tall renders (towers) → whole building on a sky gradient ("fit-sky")
+   *  - everything else (photographs) → cover the frame
+   */
+  function fitClass(m) {
+    if (!m) return '';
+    if (m.media_type === 'plan' || m.media_type === 'drawing') return 'fit-white';
+    if (m.width && m.height && m.height > m.width * 1.15) return 'fit-sky';
+    return '';
+  }
+
   function mediaThumb(m, opts) {
     opts = opts || {};
     if (!m) return '<div class="project-card-placeholder" aria-hidden="true"></div>';
@@ -136,7 +149,7 @@
     return '' +
       '<article class="project-card project-card--' + esc(variant) + (extraClass ? ' ' + esc(extraClass) : '') + '" data-reveal>' +
         '<a class="project-card-link" href="' + esc(href) + '" data-cursor>' +
-          '<div class="project-card-media">' +
+          '<div class="project-card-media ' + fitClass(p.featured_media) + '">' +
             mediaThumb(p.featured_media, { sizes: variant === 'full' ? '100vw' : (variant === 'l' ? '(max-width: 768px) 100vw, 60vw' : '(max-width: 768px) 100vw, 40vw') }) +
             (p.is_demo ? '<span class="demo-tag">Demo · replace before launch</span>' : '') +
           '</div>' +
@@ -196,7 +209,7 @@
     $: $, $$: $$, esc: esc, safeUrl: safeUrl, paragraphs: paragraphs, debounce: debounce,
     slugify: slugify, pad: pad, formatDateTime: formatDateTime, param: param,
     prefersReducedMotion: prefersReducedMotion, saveData: saveData, isSmallScreen: isSmallScreen,
-    mediaUrl: mediaUrl, srcset: srcset, announce: announce
+    mediaUrl: mediaUrl, srcset: srcset, announce: announce, fitClass: fitClass
   };
   SD.ui = { projectCard: projectCard, mediaThumb: mediaThumb, demoBanner: demoBanner, workLayout: workLayout, workGrid: workGrid };
 })();

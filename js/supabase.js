@@ -26,12 +26,13 @@
     });
   }
 
+  // Built-in projects (from the company profile) are shown until Supabase is connected.
   var useDemo = !client && cfg.SHOW_DEMO_CONTENT_WHEN_UNCONFIGURED !== false && !isAdminArea;
 
-  var CARD_FIELDS = 'id,title,slug,subtitle,category,project_type,location,year,services,short_description,featured,sort_order,created_at,' +
+  var CARD_FIELDS = 'id,title,slug,subtitle,category,project_type,location,year,status,client,services,short_description,featured,sort_order,created_at,' +
     'featured_media:project_media!projects_featured_media_fk(id,media_type,media_url,poster_url,alt_text,width,height)';
 
-  function demo() { return (SD.demo && SD.demo.projects) || []; }
+  function builtin() { return (SD.builtin && SD.builtin.projects) || []; }
 
   /** Generic, non-revealing error for the UI (the raw error is only logged). */
   function fail(error, context) {
@@ -45,8 +46,8 @@
       opts = opts || {};
       if (!client) {
         if (!useDemo) return { data: [], error: null, demo: false };
-        var list = demo().filter(function (p) { return !opts.featured || p.featured; });
-        return { data: opts.limit ? list.slice(0, opts.limit) : list, error: null, demo: true };
+        var list = builtin().filter(function (p) { return !opts.featured || p.featured; });
+        return { data: opts.limit ? list.slice(0, opts.limit) : list, error: null, demo: false };
       }
       var q = client.from('projects').select(CARD_FIELDS)
         .eq('published', true)
@@ -65,8 +66,8 @@
       if (!slug || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return { data: null, error: null };
       if (!client) {
         if (!useDemo) return { data: null, error: null };
-        var p = demo().filter(function (d) { return d.slug === slug; })[0] || null;
-        return { data: p, error: null, demo: true };
+        var p = builtin().filter(function (d) { return d.slug === slug; })[0] || null;
+        return { data: p, error: null, demo: false };
       }
       var res = await client.from('projects').select('*').eq('slug', slug).eq('published', true).maybeSingle();
       if (res.error) return fail(res.error, 'getProject');
