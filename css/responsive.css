@@ -377,7 +377,7 @@
 @media (max-width: 600px) {
   .contact-fab { gap: 0.5rem; }
   .fab-menu { gap: 0.5rem; }
-  .fab-title { font-size: 0.625rem; padding: 0.3rem 0.6rem; }
+  .fab-title { font-size: 0.6875rem; padding: 0.3rem 0.6rem; letter-spacing: 0.12em; }
   .fab-item { height: 3.1rem; padding: 0.3rem; }
   .fab-icon { width: 2.45rem; height: 2.45rem; }
   .site-footer .footer-bottom { padding-right: 4.5rem; }
