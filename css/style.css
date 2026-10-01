@@ -45,15 +45,15 @@
    --------------------------------------------------------------------- */
 :root {
   /* Brand colours */
-  --space-blue: #0066B1;
-  --space-blue-dark: #004A80;
-  --space-blue-light: #6DB3EA;      /* accessible accent on dark grounds */
+  --space-blue: #3F7196;            /* logo blue #44789F, deepened for AA text contrast */
+  --space-blue-dark: #2E5675;
+  --space-blue-light: #8DBBDE;      /* accessible accent on dark grounds */
   --space-white: #FFFFFF;
   --space-off-white: #F7F8FA;
   --space-charcoal: #15191D;
   --space-dark: #0D1115;
-  --space-grey: #6F7780;            /* decorative / large text */
-  --space-grey-text: #5A626A;       /* body-size muted text: AA on white & off-white */
+  --space-grey: #555D65;            /* large muted display text */
+  --space-grey-text: #3D444B;       /* body-size muted text (darker for readability) */
   --space-light-grey: #E7EBEF;
   --space-border: #C9D1D8;          /* crisper hairlines (was #DDE3E8) */
   --space-edge: rgba(21, 25, 29, 0.22); /* 1px edge around images */
@@ -132,6 +132,7 @@ body {
   font-size: var(--fs-base);
   line-height: var(--lh-body);
   letter-spacing: 0.006em;
+  font-weight: 450;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -278,8 +279,8 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
   font-size: var(--fs-xs);
   letter-spacing: 0.06em;
   color: var(--space-blue-dark);
-  background: rgba(0, 102, 177, 0.07);
-  border: 1px dashed rgba(0, 102, 177, 0.45);
+  background: rgba(63, 113, 150, 0.07);
+  border: 1px dashed rgba(63, 113, 150, 0.45);
   padding: 0.5rem 0.75rem;
 }
 
@@ -875,7 +876,7 @@ body.menu-open { overflow: hidden; }
 }
 .years-heading .serif-accent { color: var(--space-blue-light); }
 .years-copy { grid-column: 9 / -1; align-self: end; }
-.years-copy p { color: rgba(255, 255, 255, 0.78); font-size: var(--fs-md); }
+.years-copy p { color: rgba(255, 255, 255, 0.92); font-size: var(--fs-md); }
 .years-top {
   display: flex;
   justify-content: space-between;
@@ -883,7 +884,7 @@ body.menu-open { overflow: hidden; }
   gap: 1rem;
   margin-bottom: clamp(3rem, 8vw, 7rem);
 }
-.years-top .coords { color: rgba(255, 255, 255, 0.6); }
+.years-top .coords { color: rgba(255, 255, 255, 0.78); }
 
 .discipline-list {
   grid-column: 1 / -1;
@@ -1098,8 +1099,8 @@ body.menu-open { overflow: hidden; }
   align-items: flex-start;
   padding: 1rem 1.25rem;
   margin-bottom: 2.5rem;
-  border: 1px dashed rgba(0, 102, 177, 0.5);
-  background: rgba(0, 102, 177, 0.05);
+  border: 1px dashed rgba(63, 113, 150, 0.5);
+  background: rgba(63, 113, 150, 0.05);
   font-size: var(--fs-sm);
   color: var(--space-blue-dark);
 }
@@ -1233,7 +1234,7 @@ body.menu-open { overflow: hidden; }
   padding-top: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.35);
 }
-.cta-blue-foot p { margin: 0; max-width: 46ch; color: rgba(255, 255, 255, 0.92); }
+.cta-blue-foot p { margin: 0; max-width: 46ch; color: #FFFFFF; }
 .cta-blue-mark {
   position: absolute;
   right: var(--gutter); top: 2rem;
@@ -1720,7 +1721,7 @@ body.menu-open { overflow: hidden; }
 .contact-offices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; margin-top: auto; }
 .contact-office { border-top: 1px solid rgba(255,255,255,0.22); padding-top: 1.25rem; font-size: var(--fs-sm); }
 .contact-office h2 { font-size: var(--fs-lg); text-transform: uppercase; letter-spacing: -0.01em; margin: 0.75rem 0 1rem; font-weight: 600; }
-.contact-office address { color: rgba(255,255,255,0.78); margin-bottom: 1rem; }
+.contact-office address { color: rgba(255,255,255,0.92); margin-bottom: 1rem; }
 .contact-office a { color: var(--space-white); text-decoration: none; display: block; width: fit-content; padding-block: 0.1rem; }
 .contact-office a:hover { color: var(--space-blue-light); text-decoration: underline; }
 .contact-office .label { color: var(--space-blue-light); }
@@ -1848,7 +1849,7 @@ body.menu-open { overflow: hidden; }
 }
 .legal-body h2:first-child { margin-top: 0; }
 .legal-body h3 { font-size: var(--fs-md); font-weight: 600; margin: 2rem 0 0.75rem; }
-.legal-body p, .legal-body li { color: #3A4148; line-height: 1.75; }
+.legal-body p, .legal-body li { color: #22272C; line-height: 1.75; }
 .legal-body ul, .legal-body ol { padding-left: 1.25rem; margin-bottom: 1.25rem; }
 .legal-body li + li { margin-top: 0.4rem; }
 .legal-body table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: var(--fs-sm); }
@@ -1905,7 +1906,7 @@ body.menu-open { overflow: hidden; }
    --------------------------------------------------------------------- */
 .site-footer {
   background: var(--space-dark);
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.92);
   padding-top: clamp(4rem, 8vw, 7rem);
   font-size: var(--fs-sm);
   overflow: hidden;
@@ -1918,7 +1919,7 @@ body.menu-open { overflow: hidden; }
 }
 .footer-brand { grid-column: span 3; }
 .footer-brand .brand { color: var(--space-white); }
-.footer-brand .brand-sub { color: rgba(255,255,255,0.65); }
+.footer-brand .brand-sub { color: rgba(255,255,255,0.82); }
 .footer-brand p { margin-top: 1.75rem; max-width: 30ch; }
 .footer-col { grid-column: span 3; }
 .footer-col--office { grid-column: span 3; }
@@ -1933,7 +1934,7 @@ body.menu-open { overflow: hidden; }
 .footer-col address { margin-bottom: 1rem; line-height: 1.7; }
 .footer-col ul { list-style: none; display: grid; gap: 0.15rem; }
 .footer-col ul a { display: inline-flex; align-items: center; min-height: 32px; }
-.site-footer a { color: rgba(255, 255, 255, 0.88); text-decoration: none; }
+.site-footer a { color: rgba(255, 255, 255, 0.95); text-decoration: none; }
 .site-footer a:hover, .site-footer a:focus-visible { color: var(--space-white); text-decoration: underline; }
 .footer-contacts a { display: block; width: fit-content; padding-block: 0.1rem; }
 .footer-signature {
@@ -1975,7 +1976,7 @@ body.menu-open { overflow: hidden; }
   font-size: var(--fs-micro);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.86);
 }
 .footer-meta span + span::before { content: "·"; margin-right: 1.5rem; color: var(--space-blue-light); }
 .site-footer .btn--light { color: var(--space-blue-dark); text-decoration: none; }
@@ -1999,7 +2000,7 @@ body.menu-open { overflow: hidden; }
   padding-block: 1.5rem 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   font-size: var(--fs-xs);
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.86);
 }
 .footer-legal { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; list-style: none; }
 .link-btn {
@@ -2345,7 +2346,7 @@ body[data-page="contact"] .site-header { background: var(--space-white); border-
   gap: 0.75rem;
 }
 .stat-list > div:last-child { border-right: 0; margin-right: 0; }
-.stat-list dt { font-size: var(--fs-xs); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.72); }
+.stat-list dt { font-size: var(--fs-xs); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.88); }
 .stat-list dd {
   font-size: clamp(2.75rem, 1.6rem + 3.4vw, 5rem);
   font-weight: 600;
@@ -2389,7 +2390,7 @@ body[data-page="contact"] .site-header { background: var(--space-white); border-
 .empanel-list li { display: grid; grid-template-columns: 14rem minmax(0, 1fr); gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.14); font-size: var(--fs-sm); }
 .empanel-list li:first-child { padding-top: 0; }
 .empanel-list li:last-child { border-bottom: 0; padding-bottom: 0; }
-.empanel-list .label--muted { color: rgba(255, 255, 255, 0.68); }
+.empanel-list .label--muted { color: rgba(255, 255, 255, 0.84); }
 
 /* ---------------------------------------------------------------------
    38. About · why, team, consultants, developers
@@ -2443,3 +2444,57 @@ body[data-page="contact"] .site-header { background: var(--space-white); border-
 /* lead card: the frame sets the height (from the two side cards), never the image */
 .work-grid .work-lead .project-card-media { position: relative; }
 .work-grid .work-lead .project-card-media img { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* ---------------------------------------------------------------------
+   39. Quick contact dock: Call · WhatsApp · Email
+   Desktop/tablet: square stack, bottom-right, label slides out on hover.
+   Phones: full-width labelled bar fixed to the bottom.
+   --------------------------------------------------------------------- */
+.contact-dock {
+  position: fixed;
+  right: clamp(0.75rem, 1.6vw, 1.5rem);
+  bottom: calc(clamp(0.75rem, 1.6vw, 1.5rem) + env(safe-area-inset-bottom, 0px));
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--space-charcoal);
+  border: 1px solid var(--space-charcoal);
+  box-shadow: 4px 4px 0 var(--space-blue);
+}
+.dock-btn {
+  position: relative;
+  width: 3.25rem; height: 3.25rem;
+  display: grid; place-items: center;
+  color: var(--space-white);
+  text-decoration: none;
+  transition: background-color var(--t-fast);
+}
+.dock-btn svg { width: 1.375rem; height: 1.375rem; }
+.dock-btn--call { background: var(--space-charcoal); }
+.dock-btn--whatsapp { background: #128C7E; }  /* WhatsApp teal: AA with white icon */
+.dock-btn--email { background: var(--space-blue); }
+.dock-btn--call:hover { background: #2A3037; }
+.dock-btn--whatsapp:hover { background: #0E7166; }
+.dock-btn--email:hover { background: var(--space-blue-dark); }
+.dock-btn:focus-visible { outline: 2px solid var(--space-white); outline-offset: -4px; }
+.dock-label {
+  position: absolute;
+  right: calc(100% + 0.5rem);
+  top: 50%;
+  padding: 0.45rem 0.75rem;
+  background: var(--space-charcoal);
+  color: var(--space-white);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(6px, -50%);
+  pointer-events: none;
+  transition: opacity var(--t-fast), transform var(--t-med) var(--ease-out);
+}
+.dock-btn:hover .dock-label, .dock-btn:focus-visible .dock-label { opacity: 1; transform: translate(0, -50%); }
+/* keep the dock from covering the last line of the footer */
+.site-footer .footer-bottom { padding-right: 4.5rem; }

@@ -371,3 +371,23 @@
   .h-xl { font-size: clamp(1.9rem, 9.4vw, 2.75rem); }
   .service-block-title { font-size: clamp(1.9rem, 9.4vw, 3rem); overflow-wrap: anywhere; }
 }
+
+/* Quick contact: labelled bottom bar on phones */
+@media (max-width: 600px) {
+  .contact-dock {
+    left: 0; right: 0; bottom: 0;
+    flex-direction: row;
+    box-shadow: none;
+    border: 0;
+    border-top: 1px solid var(--space-charcoal);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: var(--space-charcoal);
+  }
+  .dock-btn { flex: 1; width: auto; height: 3.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+  .dock-btn svg { width: 1.25rem; height: 1.25rem; }
+  .dock-label { position: static; opacity: 1; transform: none; padding: 0; background: transparent; font-size: var(--fs-micro); }
+  body { padding-bottom: calc(3.5rem + env(safe-area-inset-bottom, 0px)); }
+  .site-footer .footer-bottom { padding-right: 0; }
+  .cookie-banner { bottom: calc(4.25rem + env(safe-area-inset-bottom, 0px)); }
+}
+@media print { .contact-dock { display: none !important; } }

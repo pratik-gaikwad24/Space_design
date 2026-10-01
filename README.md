@@ -354,4 +354,4 @@ Typing errors corrected silently: fungible, consumption, hectare, Vikhroli, Dind
 | Saint Tukaram Nagar status | Not in the ongoing/revision list | **No status shown** |
 | Completed list numbering | Skips No. 13 | Renumbered 1–18 |
 
-Brand colours: the logo mark keeps its original blue (`#44789F`); the website accent stays `#0066B1` as briefed.
+Brand colours: the website accent is `#3F7196`, the logo's blue (`#44789F`) deepened one step so small text meets WCAG AA contrast. The logo mark itself keeps `#44789F`.
