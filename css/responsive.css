@@ -372,12 +372,15 @@
   .service-block-title { font-size: clamp(1.9rem, 9.4vw, 3rem); overflow-wrap: anywhere; }
 }
 
-/* Quick contact on tablets & phones: no hint label, slightly smaller button */
-@media (max-width: 1024px) { .fab-hint { display: none; } }
+/* Quick contact on touch screens & phones: icons only, slightly smaller */
+@media (hover: none) { .fab-item:hover .fab-text { max-width: 0; opacity: 0; padding: 0; } }
 @media (max-width: 600px) {
-  .fab-trigger { width: 3.5rem; height: 3.5rem; }
-  .fab-glyph svg { width: 1.45rem; height: 1.45rem; }
+  .contact-fab { gap: 0.5rem; }
+  .fab-menu { gap: 0.5rem; }
+  .fab-title { font-size: 0.625rem; padding: 0.3rem 0.6rem; }
+  .fab-item { height: 3.1rem; padding: 0.3rem; }
+  .fab-icon { width: 2.45rem; height: 2.45rem; }
   .site-footer .footer-bottom { padding-right: 4.5rem; }
-  .cookie-banner { bottom: calc(5.25rem + env(safe-area-inset-bottom, 0px)); }
+  .cookie-banner { bottom: calc(12rem + env(safe-area-inset-bottom, 0px)); }
 }
 @media print { .contact-fab { display: none !important; } }

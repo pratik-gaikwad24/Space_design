@@ -77,38 +77,11 @@
   }
 
 
-  /* ---------- Quick contact button ---------- */
-  function contactFab() {
-    var root = document.querySelector('[data-contact-fab]');
-    if (!root) return;
-    var trigger = root.querySelector('[data-fab-trigger]');
-    var menu = root.querySelector('[data-fab-menu]');
-    var sr = root.querySelector('[data-fab-sr]');
-    var items = menu.querySelectorAll('a');
-    function set(open, focusFirst) {
-      root.classList.toggle('is-open', open);
-      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (sr) sr.textContent = open ? 'Close contact options' : 'Open contact options';
-      if (open && focusFirst) items[items.length - 1].focus({ preventScroll: true });
-    }
-    trigger.addEventListener('click', function (e) {
-      set(!root.classList.contains('is-open'), e.detail === 0); // keyboard → move focus into the menu
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && root.classList.contains('is-open')) { set(false); trigger.focus(); }
-    });
-    document.addEventListener('click', function (e) {
-      if (root.classList.contains('is-open') && !root.contains(e.target)) set(false);
-    });
-    menu.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
-  }
-
   function init() {
     document.querySelectorAll('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
     reveal(document);
     lazyVideos(document);
     cursor();
-    contactFab();
 
     // External links opened in a new tab always get rel protection.
     document.querySelectorAll('a[target="_blank"]').forEach(function (a) {

@@ -2446,10 +2446,9 @@ body[data-page="contact"] .site-header { background: var(--space-white); border-
 .work-grid .work-lead .project-card-media img { position: absolute; inset: 0; width: 100%; height: 100%; }
 
 /* ---------------------------------------------------------------------
-   39. Quick contact: "Talk to us" button that opens three contact cards
-   Closed: one round blue button (plus a "Talk to us" hint on desktop).
-   Open: WhatsApp, Call and Email cards rise from the button in sequence.
-   Without JavaScript the cards are simply shown.
+   39. Quick contact: three always-visible round buttons
+   WhatsApp, Call and Email sit stacked bottom-right. On devices with a
+   mouse, each circle expands into a labelled pill on hover/focus.
    --------------------------------------------------------------------- */
 .contact-fab {
   position: fixed;
@@ -2458,123 +2457,80 @@ body[data-page="contact"] .site-header { background: var(--space-white); border-
   z-index: 80;
   display: grid;
   justify-items: end;
-  gap: 0.75rem;
-}
-.fab-trigger {
-  position: relative;
-  grid-row: 2;
-  width: 4rem; height: 4rem;
-  border: 0;
-  border-radius: 50%;
-  background: var(--space-blue);
-  color: var(--space-white);
-  display: grid; place-items: center;
-  box-shadow: 0 14px 30px -12px rgba(13, 17, 21, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.18);
-  transition: background-color var(--t-med) var(--ease-out), transform var(--t-med) var(--ease-out);
+  gap: 0.6rem;
   animation: fabIn 800ms var(--ease-out) 1.2s both;
 }
-@keyframes fabIn { from { opacity: 0; transform: translateY(18px) scale(0.85); } }
-.fab-trigger:hover { background: var(--space-blue-dark); transform: translateY(-2px); }
-.fab-trigger:focus-visible { outline: 2px solid var(--space-charcoal); outline-offset: 4px; }
-/* gentle attention ring, three times after load only */
-.fab-trigger::after {
-  content: "";
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  border: 2px solid var(--space-blue);
-  animation: fabRing 2.4s var(--ease-out) 2.4s 3;
-  opacity: 0;
-  pointer-events: none;
-}
-@keyframes fabRing { 0% { opacity: 0.7; transform: scale(1); } 100% { opacity: 0; transform: scale(1.55); } }
-.fab-glyph { position: absolute; display: grid; place-items: center; transition: transform var(--t-med) var(--ease-out), opacity var(--t-fast); }
-.fab-glyph svg, .fab-icon svg {
-  width: 1.6rem; height: 1.6rem;
-  fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
-}
-.fab-glyph--close { opacity: 0; transform: rotate(-90deg) scale(0.6); }
-.contact-fab.is-open .fab-glyph--open { opacity: 0; transform: rotate(90deg) scale(0.6); }
-.contact-fab.is-open .fab-glyph--close { opacity: 1; transform: none; }
-.contact-fab.is-open .fab-trigger { background: var(--space-charcoal); }
-.contact-fab.is-open .fab-trigger::after { display: none; }
-
-/* "Talk to us" hint beside the closed button (desktop only) */
-.fab-hint {
-  position: absolute;
-  right: calc(4rem + 0.85rem);
-  bottom: 1.15rem;
-  padding: 0.55rem 0.9rem;
-  background: var(--space-white);
-  color: var(--space-charcoal);
-  border: 1px solid var(--space-border);
+@keyframes fabIn { from { opacity: 0; transform: translateY(18px); } }
+.fab-title {
+  margin: 0 0 0.15rem;
+  padding: 0.35rem 0.7rem;
+  background: var(--space-charcoal);
+  color: var(--space-white);
   border-radius: 999px;
-  box-shadow: 0 10px 24px -14px rgba(13, 17, 21, 0.45);
-  font-size: var(--fs-micro);
+  font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   white-space: nowrap;
-  pointer-events: none;
-  animation: fabIn 800ms var(--ease-out) 1.6s both;
-  transition: opacity var(--t-fast), transform var(--t-med) var(--ease-out);
 }
-.fab-hint::after {
-  content: "";
-  position: absolute;
-  right: -5px; top: 50%;
-  width: 8px; height: 8px;
-  background: var(--space-white);
-  border-top: 1px solid var(--space-border);
-  border-right: 1px solid var(--space-border);
-  transform: translateY(-50%) rotate(45deg);
-}
-.contact-fab.is-open .fab-hint { opacity: 0; transform: translateX(8px); }
-
-/* Cards */
-.fab-menu {
-  grid-row: 1;
-  list-style: none;
-  margin: 0; padding: 0;
-  display: grid;
-  gap: 0.6rem;
-  justify-items: end;
-}
-.js .fab-menu { visibility: hidden; transition: visibility 0s linear 400ms; }
-.js .contact-fab.is-open .fab-menu { visibility: visible; transition: visibility 0s; }
+.fab-menu { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; justify-items: end; }
 .fab-item {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.9rem;
-  padding: 0.45rem 0.45rem 0.45rem 1.25rem;
+  height: 3.5rem;
+  padding: 0.35rem;
+  border-radius: 999px;
   background: var(--space-white);
   color: var(--space-charcoal);
   text-decoration: none;
   border: 1px solid var(--space-border);
-  border-radius: 999px;
-  box-shadow: 0 16px 34px -18px rgba(13, 17, 21, 0.5);
-  transition: transform var(--t-med) var(--ease-out), border-color var(--t-fast), box-shadow var(--t-med);
+  box-shadow: 0 14px 30px -14px rgba(13, 17, 21, 0.55);
+  transition: box-shadow var(--t-med) var(--ease-out), border-color var(--t-fast), transform var(--t-med) var(--ease-out);
 }
-.js .fab-row { opacity: 0; transform: translateY(14px) scale(0.96); transform-origin: right center; transition: opacity 260ms var(--ease-out), transform 420ms var(--ease-out); }
-.js .contact-fab.is-open .fab-row { opacity: 1; transform: none; }
-.js .contact-fab.is-open .fab-row:nth-child(3) { transition-delay: 0ms; }
-.js .contact-fab.is-open .fab-row:nth-child(2) { transition-delay: 60ms; }
-.js .contact-fab.is-open .fab-row:nth-child(1) { transition-delay: 120ms; }
-.fab-item:hover, .fab-item:focus-visible { transform: translateX(-4px); border-color: var(--space-charcoal); box-shadow: 0 20px 40px -18px rgba(13, 17, 21, 0.6); }
-.fab-item:focus-visible { outline: 2px solid var(--space-blue); outline-offset: 3px; }
-.fab-text { display: grid; text-align: right; line-height: 1.2; }
+.fab-text {
+  display: grid;
+  text-align: right;
+  line-height: 1.2;
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  white-space: nowrap;
+  transition: max-width 450ms var(--ease-out), opacity 250ms var(--ease-out), padding 450ms var(--ease-out);
+}
 .fab-text strong { font-size: var(--fs-sm); font-weight: 600; letter-spacing: 0.02em; }
 .fab-text > span { font-size: var(--fs-xs); color: var(--text-muted); }
+.fab-item:hover, .fab-item:focus-visible { border-color: var(--space-charcoal); box-shadow: 0 18px 36px -16px rgba(13, 17, 21, 0.65); transform: translateX(-2px); }
+.fab-item:hover .fab-text, .fab-item:focus-visible .fab-text { max-width: 16rem; opacity: 1; padding: 0 0.8rem 0 0.9rem; }
+.fab-item:focus-visible { outline: 2px solid var(--space-blue); outline-offset: 3px; }
 .fab-icon {
   width: 2.75rem; height: 2.75rem;
   border-radius: 50%;
   display: grid; place-items: center;
   color: var(--space-white);
   flex: none;
+  transition: transform var(--t-med) var(--ease-out);
 }
-.fab-icon svg { width: 1.3rem; height: 1.3rem; }
+.fab-item:hover .fab-icon { transform: rotate(-8deg) scale(1.05); }
+.fab-icon svg {
+  width: 1.3rem; height: 1.3rem;
+  fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+}
 .fab-icon svg .fill { fill: currentColor; stroke: none; }
 .fab-item--wa .fab-icon { background: #16934A; }   /* WhatsApp green, 3.96:1 with white icon */
 .fab-item--call .fab-icon { background: var(--space-charcoal); }
 .fab-item--email .fab-icon { background: var(--space-blue); }
+/* WhatsApp: a gentle attention ring, three times after load only */
+.fab-item--wa .fab-icon { position: relative; }
+.fab-item--wa .fab-icon::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  border: 2px solid #16934A;
+  opacity: 0;
+  animation: fabRing 2.4s var(--ease-out) 2.4s 3;
+  pointer-events: none;
+}
+@keyframes fabRing { 0% { opacity: 0.7; transform: scale(1); } 100% { opacity: 0; transform: scale(1.6); } }
 /* keep the button from covering the last line of the footer */
 .site-footer .footer-bottom { padding-right: 5.5rem; }
