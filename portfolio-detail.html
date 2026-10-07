@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="css/accessibility.css">
 <script src="js/boot.js"></script>
 </head>
-<body data-page="project" class="has-overlay-header">
+<body data-page="project">
 <!-- PARTIAL:header -->
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="scroll-progress" aria-hidden="true"><span></span></div>
@@ -79,32 +79,27 @@
 <!-- /PARTIAL:header -->
 
 <main id="main" tabindex="-1" data-project-root>
-  <section class="project-hero" aria-labelledby="project-title">
-    <div class="hero-grid-lines" aria-hidden="true"></div>
-    <div class="container">
-      <div class="page-hero-top">
+  <section class="pv-head" aria-labelledby="project-title">
+    <div class="container pv-head-inner">
+      <div>
         <nav class="breadcrumb" aria-label="Breadcrumb">
-          <ol><li><a href="index.html">Home</a></li><li><a href="portfolio.html">Portfolio</a></li><li aria-current="page" data-p-crumb>Project</li></ol>
+          <ol><li><a href="index.html">Home</a></li><li><a href="portfolio.html">Projects</a></li><li aria-current="page" data-p-crumb>Project</li></ol>
         </nav>
-        <p class="coords mb-0" data-p-coords></p>
+        <h1 class="pv-title" id="project-title" data-p-title>Loading project…</h1>
       </div>
-      <div class="grid-12 project-hero-head">
-        <p class="label label--blue span-full mb-0" data-p-category></p>
-        <h1 class="project-hero-title" id="project-title" data-p-title>Loading project…</h1>
-        <p class="project-hero-sub" data-p-subtitle hidden></p>
-        <p class="project-hero-meta mb-0" data-p-meta></p>
-      </div>
-    </div>
-    <div class="container project-hero-media" data-p-hero>
-      <div class="media skeleton ar-21x9"></div>
+      <a class="pv-back" href="portfolio.html">Back to projects</a>
     </div>
   </section>
 
-  <div data-p-body aria-live="polite"></div>
+  <section class="pv-stage" aria-label="Project images">
+    <div class="container" data-p-hero>
+      <div class="pv-frame pv-frame--loading skeleton"></div>
+    </div>
+  </section>
 
   <noscript>
     <div class="container section">
-      <p>This project page needs JavaScript to load project details. Please <a class="text-link" href="portfolio.html">view the portfolio</a> or <a class="text-link" href="contact.html">contact Space Design</a>.</p>
+      <p>This page needs JavaScript to show the project. Please <a class="text-link" href="portfolio.html">view the projects</a>.</p>
     </div>
   </noscript>
 </main>

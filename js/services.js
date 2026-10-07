@@ -1,7 +1,7 @@
 /* =====================================================================
    SPACE DESIGN — Services
-   • Public services page: related projects per service + optional copy
-     overrides from the Supabase `services` table.
+   • Public services page: optional copy overrides from the Supabase
+     `services` table (services only, no project listings).
    • Admin services page: edit services (title, summary, description,
      process steps, category link, order, visibility).
    ===================================================================== */
@@ -31,24 +31,6 @@
         }
       });
     }
-
-    // Related projects
-    var res = await SD.api.listProjects({});
-    var all = res.data || [];
-    document.querySelectorAll('[data-related]').forEach(function (wrap) {
-      var cat = wrap.getAttribute('data-related');
-      var list = all.filter(function (p) {
-        var sv = p.services || [];
-        return p.category === cat || sv.indexOf(cat) > -1 || sv.indexOf(cat + ' Consultancy') > -1;
-      }).slice(0, 4);
-      var body = wrap.querySelector('.related-body');
-      if (!list.length) {
-        body.innerHTML = '<p class="related-empty">Projects for this service will be published here.</p>';
-        return;
-      }
-      body.innerHTML = '<div class="pf-grid">' + list.map(SD.ui.portfolioCard).join('') + '</div>';
-      SD.motion.reveal(body);
-    });
   }
 
   /* ================= Admin page ================= */

@@ -1,8 +1,7 @@
 /* =====================================================================
-   SPACE DESIGN — Project detail (portfolio-detail.html?slug=...)
-   Fetches a published project + media from Supabase, renders the editorial
-   layout, accessible gallery lightbox, videos with captions, drawings,
-   related projects, and per-project SEO / JSON-LD.
+   SPACE DESIGN — Project page (portfolio-detail.html?slug=...)
+   Shows the project itself: its name and its images, nothing else.
+   Images open in an accessible lightbox. Per-project SEO / JSON-LD is kept.
    ===================================================================== */
 (function () {
   'use strict';
@@ -14,144 +13,59 @@
 
   function isPdf(m) { return /pdf/i.test(m.mime_type || '') || /\.pdf(\?|$)/i.test(m.media_url || ''); }
 
-  /* ---------- Hero ---------- */
-  function renderHero(p) {
-    var hero = $('[data-p-hero]');
-    var fm = p.featured_media || (p.media || []).filter(function (m) { return m.media_type === 'image'; })[0];
-    var fv = p.featured_video;
-    var canAutoplay = fv && !U.prefersReducedMotion() && !U.saveData() && !U.isSmallScreen();
-    var html = '<div class="media ar-21x9 ' + (canAutoplay ? '' : U.fitClass(fm)) + '" data-reveal="image">';
-    if (canAutoplay) {
-      html += '<video muted loop playsinline autoplay preload="metadata" aria-hidden="true"' +
-        (fv.poster_url ? ' poster="' + esc(U.safeUrl(fv.poster_url)) + '"' : '') + '>' +
-        '<source src="' + esc(U.safeUrl(fv.media_url)) + '" type="' + esc(fv.mime_type || 'video/mp4') + '"></video>';
-    } else if (fm) {
-      var src = fm.media_type === 'video' ? fm.poster_url : fm.media_url;
-      var ss = U.srcset(src);
-      html += '<img src="' + esc(U.mediaUrl(src, 1920)) + '"' + (ss ? ' srcset="' + esc(ss) + '" sizes="100vw"' : '') +
-        ' alt="' + esc(fm.alt_text || '') + '" fetchpriority="high" decoding="async">';
-    } else if (fv && fv.poster_url) {
-      html += '<img src="' + esc(U.safeUrl(fv.poster_url)) + '" alt="' + esc(fv.alt_text || '') + '" decoding="async">';
+  /* ---------- Showcase: main image large, any others in a grid ---------- */
+  function figure(m, i, total, main) {
+    return '<figure class="pv-item' + (main ? ' pv-item--main' : '') + '">' +
+      '<button type="button" class="pv-btn" data-lb-group="gallery" data-lb-index="' + i + '" aria-label="Open image ' + (i + 1) + ' of ' + total + (m.alt_text ? ': ' + esc(m.alt_text) : '') + '">' +
+        '<span class="pv-frame ' + U.fitClass(m) + '">' +
+          '<img src="' + esc(U.mediaUrl(m.media_url, main ? 1920 : 1280)) + '" alt="' + esc(m.alt_text || '') + '"' +
+          (main ? ' fetchpriority="high"' : ' loading="lazy"') + ' decoding="async"' +
+          (m.width && m.height ? ' width="' + Number(m.width) + '" height="' + Number(m.height) + '"' : '') + '>' +
+        '</span>' +
+      '</button>' +
+    '</figure>';
+  }
+
+  function videoItem(m, title) {
+    var src = U.safeUrl(m.media_url);
+    var poster = U.safeUrl(m.poster_url);
+    var captions = U.safeUrl(m.captions_url);
+    var type = m.mime_type || (/\.webm(\?|$)/i.test(src) ? 'video/webm' : 'video/mp4');
+    return '<figure class="pv-item pv-item--video"><div class="video-frame">' +
+      '<video controls playsinline preload="none"' + (captions ? ' crossorigin="anonymous"' : '') +
+        (poster ? ' poster="' + esc(poster) + '"' : '') + ' aria-label="' + esc(m.alt_text || m.caption || title + ' video') + '">' +
+        '<source src="' + esc(src) + '" type="' + esc(type) + '">' +
+        (captions ? '<track kind="captions" src="' + esc(captions) + '" srclang="en" label="English" default>' : '') +
+        'Your browser cannot play this video. <a href="' + esc(src) + '">Download the video</a>.' +
+      '</video></div></figure>';
+  }
+
+  function pdfItem(m) {
+    return '<a class="pv-pdf" href="' + esc(U.safeUrl(m.media_url)) + '" target="_blank" rel="noopener noreferrer">' +
+      esc(m.caption || m.alt_text || 'Drawing') + ' (PDF)<span class="visually-hidden"> opens in a new tab</span></a>';
+  }
+
+  function showcase(p) {
+    var media = p.media || [];
+    var fm = p.featured_media;
+    // Images, renders and image plans/drawings, featured image first.
+    var pics = media.filter(function (m) { return m.media_type !== 'video' && !isPdf(m) && m.media_url; });
+    if (fm && fm.media_type !== 'video') {
+      pics = [fm].concat(pics.filter(function (m) { return m.media_url !== fm.media_url; }));
     }
-    if (p.is_demo) html += '<span class="demo-tag">Demo · replace before launch</span>';
-    html += '</div>';
-    if (canAutoplay) html += '<button type="button" class="icon-btn hero-video-toggle" aria-pressed="false" data-hero-toggle>Pause video</button>';
-    hero.innerHTML = html;
+    var vids = media.filter(function (m) { return m.media_type === 'video'; });
+    var pdfs = media.filter(isPdf);
+    groups.gallery = pics;
 
-    var toggle = hero.querySelector('[data-hero-toggle]');
-    if (toggle) {
-      var v = hero.querySelector('video');
-      toggle.addEventListener('click', function () {
-        if (v.paused) { v.play(); toggle.textContent = 'Pause video'; toggle.setAttribute('aria-pressed', 'false'); }
-        else { v.pause(); toggle.textContent = 'Play video'; toggle.setAttribute('aria-pressed', 'true'); }
-      });
+    if (!pics.length && !vids.length) {
+      return '<p class="pv-empty">Images of this project will be published soon.</p>';
     }
-  }
-
-  /* ---------- Body sections ---------- */
-  function infoList(p) {
-    var rows = [
-      ['Location', p.location], ['Category', p.category], ['Project type', p.project_type], ['Year', p.year],
-      ['Area', p.area], ['Status', p.status], ['Client', p.client],
-      ['Services', (p.services || []).filter(Boolean).join(', ')]
-    ].filter(function (r) { return r[1] && String(r[1]).trim(); });
-    if (!rows.length) return '';
-    return '<dl class="project-info" data-reveal>' + rows.map(function (r) {
-      return '<div><dt class="label label--muted">' + esc(r[0]) + '</dt><dd>' + esc(r[1]) + '</dd></div>';
-    }).join('') + '</dl>';
-  }
-
-  function textSection(num, label, text) {
-    if (!text || !String(text).trim()) return '';
-    return '<div class="grid-12 project-section">' +
-      '<p class="label" aria-hidden="true"><span class="index">' + num + '</span></p>' +
-      '<div class="project-section-body"><h2 class="h-md mb-5">' + esc(label) + '</h2><div class="prose">' + U.paragraphs(text) + '</div></div>' +
-    '</div>';
-  }
-
-  /** "Label: value" lines → a two-column specification list. */
-  function specSection(num, label, text) {
-    if (!text || !String(text).trim()) return '';
-    var lines = String(text).split(/\n+/).map(function (l) { return l.trim(); }).filter(Boolean);
-    var isSpec = lines.length > 1 && lines.filter(function (l) { return /^[^:]{2,40}:\s/.test(l); }).length >= lines.length / 2;
-    if (!isSpec) return textSection(num, label, text);
-    var rows = lines.map(function (l) {
-      var m = /^([^:]{2,40}):\s*(.+)$/.exec(l);
-      return m ? '<div><dt>' + esc(m[1]) + '</dt><dd>' + esc(m[2]) + '</dd></div>' : '<div class="spec-note"><dd>' + esc(l) + '</dd></div>';
-    }).join('');
-    return '<div class="grid-12 project-section">' +
-      '<p class="label" aria-hidden="true"><span class="index">' + num + '</span></p>' +
-      '<div class="project-section-body"><h2 class="h-md mb-5">' + esc(label) + '</h2><dl class="spec-list">' + rows + '</dl></div>' +
-    '</div>';
-  }
-
-  function gallery(images) {
-    if (!images.length) return '';
-    return '<section class="section section--alt" aria-labelledby="gallery-title"><div class="container">' +
-      '<div class="flex-between mb-7"><h2 class="h-xl" id="gallery-title">Gallery</h2><p class="coords mb-0">' + U.pad(images.length) + ' images</p></div>' +
-      '<ul class="gallery unstyled-list">' + images.map(function (m, i) {
-        return '<li><figure>' +
-          '<button type="button" class="gallery-btn" data-lb-group="gallery" data-lb-index="' + i + '" aria-label="Open image ' + (i + 1) + ' of ' + images.length + (m.alt_text ? ': ' + esc(m.alt_text) : '') + '">' +
-            '<span class="media zoom-on-hover ' + U.fitClass(m) + '">' + '<img src="' + esc(U.mediaUrl(m.media_url, 1280)) + '" alt="' + esc(m.alt_text || '') + '" loading="lazy" decoding="async"' +
-            (m.width && m.height ? ' width="' + Number(m.width) + '" height="' + Number(m.height) + '"' : '') + '></span>' +
-          '</button>' +
-          (m.caption ? '<figcaption><span>' + esc(m.caption) + '</span><span class="coords">' + U.pad(i + 1) + '</span></figcaption>' : '') +
-        '</figure></li>';
-      }).join('') + '</ul></div></section>';
-  }
-
-  function videos(list, title) {
-    if (!list.length) return '';
-    return '<section class="section" aria-labelledby="video-title"><div class="container">' +
-      '<div class="flex-between mb-7"><h2 class="h-xl" id="video-title">Video</h2><p class="coords mb-0">' + U.pad(list.length) + (list.length === 1 ? ' film' : ' films') + '</p></div>' +
-      '<ul class="video-list unstyled-list">' + list.map(function (m, i) {
-        var src = U.safeUrl(m.media_url);
-        var poster = U.safeUrl(m.poster_url);
-        var captions = U.safeUrl(m.captions_url);
-        var type = m.mime_type || (/\.webm(\?|$)/i.test(src) ? 'video/webm' : 'video/mp4');
-        var label = m.alt_text || m.caption || (title + ' video ' + (i + 1));
-        return '<li class="video-item"><figure>' +
-          '<div class="video-frame">' +
-            '<video controls playsinline preload="none"' + (captions ? ' crossorigin="anonymous"' : '') +
-              (poster ? ' poster="' + esc(poster) + '"' : '') + ' aria-label="' + esc(label) + '">' +
-              '<source src="' + esc(src) + '" type="' + esc(type) + '">' +
-              (captions ? '<track kind="captions" src="' + esc(captions) + '" srclang="en" label="English" default>' : '') +
-              'Your browser cannot play this video. <a href="' + esc(src) + '">Download the video</a>.' +
-            '</video>' +
-          '</div>' +
-          (m.caption ? '<figcaption><span>' + esc(m.caption) + '</span>' + (captions ? '<span class="coords">CC</span>' : '') + '</figcaption>' : '') +
-        '</figure></li>';
-      }).join('') + '</ul></div></section>';
-  }
-
-  function drawings(list) {
-    if (!list.length) return '';
-    var imgIndex = 0;
-    return '<section class="section section--alt" aria-labelledby="drawings-title"><div class="container">' +
-      '<div class="flex-between mb-7"><h2 class="h-xl" id="drawings-title">Drawings &amp; plans</h2><p class="coords mb-0">' + U.pad(list.length) + ' sheets</p></div>' +
-      '<ul class="drawings unstyled-list">' + list.map(function (m) {
-        var inner;
-        if (isPdf(m)) {
-          inner = '<a class="drawing-pdf" href="' + esc(U.safeUrl(m.media_url)) + '" target="_blank" rel="noopener noreferrer">' +
-            '<span class="label label--blue">' + esc(m.media_type === 'plan' ? 'Plan' : 'Drawing') + ' · PDF</span>' +
-            '<span class="h-md">' + esc(m.caption || m.alt_text || 'Open drawing') + '</span>' +
-            '<span class="link-arrow">Open PDF <span class="btn-arrow" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></span></a>';
-        } else {
-          inner = '<button type="button" class="gallery-btn" data-lb-group="drawings" data-lb-index="' + (imgIndex++) + '" aria-label="Enlarge ' + esc(m.alt_text || 'drawing') + '">' +
-            '<span class="media"><img src="' + esc(U.safeUrl(m.media_url)) + '" alt="' + esc(m.alt_text || '') + '" loading="lazy" decoding="async"></span></button>';
-        }
-        return '<li class="drawing-item"><figure>' + inner +
-          (m.caption && !isPdf(m) ? '<figcaption><span>' + esc(m.caption) + '</span><span class="coords">' + esc(m.media_type) + '</span></figcaption>' : '') +
-          '</figure></li>';
-      }).join('') + '</ul></div></section>';
-  }
-
-  function cta() {
-    return '<section class="cta-blue" aria-labelledby="cta-title"><div class="container cta-blue-inner">' +
-      '<p class="label mb-0">Start a conversation</p>' +
-      '<h2 class="cta-blue-title" id="cta-title" data-reveal="mask"><span class="line-mask"><span>Have a project</span></span><span class="line-mask"><span class="outline">in mind?</span></span></h2>' +
-      '<div class="cta-blue-foot"><p>Share a few details about your project with our Navi Mumbai or Pune office.</p>' +
-      '<a class="btn btn--light" href="contact.html">Start a conversation <span class="btn-arrow" aria-hidden="true">→</span></a></div></div></section>';
+    var html = pics.length ? figure(pics[0], 0, pics.length, true) : '';
+    var rest = pics.slice(1).map(function (m, i) { return figure(m, i + 1, pics.length, false); }).join('') +
+      vids.map(function (m) { return videoItem(m, p.title); }).join('');
+    if (rest) html += '<div class="pv-grid">' + rest + '</div>';
+    if (pdfs.length) html += '<div class="pv-pdfs">' + pdfs.map(pdfItem).join('') + '</div>';
+    return html;
   }
 
   /* ---------- Lightbox ---------- */
@@ -171,7 +85,7 @@
       img.src = U.safeUrl(m.media_url);
       img.alt = m.alt_text || '';
       cap.textContent = m.caption || m.alt_text || '';
-      count.textContent = (current.group === 'drawings' ? 'Drawing ' : 'Image ') + (current.index + 1) + ' of ' + list.length;
+      count.textContent = 'Image ' + (current.index + 1) + ' of ' + list.length;
       var single = list.length < 2;
       dlg.querySelector('[data-lb-prev]').hidden = single;
       dlg.querySelector('[data-lb-next]').hidden = single;
@@ -207,11 +121,7 @@
     SD.seo.setMeta({ title: 'Project not found | Space Design', noindex: true });
     $('[data-p-title]').textContent = 'Project not found.';
     $('[data-p-crumb]').textContent = 'Not found';
-    $('[data-p-hero]').innerHTML = '';
-    $('[data-p-body]').innerHTML = '<section class="section"><div class="container"><div class="empty-state">' +
-      '<h2 class="h-md">This project is not available.</h2>' +
-      '<p>It may have been moved, renamed or not yet published.</p>' +
-      '<a class="btn" href="portfolio.html">View projects <span class="btn-arrow" aria-hidden="true">→</span></a></div></div></section>';
+    $('[data-p-hero]').innerHTML = '<p class="pv-empty">This project may have been moved or not yet published. <a class="text-link" href="portfolio.html">View all projects</a>.</p>';
   }
 
   /* ---------- Main ---------- */
@@ -221,50 +131,15 @@
     var res = await SD.api.getProject(slug);
     if (res.error) {
       $('[data-p-title]').textContent = 'Project could not be loaded.';
-      $('[data-p-hero]').innerHTML = '';
-      $('[data-p-body]').innerHTML = '<section class="section"><div class="container"><div class="empty-state"><p>Please refresh the page in a moment, or <a class="text-link" href="portfolio.html">return to the portfolio</a>.</p></div></div></section>';
+      $('[data-p-hero]').innerHTML = '<p class="pv-empty">Please refresh the page in a moment, or <a class="text-link" href="portfolio.html">return to the projects</a>.</p>';
       return;
     }
     var p = res.data;
     if (!p) { notFound(); return; }
 
-    var media = p.media || [];
-    var images = media.filter(function (m) { return m.media_type === 'image'; });
-    var vids = media.filter(function (m) { return m.media_type === 'video'; });
-    if (p.featured_video) vids.sort(function (a) { return a.id === p.featured_video.id ? -1 : 0; });
-    var draws = media.filter(function (m) { return m.media_type === 'drawing' || m.media_type === 'plan'; });
-    groups.gallery = images;
-    groups.drawings = draws.filter(function (m) { return !isPdf(m); });
-
-    /* Header */
-    document.querySelector('[data-p-title]').textContent = p.title;
+    $('[data-p-title]').textContent = p.title;
     $('[data-p-crumb]').textContent = p.title;
-    $('[data-p-category]').textContent = [p.category, p.project_type].filter(Boolean).join(' · ') + (p.is_demo ? '  ·  DEMO' : '');
-    if (p.subtitle) { var st = $('[data-p-subtitle]'); st.textContent = p.subtitle; st.hidden = false; }
-    $('[data-p-meta]').innerHTML = [p.location, p.category, p.year].filter(Boolean).map(function (v) { return '<span>' + esc(v) + '</span>'; }).join('');
-    renderHero(p);
-
-    /* Body */
-    var n = 0;
-    function num(text) { if (text && String(text).trim()) n += 1; return U.pad(n); }
-    var sections = '';
-    sections += textSection(num(p.description || p.short_description), 'Project overview', p.description || p.short_description);
-    sections += textSection(num(p.concept), 'Concept', p.concept);
-    sections += textSection(num(p.design_approach), 'Design approach', p.design_approach);
-    sections += specSection(num(p.details), 'Project details', p.details);
-
-    var body = '<section class="section" aria-label="Project information"><div class="container">' +
-      (p.is_demo ? SD.ui.demoBanner() : '') + infoList(p) +
-      (sections ? '<div class="mt-8">' + sections + '</div>' : '') +
-      '</div></section>' +
-      gallery(images) + videos(vids, p.title) + drawings(draws) +
-      '<section class="section" aria-labelledby="related-title"><div class="container">' +
-        '<div class="flex-between mb-7"><h2 class="h-xl" id="related-title">Related projects</h2><a class="link-arrow" href="portfolio.html">All projects <span class="btn-arrow" aria-hidden="true">→</span></a></div>' +
-        '<div data-related-list></div></div></section>' +
-      cta();
-    $('[data-p-body]').innerHTML = body;
-    SD.motion.reveal(document);
-    SD.motion.lazyVideos(document);
+    $('[data-p-hero]').innerHTML = (p.is_demo ? SD.ui.demoBanner() : '') + showcase(p);
 
     /* SEO */
     var url = SD.seo.SITE + '/portfolio-detail.html?slug=' + encodeURIComponent(p.slug);
@@ -286,15 +161,6 @@
       SD.seo.organization()
     ], 'sd-project-jsonld');
 
-    /* Related */
-    var rel = await SD.api.relatedProjects(p.category, p.id, 4);
-    var holder = $('[data-related-list]');
-    if (!rel.data || !rel.data.length) {
-      holder.innerHTML = '<p class="related-empty">More projects will be published soon.</p>';
-    } else {
-      holder.innerHTML = '<div class="pf-grid">' + rel.data.map(SD.ui.portfolioCard).join('') + '</div>';
-      SD.motion.reveal(holder);
-    }
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

@@ -205,13 +205,11 @@
   function portfolioCard(p) {
     var m = p.featured_media;
     var href = 'portfolio-detail.html?slug=' + encodeURIComponent(p.slug);
-    var status = p.status ? '<span class="pf-badge pf-badge--' + esc(slugify(p.status)) + '">' + esc(p.status) + '</span>' : '';
     return '' +
       '<article class="pf-card" data-reveal>' +
         '<a class="pf-card-link" href="' + esc(href) + '">' +
           '<div class="pf-card-media ' + fitClass(m) + '">' +
             mediaThumb(m, { width: 640, sizes: '(max-width: 560px) 100vw, (max-width: 900px) 50vw, (max-width: 1200px) 33vw, 25vw' }) +
-            status +
             (p.is_demo ? '<span class="demo-tag">Demo · replace before launch</span>' : '') +
           '</div>' +
           '<div class="pf-card-body">' +

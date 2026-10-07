@@ -1,6 +1,6 @@
 /* =====================================================================
    SPACE DESIGN — Portfolio listing
-   Discipline tabs + status chips (combined), search, compact project
+   Discipline tabs, search, compact project
    cards in a four-column grid (SD.ui.portfolioCard), incremental loading.
    ===================================================================== */
 (function () {
@@ -10,9 +10,8 @@
 
   var PAGE_SIZE = 12; // three full rows of four cards
   var DISCIPLINES = ['Redevelopment', 'Architecture', 'Layout Planning', 'Planning', 'Interior Design', 'Project Management'];
-  var STATUSES = ['Completed', 'Ongoing', 'Proposed'];
 
-  var state = { all: [], filtered: [], cat: 'all', status: 'all', query: '', shown: 0, demo: false };
+  var state = { all: [], filtered: [], cat: 'all', query: '', shown: 0, demo: false };
   var els = {};
 
   function ordered(values, preferred) {
@@ -28,25 +27,16 @@
       U.esc(label) + '<sup aria-hidden="true">' + count + '</sup><span class="visually-hidden">, ' + count + ' projects</span></button>';
   }
 
-  /* Discipline tabs and status chips, built only from values actually used. */
+  /* Discipline tabs, built only from values actually used. */
   function buildFilters() {
-    var cat = {}, status = {};
-    state.all.forEach(function (p) {
-      if (p.category) cat[p.category] = (cat[p.category] || 0) + 1;
-      if (p.status && STATUSES.indexOf(p.status) > -1) status[p.status] = (status[p.status] || 0) + 1;
-    });
+    var cat = {};
+    state.all.forEach(function (p) { if (p.category) cat[p.category] = (cat[p.category] || 0) + 1; });
     els.filters.innerHTML = filterBtn('cat', 'all', 'All projects', state.all.length, true) +
       ordered(Object.keys(cat), DISCIPLINES).map(function (v) { return filterBtn('cat', U.slugify(v), v, cat[v], false); }).join('');
-    var keys = ordered(Object.keys(status), STATUSES);
-    els.statuses.innerHTML = keys.length
-      ? '<span class="status-filter-label" aria-hidden="true">Status</span>' + filterBtn('status', 'all', 'Any', state.all.length, true) +
-        keys.map(function (v) { return filterBtn('status', U.slugify(v), v, status[v], false); }).join('')
-      : '';
   }
 
   function matches(p) {
     if (state.cat !== 'all' && U.slugify(p.category || '') !== state.cat) return false;
-    if (state.status !== 'all' && U.slugify(p.status || '') !== state.status) return false;
     if (state.query) {
       var hay = [p.title, p.subtitle, p.location, p.category, p.project_type, p.status, p.client].filter(Boolean).join(' ').toLowerCase();
       return state.query.split(/\s+/).every(function (term) { return hay.indexOf(term) !== -1; });
@@ -97,18 +87,17 @@
   function syncUrl() {
     var params = new URLSearchParams(window.location.search);
     if (state.cat !== 'all') params.set('filter', state.cat); else params.delete('filter');
-    if (state.status !== 'all') params.set('status', state.status); else params.delete('status');
+    params.delete('status');
     if (state.query) params.set('q', state.query); else params.delete('q');
     var qs = params.toString();
     window.history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : ''));
   }
 
-  function setFilter(group, key, animate) {
-    var box = group === 'status' ? els.statuses : els.filters;
-    var exists = box.querySelector('[data-filter="' + CSS.escape(key) + '"]');
-    state[group] = exists ? key : 'all';
-    box.querySelectorAll('.filter-btn').forEach(function (b) {
-      b.setAttribute('aria-pressed', b.getAttribute('data-filter') === state[group] ? 'true' : 'false');
+  function setFilter(key, animate) {
+    var exists = els.filters.querySelector('[data-filter="' + CSS.escape(key) + '"]');
+    state.cat = exists ? key : 'all';
+    els.filters.querySelectorAll('.filter-btn').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-filter') === state.cat ? 'true' : 'false');
     });
     render(animate);
     syncUrl();
@@ -118,7 +107,6 @@
     els.grid = document.querySelector('[data-portfolio-grid]');
     if (!els.grid) return;
     els.filters = document.querySelector('[data-filters]');
-    els.statuses = document.querySelector('[data-status-filters]');
     els.search = document.querySelector('[data-search]');
     els.more = document.querySelector('[data-load-more]');
     els.count = document.querySelector('[data-count]');
@@ -143,16 +131,11 @@
 
     state.query = (U.param('q') || '').toLowerCase().slice(0, 80).trim();
     if (state.query) els.search.value = state.query;
-    var st = U.param('status');
-    if (st && els.statuses.querySelector('[data-filter="' + CSS.escape(st) + '"]')) state.status = st;
-    setFilter('status', state.status, false);
-    setFilter('cat', U.param('filter') || 'all', false);
+    setFilter(U.param('filter') || 'all', false);
 
-    [els.filters, els.statuses].forEach(function (box) {
-      box.addEventListener('click', function (e) {
-        var btn = e.target.closest('.filter-btn');
-        if (btn) setFilter(btn.getAttribute('data-group'), btn.getAttribute('data-filter'), true);
-      });
+    els.filters.addEventListener('click', function (e) {
+      var btn = e.target.closest('.filter-btn');
+      if (btn) setFilter(btn.getAttribute('data-filter'), true);
     });
     els.search.addEventListener('input', U.debounce(function () {
       state.query = els.search.value.toLowerCase().trim();
@@ -166,7 +149,7 @@
       if (link) link.focus({ preventScroll: false });
     });
     els.grid.addEventListener('click', function (e) {
-      if (e.target.closest('[data-reset]')) { els.search.value = ''; state.query = ''; setFilter('status', 'all', false); setFilter('cat', 'all', true); }
+      if (e.target.closest('[data-reset]')) { els.search.value = ''; state.query = ''; setFilter('all', true); }
     });
   }
 
