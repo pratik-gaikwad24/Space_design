@@ -40,13 +40,13 @@
       var list = all.filter(function (p) {
         var sv = p.services || [];
         return p.category === cat || sv.indexOf(cat) > -1 || sv.indexOf(cat + ' Consultancy') > -1;
-      }).slice(0, 3);
+      }).slice(0, 4);
       var body = wrap.querySelector('.related-body');
       if (!list.length) {
         body.innerHTML = '<p class="related-empty">Projects for this service will be published here.</p>';
         return;
       }
-      body.innerHTML = '<div class="related-list">' + list.map(function (p, i) { return SD.ui.projectCard(p, i, 's', ''); }).join('') + '</div>';
+      body.innerHTML = '<div class="pf-grid">' + list.map(SD.ui.portfolioCard).join('') + '</div>';
       SD.motion.reveal(body);
     });
   }

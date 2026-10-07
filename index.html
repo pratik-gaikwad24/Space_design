@@ -7,7 +7,7 @@
 <meta name="description" content="Space Design: architects, planners and project management consultants specialising in housing-society redevelopment. 30 years of experience, 125+ redevelopment projects completed, offices in Vashi, Navi Mumbai and Shivaji Nagar, Pune.">
 <link rel="canonical" href="https://your-domain.com/">
 <meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#0E2436">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Space Design">
 <meta property="og:locale" content="en_IN">
@@ -24,9 +24,10 @@
 <meta name="twitter:image" content="https://your-domain.com/assets/img/og-default.jpg">
 <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
 <link rel="preload" as="image" href="assets/img/projects/tagore-nagar-building-18.webp" fetchpriority="high">
-<link rel="preload" href="assets/fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/theme.css">
 <link rel="stylesheet" href="css/accessibility.css">
 <script src="js/boot.js"></script>
 <script type="application/ld+json">
@@ -119,7 +120,7 @@
 }
 </script>
 </head>
-<body data-page="home">
+<body data-page="home" class="has-overlay-header">
 <!-- PARTIAL:header -->
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="scroll-progress" aria-hidden="true"><span></span></div>
@@ -135,13 +136,15 @@
     <nav class="primary-nav" aria-label="Primary">
       <ul>
         <li><a href="index.html" aria-current="page">Home</a></li>
-        <li><a href="about.html">About</a></li>
+        <li><a href="about.html">About Us</a></li>
         <li><a href="services.html">Services</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="portfolio.html">Projects</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
-    <a class="btn btn--sm header-cta" href="contact.html">Start a conversation <span class="btn-arrow" aria-hidden="true">→</span></a>
+    <a class="header-icon" href="tel:+919833175033" aria-label="Call Space Design: 98331 75033">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5.2 3.8h3.1l1.6 4.1-2.1 1.3a11.2 11.2 0 0 0 5 5l1.3-2.1 4.1 1.6v3.1a2 2 0 0 1-2 2A15.6 15.6 0 0 1 3.2 5.8a2 2 0 0 1 2-2z"/></svg>
+    </a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
       <span class="menu-toggle-label" data-menu-label>Menu</span>
       <span class="menu-toggle-icon" aria-hidden="true"><i></i><i></i></span>
@@ -152,291 +155,150 @@
 <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile" hidden data-mobile-menu>
   <ul class="mobile-menu-list">
     <li><a href="index.html" aria-current="page"><span>01</span>Home</a></li>
-    <li><a href="about.html"><span>02</span>About</a></li>
+    <li><a href="about.html"><span>02</span>About Us</a></li>
     <li><a href="services.html"><span>03</span>Services</a></li>
-    <li><a href="portfolio.html"><span>04</span>Portfolio</a></li>
+    <li><a href="portfolio.html"><span>04</span>Projects</a></li>
     <li><a href="contact.html"><span>05</span>Contact</a></li>
   </ul>
   <div class="mobile-menu-foot">
     <div>
-      <p class="label label--blue mb-4">Navi Mumbai</p>
+      <p class="label mb-4">Navi Mumbai</p>
       <a href="tel:+912246043901">022-46043901</a>
     </div>
     <div>
-      <p class="label label--blue mb-4">Pune</p>
+      <p class="label mb-4">Pune</p>
       <a href="tel:+912029910526">020-29910526</a>
     </div>
-    <a class="btn" href="contact.html">Start a conversation <span class="btn-arrow" aria-hidden="true">→</span></a>
+    <a class="btn" href="contact.html">Get in touch <span class="btn-arrow" aria-hidden="true">→</span></a>
   </div>
 </nav>
 <!-- /PARTIAL:header -->
 
 <main id="main" tabindex="-1">
+  <h1 class="visually-hidden">Space Design: architects, planners, interior designers and redevelopment project management consultants in Navi Mumbai and Pune</h1>
 
-  <!-- ============ HERO ============ -->
-  <section class="hero" aria-labelledby="hero-title" data-hero>
-    <div class="hero-grid-lines" aria-hidden="true"></div>
-    <p class="hero-vertical" aria-hidden="true">Architects · Planners · Interior Designers · Project Management Consultant</p>
-
-    <div class="hero-copy">
-      <p class="label label--muted hero-fade hero-fade--1">Space Design · Architects · Planners · Interior Designers</p>
-      <h1 class="hero-title" id="hero-title">
-        <span class="line-mask"><span>Designing</span></span>
-        <span class="line-mask"><span>spaces.</span></span>
-        <span class="line-mask"><span class="muted">Shaping</span></span>
-        <span class="line-mask"><span class="muted">experiences.</span></span>
-      </h1>
-      <p class="hero-intro hero-fade hero-fade--2">Architects, planners and project management consultants specialising in housing-society redevelopment across Mumbai and Navi Mumbai, from offices in Vashi and Pune.</p>
-      <div class="hero-ctas hero-fade hero-fade--3">
-        <a class="btn" href="portfolio.html">View our projects <span class="btn-arrow" aria-hidden="true">→</span></a>
-        <a class="link-arrow" href="contact.html">Start a conversation <span class="btn-arrow" aria-hidden="true">→</span></a>
-      </div>
-    </div>
-
-    <div class="hero-media">
-      <div class="media fit-sky" data-hero-media>
-        <img src="assets/img/projects/tagore-nagar-building-18.webp" alt="Rendering of a residential tower with angular facade, Building No. 18, Tagore Nagar, Vikhroli" width="532" height="900" fetchpriority="high" decoding="async" data-hero-img>
-      </div>
-      <div class="hero-media-meta hero-fade hero-fade--2">
-        <span class="dot" aria-hidden="true"></span>
-        <span class="label">Navi Mumbai · Pune</span>
-      </div>
-    </div>
-
-    <div class="hero-foot">
-      <div class="hero-line" aria-hidden="true"><span class="hero-line-tag">SD · 1:100</span></div>
-      <p class="hero-years mb-0 hero-fade hero-fade--2"><strong>30</strong><span>Years<br>of experience</span></p>
-      <a class="scroll-cue hero-fade hero-fade--3" href="#studio"><span>Scroll</span><span class="scroll-cue-line" aria-hidden="true"></span></a>
-    </div>
-  </section>
-
-  <!-- ============ 30 YEARS / INTRODUCTION ============ -->
-  <section class="section section--dark years" id="studio" aria-labelledby="years-title">
-    <div class="container">
-      <div class="years-top">
-        <p class="index mb-0" data-reveal>01</p>
-        <p class="coords mb-0" data-reveal>19.08° N 73.00° E · 18.53° N 73.85° E</p>
-      </div>
-      <div class="grid-12 years-grid">
-        <div class="years-figure">
-          <p class="years-number mb-0" aria-hidden="true" data-reveal>3<span class="blue">0</span></p>
-          <h2 class="years-heading" id="years-title" data-reveal data-delay="150">
-            <span class="visually-hidden">30 </span>Years<br>of designing<br><span class="serif-accent">spaces</span>
-          </h2>
+  <!-- ============ HERO SLIDER ============ -->
+  <section class="hero-slider" aria-roledescription="carousel" aria-label="Featured projects" data-slider>
+    <div class="hero-slides" data-slides>
+      <article class="hero-slide is-active" aria-roledescription="slide" aria-label="1 of 5">
+        <div class="hero-slide-bg bg-tagore-nagar-building-18" aria-hidden="true"></div>
+        <div class="container hero-slide-caption">
+          <p class="hero-slide-loc">Tagore Nagar, Vikhroli · Mumbai</p>
+          <h2 class="hero-slide-title">Building No. 18, Tagore Nagar</h2>
+          <p class="hero-slide-sub">Three-wing redevelopment with a parking tower</p>
+          <a class="btn-frame btn-frame--light btn-draw" href="portfolio-detail.html?slug=tagore-nagar-building-18">Explore it<span class="visually-hidden">: Building No. 18, Tagore Nagar</span></a>
         </div>
-        <div class="years-copy" data-reveal data-delay="300">
-          <p>Lead by Ar. Milind Fulzele, Space Design is a project management consultancy specialising in housing-society redevelopment. It works independently of developers, so that every decision is made in the society’s interest, and provides detailed feasibility reports to help societies assess their redevelopment potential.</p>
-          <a class="link-arrow" href="about.html">About the studio <span class="btn-arrow" aria-hidden="true">→</span></a>
+      </article>
+      <article class="hero-slide" aria-roledescription="slide" aria-label="2 of 5">
+        <div class="hero-slide-bg bg-pragati-icon" aria-hidden="true"></div>
+        <div class="container hero-slide-caption">
+          <p class="hero-slide-loc">Pant Nagar, Ghatkopar · Mumbai</p>
+          <h2 class="hero-slide-title">Pragati Icon</h2>
+          <p class="hero-slide-sub">Redevelopment of Building No. 33, Pant Nagar</p>
+          <a class="btn-frame btn-frame--light btn-draw" href="portfolio-detail.html?slug=pragati-icon">Explore it<span class="visually-hidden">: Pragati Icon</span></a>
         </div>
-        <dl class="stat-list" aria-label="Space Design in figures">
-          <div data-reveal><dt>Years of experience</dt><dd>30</dd></div>
-          <div data-reveal data-delay="100"><dt>Redevelopment projects completed</dt><dd>125<span>+</span></dd></div>
-          <div data-reveal data-delay="200"><dt>Clients served</dt><dd>1,000<span>+</span></dd></div>
-          <div data-reveal data-delay="300"><dt>MHADA boards, Grade 1 empanelment</dt><dd>04</dd></div>
-        </dl>
-      </div>
+      </article>
+      <article class="hero-slide" aria-roledescription="slide" aria-label="3 of 5">
+        <div class="hero-slide-bg bg-haware-legacy" aria-hidden="true"></div>
+        <div class="container hero-slide-caption">
+          <p class="hero-slide-loc">Dindoshi, Malad · Mumbai</p>
+          <h2 class="hero-slide-title">Haware Legacy</h2>
+          <p class="hero-slide-sub">Redevelopment of Building No. 16, Dindoshi</p>
+          <a class="btn-frame btn-frame--light btn-draw" href="portfolio-detail.html?slug=haware-legacy">Explore it<span class="visually-hidden">: Haware Legacy</span></a>
+        </div>
+      </article>
+      <article class="hero-slide" aria-roledescription="slide" aria-label="4 of 5">
+        <div class="hero-slide-bg bg-pant-nagar-building-3" aria-hidden="true"></div>
+        <div class="container hero-slide-caption">
+          <p class="hero-slide-loc">Pant Nagar, Ghatkopar · Mumbai</p>
+          <h2 class="hero-slide-title">Building No. 3, Pant Nagar</h2>
+          <p class="hero-slide-sub">Mixed-use redevelopment with shops and a parking tower</p>
+          <a class="btn-frame btn-frame--light btn-draw" href="portfolio-detail.html?slug=pant-nagar-building-3">Explore it<span class="visually-hidden">: Building No. 3, Pant Nagar</span></a>
+        </div>
+      </article>
+      <article class="hero-slide" aria-roledescription="slide" aria-label="5 of 5">
+        <div class="hero-slide-bg bg-vp-realty-tagore-nagar" aria-hidden="true"></div>
+        <div class="container hero-slide-caption">
+          <p class="hero-slide-loc">Tagore Nagar, Vikhroli · Mumbai</p>
+          <h2 class="hero-slide-title">Building No. 38, Tagore Nagar</h2>
+          <p class="hero-slide-sub">Redevelopment for V.P. Realty</p>
+          <a class="btn-frame btn-frame--light btn-draw" href="portfolio-detail.html?slug=vp-realty-tagore-nagar">Explore it<span class="visually-hidden">: Building No. 38, Tagore Nagar</span></a>
+        </div>
+      </article>
+    </div>
+
+    <button type="button" class="slider-arrow slider-arrow--prev" data-slide-prev aria-label="Previous slide"><span aria-hidden="true"></span></button>
+    <button type="button" class="slider-arrow slider-arrow--next" data-slide-next aria-label="Next slide"><span aria-hidden="true"></span></button>
+
+    <div class="hero-slider-bar container">
+      <p class="hero-slider-count mb-0" aria-hidden="true"><strong data-slide-current>01</strong><span class="hero-slider-progress"><i data-slide-progress></i></span>05</p>
+      <button type="button" class="slider-pause" data-slide-pause aria-label="Pause slideshow" aria-pressed="false"><span aria-hidden="true" data-pause-icon>❚❚</span></button>
     </div>
   </section>
 
-  <!-- ============ SERVICES ============ -->
-  <section class="section" id="services" aria-labelledby="services-title">
-    <div class="container">
-      <div class="section-head">
-        <div class="section-head-title">
-          <p class="index" data-reveal>02</p>
-          <h2 class="h-xl" id="services-title" data-reveal>Redevelopment,<br><span class="muted">end to end.</span></h2>
-        </div>
-        <div class="section-head-aside" data-reveal data-delay="150">
-          <p>Project management consultancy, architecture, planning and interior design, from one team in Navi Mumbai and Pune.</p>
-          <a class="link-arrow" href="services.html">All services <span class="btn-arrow" aria-hidden="true">→</span></a>
-        </div>
-      </div>
-
-      <div class="service-rows">
-        <article class="service-row grid-12" aria-labelledby="svc-pmc">
-          <div class="service-text" data-reveal>
-            <span class="service-num" aria-hidden="true">01</span>
-            <h3 class="service-title" id="svc-pmc">Redevelopment PMC</h3>
-            <p>Independent project management consultancy for housing societies: feasibility, member consultation, developer selection, approvals and site monitoring through to handover.</p>
-            <a class="link-arrow" href="services.html#project-management">View service <span class="btn-arrow" aria-hidden="true">→</span><span class="visually-hidden">: Project Management Consultancy</span></a>
-          </div>
-          <figure class="service-media">
-            <div class="media zoom-on-hover fit-sky" data-reveal="image">
-              <img src="assets/img/projects/pant-nagar-building-3.webp" alt="" width="617" height="970" loading="lazy" decoding="async">
-            </div>
-            <figcaption class="service-media-caption"><span class="label label--muted">Building No. 3, Pant Nagar</span><span class="coords">01 / 04</span></figcaption>
-          </figure>
-        </article>
-
-        <article class="service-row grid-12" aria-labelledby="svc-arch">
-          <div class="service-text" data-reveal>
-            <span class="service-num" aria-hidden="true">02</span>
-            <h3 class="service-title" id="svc-arch">Architecture</h3>
-            <p>Architecture for redevelopment and new buildings, known for smart, efficient and affordable space planning that makes the most of every plot.</p>
-            <a class="link-arrow" href="services.html#architecture">View service <span class="btn-arrow" aria-hidden="true">→</span><span class="visually-hidden">: Architecture</span></a>
-          </div>
-          <figure class="service-media">
-            <div class="media zoom-on-hover fit-sky" data-reveal="image">
-              <img src="assets/img/projects/pragati-icon.webp" alt="" width="639" height="928" loading="lazy" decoding="async">
-            </div>
-            <figcaption class="service-media-caption"><span class="label label--muted">Pragati Icon, Pant Nagar</span><span class="coords">02 / 04</span></figcaption>
-          </figure>
-        </article>
-
-        <article class="service-row grid-12" aria-labelledby="svc-plan">
-          <div class="service-text" data-reveal>
-            <span class="service-num" aria-hidden="true">03</span>
-            <h3 class="service-title" id="svc-plan">Planning</h3>
-            <p>MHADA layout planning and layout revisions, organising housing, roads, amenities and open space across large sites.</p>
-            <a class="link-arrow" href="services.html#planning">View service <span class="btn-arrow" aria-hidden="true">→</span><span class="visually-hidden">: Planning</span></a>
-          </div>
-          <figure class="service-media">
-            <div class="media zoom-on-hover fit-white" data-reveal="image">
-              <img src="assets/img/projects/maharshi-nagar-layout.webp" alt="" width="1600" height="1200" loading="lazy" decoding="async">
-            </div>
-            <figcaption class="service-media-caption"><span class="label label--muted">Maharshi Nagar layout, Pune</span><span class="coords">03 / 04</span></figcaption>
-          </figure>
-        </article>
-
-        <article class="service-row grid-12" aria-labelledby="svc-int">
-          <div class="service-text" data-reveal>
-            <span class="service-num" aria-hidden="true">04</span>
-            <h3 class="service-title" id="svc-int">Interior Design</h3>
-            <p>Interiors that bring together space, light, material and detail, planned around how each space will be lived in or worked in.</p>
-            <a class="link-arrow" href="services.html#interior-design">View service <span class="btn-arrow" aria-hidden="true">→</span><span class="visually-hidden">: Interior Design</span></a>
-          </div>
-          <figure class="service-media">
-            <div class="media zoom-on-hover" data-reveal="image">
-              <img src="assets/img/placeholders/interiors.svg" alt="" width="1600" height="1100" loading="lazy" decoding="async">
-              <span class="demo-tag">Illustration · replace with interior photography</span>
-            </div>
-            <figcaption class="service-media-caption"><span class="label label--muted">Interior Design</span><span class="coords">04 / 04</span></figcaption>
-          </figure>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SELECTED WORK (Supabase) ============ -->
-  <section class="section section--alt" id="work" aria-labelledby="work-title">
-    <div class="container">
-      <div class="section-head">
-        <div class="section-head-title">
-          <p class="index" data-reveal>03</p>
-          <h2 class="h-xl" id="work-title" data-reveal>Selected work</h2>
-        </div>
-        <div class="section-head-aside" data-reveal data-delay="150">
-          <p class="mb-0">Redevelopment and layout projects across Ghatkopar, Vikhroli, Malad, Pune and Kalyan.</p>
-        </div>
-      </div>
-      <div class="work-grid" data-featured-projects aria-busy="true">
-        <div class="project-card work-lead"><div class="project-card-media skeleton"></div></div>
-        <div class="project-card work-side"><div class="project-card-media skeleton"></div></div>
-        <div class="project-card work-side"><div class="project-card-media skeleton"></div></div>
-      </div>
-      <div class="work-foot">
-        <p class="label label--muted mb-0" data-work-count>Selected work</p>
-        <a class="btn btn--ghost" href="portfolio.html">View all projects <span class="btn-arrow" aria-hidden="true">→</span></a>
-      </div>
-      <div class="mt-7" data-demo-banner hidden></div>
-    </div>
-  </section>
-
-  <!-- ============ HOW WE WORK (redevelopment PMC) ============ -->
-  <section class="section" id="process" aria-labelledby="process-title">
-    <div class="container">
-      <div class="section-head">
-        <div class="section-head-title">
-          <p class="index" data-reveal>04</p>
-          <h2 class="h-xl" id="process-title" data-reveal>How we work</h2>
-        </div>
-        <div class="section-head-aside" data-reveal data-delay="150">
-          <p class="mb-0">Seven stages of redevelopment, from the society’s first decision to handover, with Space Design working for the society and independently of developers.</p>
-        </div>
-      </div>
-      <ol class="steps unstyled-list">
-          <li data-reveal data-delay="0"><span class="step-no">01</span><h3>Society appointment</h3><p>The society appoints Space Design as PMC for redevelopment guidance.</p></li>
-          <li data-reveal data-delay="80"><span class="step-no">02</span><h3>Property study &amp; feasibility</h3><p>Land potential, FSI, applicable rules and project feasibility are assessed.</p></li>
-          <li data-reveal data-delay="160"><span class="step-no">03</span><h3>Member consultation</h3><p>Benefits and requirements are explained to members, and their inputs collected.</p></li>
-          <li data-reveal data-delay="240"><span class="step-no">04</span><h3>Tender &amp; developer selection</h3><p>Offers are invited and compared, and the society is helped to select the right developer.</p></li>
-          <li data-reveal data-delay="0"><span class="step-no">05</span><h3>Agreement &amp; approvals</h3><p>Support with legal documentation, planning and government approvals.</p></li>
-          <li data-reveal data-delay="80"><span class="step-no">06</span><h3>Project monitoring</h3><p>Quality, timelines, construction progress and transparency are supervised.</p></li>
-          <li data-reveal data-delay="160"><span class="step-no">07</span><h3>Handover &amp; completion</h3><p>Proper possession, amenities and completion are ensured for every member.</p></li>
-          <li class="steps-cta" data-reveal data-delay="240"><span class="step-no">Next step</span><h3>Planning a redevelopment?</h3><a class="link-arrow" href="contact.html?type=Society%20Redevelopment%20(PMC)">Talk to us <span class="btn-arrow" aria-hidden="true">→</span></a></li>
-      </ol>
-      <div class="empanel" data-reveal>
-        <div class="empanel-head">
-          <p class="label label--blue mb-0">Empanelment</p>
-          <h3 class="h-md">MHADA Grade 1 · Layout architect · Self-redevelopment PMC</h3>
-        </div>
-        <ul class="empanel-list unstyled-list">
-          <li><span class="label label--muted">MHADA boards, Grade 1</span>Mumbai · Pune · Konkan · Amravati</li>
-          <li><span class="label label--muted">MHADA layout architect</span>Maharshi Nagar, Pune · Saint Tukaram Nagar, Pune · Titwala, Thane · S.A. Patil Nagar, Ambernath · Morivali, Ambernath</li>
-          <li><span class="label label--muted">PMC for self-redevelopment</span>Mumbai District Central Co-op. Bank Ltd.</li>
+  <!-- ============ ABOUT ============ -->
+  <section class="apa-section" id="studio" aria-labelledby="about-title">
+    <div class="container about-split">
+      <figure class="about-split-media" data-reveal="image">
+        <img src="assets/img/projects/pragati-reventa.webp" alt="Rendering of Pragati Reventa, Building No. 48, Pant Nagar, Ghatkopar" width="565" height="940" loading="lazy" decoding="async">
+      </figure>
+      <div class="about-split-copy" data-reveal>
+        <p class="kicker">About Space Design</p>
+        <h2 class="apa-title" id="about-title">30 years of designing spaces for housing societies</h2>
+        <p>Led by Ar. Milind Fulzele, Space Design is a project management consultancy specialising in housing-society redevelopment. It works independently of developers, so that every decision is made in the society’s interest, and provides detailed feasibility reports to help societies assess their redevelopment potential.</p>
+        <ul class="about-disciplines unstyled-list" aria-label="Services">
+          <li><a href="services.html#project-management">Redevelopment PMC</a></li>
+          <li><a href="services.html#architecture">Architecture</a></li>
+          <li><a href="services.html#planning">Planning</a></li>
+          <li><a href="services.html#interior-design">Interior Design</a></li>
         </ul>
+        <a class="btn-frame" href="about.html">Read more<span class="visually-hidden"> about Space Design</span></a>
       </div>
     </div>
   </section>
 
-  <!-- ============ OFFICES ============ -->
-  <section class="section section--alt" id="offices" aria-labelledby="offices-title">
+  <!-- ============ STATS ============ -->
+  <section class="stats-band" aria-label="Space Design in figures">
     <div class="container">
-      <div class="section-head">
-        <div class="section-head-title">
-          <p class="index" data-reveal>05</p>
-          <h2 class="h-xl" id="offices-title" data-reveal>Two offices.<br><span class="muted">Navi Mumbai &amp; Pune.</span></h2>
-        </div>
+      <dl class="stats-grid">
+        <div data-reveal><dt>Years of experience</dt><dd><span data-count="30">30</span></dd></div>
+        <div data-reveal data-delay="100"><dt>Redevelopment projects</dt><dd><span data-count="125">125</span>+</dd></div>
+        <div data-reveal data-delay="200"><dt>Clients served</dt><dd><span data-count="1000">1,000</span>+</dd></div>
+        <div data-reveal data-delay="300"><dt>MHADA boards, Grade 1</dt><dd><span data-count="4" data-pad="2">04</span></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED WORKS (Supabase / built-in data) ============ -->
+  <section class="apa-section apa-section--grey" id="work" aria-labelledby="work-title">
+    <div class="container">
+      <div class="apa-heading apa-heading--center">
+        <p class="kicker">Portfolio</p>
+        <h2 class="apa-title" id="work-title">Featured Works</h2>
       </div>
-      <div class="offices">
-        <article class="office" data-reveal aria-labelledby="office-nm">
-          <div class="office-head"><p class="label label--blue mb-0">01 · Head Office</p><p class="coords mb-0">Vashi · 400 703</p></div>
-          <h3 class="office-city" id="office-nm">Navi<br>Mumbai</h3>
-          <address>
-            Office No. 1101 &amp; 1108, 11th Floor, Satra Plaza,<br>
-            Plot No. 19 &amp; 20, Palm Beach Road,<br>
-            Sector – 19D, Vashi,<br>
-            Navi Mumbai – 400 703
-          </address>
-          <dl class="office-contacts">
-            <div><dt class="label label--muted">Phone</dt><dd><a href="tel:+912246043901">022-46043901</a><a href="tel:+912245003902">022-45003902</a></dd></div>
-            <div><dt class="label label--muted">Mobile</dt><dd><a href="tel:+919833175033">98331 75033</a><a href="tel:+919869076963">98690 76963</a></dd></div>
-            <div><dt class="label label--muted">Email</dt><dd><a href="mailto:spacedesign@rediffmail.com">spacedesign@rediffmail.com</a><a href="mailto:spacedesign1108@gmail.com">spacedesign1108@gmail.com</a></dd></div>
-          </dl>
-          <a class="link-arrow" href="https://www.google.com/maps/search/?api=1&amp;query=Satra+Plaza+Palm+Beach+Road+Sector+19D+Vashi+Navi+Mumbai+400703" target="_blank" rel="noopener noreferrer">View location on map <span class="btn-arrow" aria-hidden="true">↗</span><span class="visually-hidden"> (Navi Mumbai office, opens in a new tab)</span></a>
-        </article>
-        <article class="office" data-reveal data-delay="150" aria-labelledby="office-pn">
-          <div class="office-head"><p class="label label--blue mb-0">02 · Branch Office</p><p class="coords mb-0">Shivaji Nagar · 411 005</p></div>
-          <h3 class="office-city" id="office-pn">Pune</h3>
-          <address>
-            Office No. 504, 5th Floor, “Conclave”,<br>
-            CTS No. 1701/B, F.P. No. 100,<br>
-            Bhamburda, Shivaji Nagar,<br>
-            Pune – 411 005
-          </address>
-          <dl class="office-contacts">
-            <div><dt class="label label--muted">Phone</dt><dd><a href="tel:+912029910526">020-29910526</a></dd></div>
-            <div><dt class="label label--muted">Mobile</dt><dd><a href="tel:+919833175033">98331 75033</a></dd></div>
-            <div><dt class="label label--muted">Email</dt><dd><a href="mailto:spacedesign504@gmail.com">spacedesign504@gmail.com</a></dd></div>
-          </dl>
-          <a class="link-arrow" href="https://www.google.com/maps/search/?api=1&amp;query=Conclave+Shivaji+Nagar+Pune+411005" target="_blank" rel="noopener noreferrer">View location on map <span class="btn-arrow" aria-hidden="true">↗</span><span class="visually-hidden"> (Pune office, opens in a new tab)</span></a>
-        </article>
+      <div class="pf-grid" data-works-grid aria-busy="true">
+        <div class="pf-card"><div class="pf-card-media skeleton"></div></div>
+        <div class="pf-card"><div class="pf-card-media skeleton"></div></div>
+        <div class="pf-card"><div class="pf-card-media skeleton"></div></div>
+        <div class="pf-card"><div class="pf-card-media skeleton"></div></div>
+      </div>
+      <div class="works-foot">
+        <button type="button" class="btn-frame" data-works-more hidden>Load more</button>
+        <a class="btn-frame" href="portfolio.html" data-works-all hidden>View all projects</a>
       </div>
     </div>
   </section>
 
-  <!-- ============ FINAL CTA ============ -->
-  <section class="cta-blue" aria-labelledby="cta-title">
-    <p class="cta-blue-mark" aria-hidden="true">400 703 · 411 005</p>
-    <div class="container cta-blue-inner">
-      <p class="label mb-0">06 · Start a conversation</p>
-      <h2 class="cta-blue-title" id="cta-title" data-reveal="mask">
-        <span class="line-mask"><span>Have a project</span></span>
-        <span class="line-mask"><span class="outline">in mind?</span></span>
-      </h2>
-      <div class="cta-blue-foot">
-        <p>Share a few details about your project with our Navi Mumbai or Pune office.</p>
-        <a class="btn btn--light" href="contact.html">Start a conversation <span class="btn-arrow" aria-hidden="true">→</span></a>
+  <!-- ============ TESTIMONIALS ============
+       Hidden until real quotes are added to TESTIMONIALS in js/home.js. -->
+  <section class="apa-section testimonials" aria-labelledby="testimonials-title" data-testimonials hidden>
+    <div class="container">
+      <div class="apa-heading">
+        <p class="kicker">Testimonials</p>
+        <h2 class="apa-title" id="testimonials-title">What societies say</h2>
       </div>
+      <div class="testimonial-track" data-testimonial-track></div>
+      <div class="testimonial-dots" data-testimonial-dots></div>
     </div>
   </section>
 </main>
@@ -444,14 +306,6 @@
 <!-- PARTIAL:footer -->
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-signature">
-      <p class="footer-tagline">Designing spaces.<br><span class="serif-accent">Shaping experiences.</span></p>
-      <div class="footer-signature-aside">
-        <p class="footer-meta"><span>30 years of experience</span><span>Navi Mumbai · Pune</span></p>
-        <a class="btn btn--light" href="contact.html">Start a conversation <span class="btn-arrow" aria-hidden="true">→</span></a>
-      </div>
-    </div>
-
     <div class="footer-grid">
       <div class="footer-brand">
         <a class="brand" href="index.html" aria-label="Space Design, home">
@@ -462,6 +316,7 @@
           </span>
         </a>
         <p>Project management consultancy for housing-society redevelopment, with architecture, planning and interiors. 30 years of experience. MHADA Grade 1 empanelled. Led by Ar. Milind Fulzele.</p>
+        <a class="btn btn--light btn--sm" href="contact.html">Get in touch <span class="btn-arrow" aria-hidden="true">→</span></a>
       </div>
 
       <div class="footer-col footer-col--office">
@@ -496,12 +351,12 @@
       </div>
 
       <nav class="footer-col" aria-label="Footer">
-        <h2>Studio</h2>
+        <h2>Explore</h2>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="about.html">About Us</a></li>
           <li><a href="services.html">Services</a></li>
-          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="portfolio.html">Projects</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>

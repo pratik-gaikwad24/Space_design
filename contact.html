@@ -7,7 +7,7 @@
 <meta name="description" content="Contact Space Design, architects, planners and interior designers. Head office in Vashi, Navi Mumbai; branch office in Shivaji Nagar, Pune. Phone, email and enquiry form.">
 <link rel="canonical" href="https://your-domain.com/contact.html">
 <meta name="robots" content="index, follow">
-<meta name="theme-color" content="#0D1115">
+<meta name="theme-color" content="#0E2436">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Space Design">
 <meta property="og:locale" content="en_IN">
@@ -17,9 +17,10 @@
 <meta property="og:image" content="https://your-domain.com/assets/img/og-default.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="assets/fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/theme.css">
 <link rel="stylesheet" href="css/accessibility.css">
 <script src="js/boot.js"></script>
 <script type="application/ld+json">
@@ -59,7 +60,7 @@
 }
 </script>
 </head>
-<body data-page="contact">
+<body data-page="contact" class="has-overlay-header">
 <!-- PARTIAL:header -->
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="scroll-progress" aria-hidden="true"><span></span></div>
@@ -75,13 +76,15 @@
     <nav class="primary-nav" aria-label="Primary">
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
+        <li><a href="about.html">About Us</a></li>
         <li><a href="services.html">Services</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="portfolio.html">Projects</a></li>
         <li><a href="contact.html" aria-current="page">Contact</a></li>
       </ul>
     </nav>
-    <a class="btn btn--sm header-cta" href="contact.html">Start a conversation <span class="btn-arrow" aria-hidden="true">→</span></a>
+    <a class="header-icon" href="tel:+919833175033" aria-label="Call Space Design: 98331 75033">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5.2 3.8h3.1l1.6 4.1-2.1 1.3a11.2 11.2 0 0 0 5 5l1.3-2.1 4.1 1.6v3.1a2 2 0 0 1-2 2A15.6 15.6 0 0 1 3.2 5.8a2 2 0 0 1 2-2z"/></svg>
+    </a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
       <span class="menu-toggle-label" data-menu-label>Menu</span>
       <span class="menu-toggle-icon" aria-hidden="true"><i></i><i></i></span>
@@ -92,77 +95,103 @@
 <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile" hidden data-mobile-menu>
   <ul class="mobile-menu-list">
     <li><a href="index.html"><span>01</span>Home</a></li>
-    <li><a href="about.html"><span>02</span>About</a></li>
+    <li><a href="about.html"><span>02</span>About Us</a></li>
     <li><a href="services.html"><span>03</span>Services</a></li>
-    <li><a href="portfolio.html"><span>04</span>Portfolio</a></li>
+    <li><a href="portfolio.html"><span>04</span>Projects</a></li>
     <li><a href="contact.html" aria-current="page"><span>05</span>Contact</a></li>
   </ul>
   <div class="mobile-menu-foot">
     <div>
-      <p class="label label--blue mb-4">Navi Mumbai</p>
+      <p class="label mb-4">Navi Mumbai</p>
       <a href="tel:+912246043901">022-46043901</a>
     </div>
     <div>
-      <p class="label label--blue mb-4">Pune</p>
+      <p class="label mb-4">Pune</p>
       <a href="tel:+912029910526">020-29910526</a>
     </div>
-    <a class="btn" href="contact.html">Start a conversation <span class="btn-arrow" aria-hidden="true">→</span></a>
+    <a class="btn" href="contact.html">Get in touch <span class="btn-arrow" aria-hidden="true">→</span></a>
   </div>
 </nav>
 <!-- /PARTIAL:header -->
 
 <main id="main" tabindex="-1">
-  <div class="contact-split">
-    <section class="contact-left" aria-labelledby="page-title">
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <ol><li><a href="index.html">Home</a></li><li aria-current="page">Contact</li></ol>
-      </nav>
-      <div>
-        <p class="index mb-5">Contact</p>
-        <h1 class="contact-title" id="page-title" data-reveal="mask">
-          <span class="line-mask"><span>Let’s create</span></span>
-          <span class="line-mask"><span>something</span></span>
-          <span class="line-mask"><span class="accent">meaningful.</span></span>
-        </h1>
+  <section class="page-hero" aria-labelledby="page-title">
+    <div class="page-hero-bg bg-haware-legacy" aria-hidden="true"></div>
+    <div class="container page-hero-inner">
+      <div class="page-hero-top">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol><li><a href="index.html">Home</a></li><li aria-current="page">Contact</li></ol>
+        </nav>
+        <p class="coords mb-0">Contact Space Design</p>
       </div>
+      <h1 class="page-hero-title" id="page-title">
+        <span class="line-mask"><span>Let’s create</span></span>
+        <span class="line-mask"><span class="muted">something meaningful.</span></span>
+      </h1>
+      <div class="page-hero-foot">
+        <p class="lead">Talk to our Navi Mumbai head office or our Pune branch about redevelopment, architecture, planning or interiors.</p>
+      </div>
+    </div>
+    <span class="page-hero-cue" aria-hidden="true"></span>
+  </section>
 
-      <div class="contact-offices">
-        <article class="contact-office" aria-labelledby="c-nm">
-          <p class="label mb-0">01 · Head Office</p>
-          <h2 id="c-nm">Navi Mumbai</h2>
+  <!-- ============ OFFICES ============ -->
+  <section class="apa-section" aria-labelledby="offices-title">
+    <div class="container">
+      <div class="apa-heading apa-heading--center">
+        <p class="kicker">Visit us</p>
+        <h2 class="apa-title" id="offices-title">Our Offices</h2>
+      </div>
+      <div class="office-cards">
+        <article class="office-card" data-reveal aria-labelledby="c-nm">
+          <p class="office-card-tag">01 · Head Office</p>
+          <h3 class="office-card-city" id="c-nm">Navi Mumbai</h3>
           <address>
             Office No. 1101 &amp; 1108, 11th Floor, Satra Plaza,<br>
             Plot No. 19 &amp; 20, Palm Beach Road,<br>
-            Sector – 19D, Vashi,<br>
-            Navi Mumbai – 400 703
+            Sector – 19D, Vashi, Navi Mumbai – 400 703
           </address>
-          <p class="mb-4"><span class="visually-hidden">Phone: </span><a href="tel:+912246043901">022-46043901</a><a href="tel:+912245003902">022-45003902</a></p>
-          <p class="mb-4"><span class="visually-hidden">Mobile: </span><a href="tel:+919833175033">98331 75033</a><a href="tel:+919869076963">98690 76963</a></p>
-          <p class="mb-4"><span class="visually-hidden">Email: </span><a href="mailto:spacedesign@rediffmail.com">spacedesign@rediffmail.com</a><a href="mailto:spacedesign1108@gmail.com">spacedesign1108@gmail.com</a></p>
-          <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Satra+Plaza+Palm+Beach+Road+Sector+19D+Vashi+Navi+Mumbai+400703" target="_blank" rel="noopener noreferrer">View location on map ↗<span class="visually-hidden"> (Navi Mumbai office, opens in a new tab)</span></a>
+          <dl class="office-card-list">
+            <div><dt>Phone</dt><dd><a href="tel:+912246043901">022-46043901</a><a href="tel:+912245003902">022-45003902</a></dd></div>
+            <div><dt>Mobile</dt><dd><a href="tel:+919833175033">98331 75033</a><a href="tel:+919869076963">98690 76963</a></dd></div>
+            <div><dt>Email</dt><dd><a href="mailto:spacedesign@rediffmail.com">spacedesign@rediffmail.com</a><a href="mailto:spacedesign1108@gmail.com">spacedesign1108@gmail.com</a></dd></div>
+          </dl>
+          <a class="btn-frame" href="https://www.google.com/maps/search/?api=1&amp;query=Satra+Plaza+Palm+Beach+Road+Sector+19D+Vashi+Navi+Mumbai+400703" target="_blank" rel="noopener noreferrer">Get directions<span class="visually-hidden"> to the Navi Mumbai office (opens Google Maps in a new tab)</span></a>
         </article>
-        <article class="contact-office" aria-labelledby="c-pn">
-          <p class="label mb-0">02 · Branch Office</p>
-          <h2 id="c-pn">Pune</h2>
+        <article class="office-card" data-reveal data-delay="150" aria-labelledby="c-pn">
+          <p class="office-card-tag">02 · Branch Office</p>
+          <h3 class="office-card-city" id="c-pn">Pune</h3>
           <address>
             Office No. 504, 5th Floor, “Conclave”,<br>
-            CTS No. 1701/B, F.P. No. 100,<br>
-            Bhamburda, Shivaji Nagar,<br>
-            Pune – 411 005
+            CTS No. 1701/B, F.P. No. 100, Bhamburda,<br>
+            Shivaji Nagar, Pune – 411 005
           </address>
-          <p class="mb-4"><span class="visually-hidden">Phone: </span><a href="tel:+912029910526">020-29910526</a></p>
-          <p class="mb-4"><span class="visually-hidden">Mobile: </span><a href="tel:+919833175033">98331 75033</a></p>
-          <p class="mb-4"><span class="visually-hidden">Email: </span><a href="mailto:spacedesign504@gmail.com">spacedesign504@gmail.com</a></p>
-          <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Conclave+Shivaji+Nagar+Pune+411005" target="_blank" rel="noopener noreferrer">View location on map ↗<span class="visually-hidden"> (Pune office, opens in a new tab)</span></a>
+          <dl class="office-card-list">
+            <div><dt>Phone</dt><dd><a href="tel:+912029910526">020-29910526</a></dd></div>
+            <div><dt>Mobile</dt><dd><a href="tel:+919833175033">98331 75033</a></dd></div>
+            <div><dt>Email</dt><dd><a href="mailto:spacedesign504@gmail.com">spacedesign504@gmail.com</a></dd></div>
+          </dl>
+          <a class="btn-frame" href="https://www.google.com/maps/search/?api=1&amp;query=Conclave+Shivaji+Nagar+Pune+411005" target="_blank" rel="noopener noreferrer">Get directions<span class="visually-hidden"> to the Pune office (opens Google Maps in a new tab)</span></a>
         </article>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="contact-right" aria-labelledby="form-title">
-      <div class="contact-right-inner" data-form-wrap>
-        <p class="index mb-5">Enquiry</p>
-        <h2 class="h-lg mb-5" id="form-title">Tell us about your project</h2>
-        <p class="muted mb-7">Fields marked <span class="req" aria-hidden="true">*</span><span class="visually-hidden">with an asterisk</span> are required.</p>
+  <!-- ============ ENQUIRY FORM ============ -->
+  <section class="apa-section apa-section--grey" aria-labelledby="form-title">
+    <div class="container enquiry-split">
+      <div class="enquiry-intro" data-reveal>
+        <p class="kicker">Enquiry</p>
+        <h2 class="apa-title" id="form-title">Tell us about your project</h2>
+        <p>Share a few details and the right office will get back to you. For redevelopment, it helps to mention the society name, number of members and the plot location.</p>
+        <ul class="enquiry-direct unstyled-list">
+          <li><span>Navi Mumbai</span><a href="tel:+912246043901">022-46043901</a></li>
+          <li><span>Pune</span><a href="tel:+912029910526">020-29910526</a></li>
+          <li><span>Email</span><a href="mailto:spacedesign1108@gmail.com">spacedesign1108@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="enquiry-form" data-form-wrap>
+        <p class="form-required">Fields marked <span class="req" aria-hidden="true">*</span><span class="visually-hidden">with an asterisk</span> are required.</p>
 
         <div class="alert mb-6" role="alert" tabindex="-1" data-form-errors hidden></div>
 
@@ -236,21 +265,13 @@
           </div>
         </form>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </main>
 
 <!-- PARTIAL:footer -->
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-signature">
-      <p class="footer-tagline">Designing spaces.<br><span class="serif-accent">Shaping experiences.</span></p>
-      <div class="footer-signature-aside">
-        <p class="footer-meta"><span>30 years of experience</span><span>Navi Mumbai · Pune</span></p>
-        <a class="btn btn--light" href="contact.html">Start a conversation <span class="btn-arrow" aria-hidden="true">→</span></a>
-      </div>
-    </div>
-
     <div class="footer-grid">
       <div class="footer-brand">
         <a class="brand" href="index.html" aria-label="Space Design, home">
@@ -261,6 +282,7 @@
           </span>
         </a>
         <p>Project management consultancy for housing-society redevelopment, with architecture, planning and interiors. 30 years of experience. MHADA Grade 1 empanelled. Led by Ar. Milind Fulzele.</p>
+        <a class="btn btn--light btn--sm" href="contact.html">Get in touch <span class="btn-arrow" aria-hidden="true">→</span></a>
       </div>
 
       <div class="footer-col footer-col--office">
@@ -295,12 +317,12 @@
       </div>
 
       <nav class="footer-col" aria-label="Footer">
-        <h2>Studio</h2>
+        <h2>Explore</h2>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="about.html">About Us</a></li>
           <li><a href="services.html">Services</a></li>
-          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="portfolio.html">Projects</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>

@@ -1,22 +1,19 @@
 /* =====================================================================
    SPACE DESIGN — Portfolio listing
-   Grouped filters (Discipline / Type — only values actually used), search,
-   structured 12-column project grid (SD.ui.workGrid), incremental loading.
+   Discipline tabs + status chips (combined), search, compact project
+   cards in a four-column grid (SD.ui.portfolioCard), incremental loading.
    ===================================================================== */
 (function () {
   'use strict';
   var SD = window.SD || {};
   var U = SD.utils;
 
-  var PAGE_SIZE = 12; // two full layout blocks of six
+  var PAGE_SIZE = 12; // three full rows of four cards
   var DISCIPLINES = ['Redevelopment', 'Architecture', 'Layout Planning', 'Planning', 'Interior Design', 'Project Management'];
-  var TYPES = ['Residential', 'Housing Layout', 'Commercial', 'Institutional', 'Hospitality'];
   var STATUSES = ['Completed', 'Ongoing', 'Proposed'];
 
-  var state = { all: [], filtered: [], filter: 'all', query: '', shown: 0, demo: false };
+  var state = { all: [], filtered: [], cat: 'all', status: 'all', query: '', shown: 0, demo: false };
   var els = {};
-
-  function valuesOf(p) { return [p.category, p.project_type, p.status].filter(Boolean); }
 
   function ordered(values, preferred) {
     return values.sort(function (a, b) {
@@ -25,42 +22,31 @@
     });
   }
 
-  function filterBtn(value, count) {
-    return '<button type="button" class="filter-btn" aria-pressed="false" data-filter="' + U.esc(U.slugify(value)) + '">' +
-      U.esc(value) + '<sup aria-hidden="true">' + count + '</sup><span class="visually-hidden">, ' + count + ' projects</span></button>';
+  function filterBtn(group, value, label, count, pressed) {
+    return '<button type="button" class="filter-btn filter-btn--' + group + '" aria-pressed="' + (pressed ? 'true' : 'false') + '"' +
+      ' data-group="' + group + '" data-filter="' + U.esc(value) + '">' +
+      U.esc(label) + '<sup aria-hidden="true">' + count + '</sup><span class="visually-hidden">, ' + count + ' projects</span></button>';
   }
 
+  /* Discipline tabs and status chips, built only from values actually used. */
   function buildFilters() {
-    var cat = {}, type = {}, status = {};
+    var cat = {}, status = {};
     state.all.forEach(function (p) {
       if (p.category) cat[p.category] = (cat[p.category] || 0) + 1;
-      if (p.project_type) type[p.project_type] = (type[p.project_type] || 0) + 1;
       if (p.status && STATUSES.indexOf(p.status) > -1) status[p.status] = (status[p.status] || 0) + 1;
     });
-    var html = '<button type="button" class="filter-btn filter-btn--all" aria-pressed="true" data-filter="all">All<sup aria-hidden="true">' + state.all.length + '</sup></button>';
-    var catKeys = ordered(Object.keys(cat), DISCIPLINES);
-    var typeKeys = ordered(Object.keys(type), TYPES);
-    if (catKeys.length) {
-      html += '<div class="filter-group" role="group" aria-label="Discipline"><span class="filter-group-label" aria-hidden="true">Discipline</span>' +
-        catKeys.map(function (v) { return filterBtn(v, cat[v]); }).join('') + '</div>';
-    }
-    if (typeKeys.length) {
-      html += '<div class="filter-group" role="group" aria-label="Project type"><span class="filter-group-label" aria-hidden="true">Type</span>' +
-        typeKeys.map(function (v) { return filterBtn(v, type[v]); }).join('') + '</div>';
-    }
-    var statusKeys = ordered(Object.keys(status), STATUSES);
-    if (statusKeys.length) {
-      html += '<div class="filter-group" role="group" aria-label="Status"><span class="filter-group-label" aria-hidden="true">Status</span>' +
-        statusKeys.map(function (v) { return filterBtn(v, status[v]); }).join('') + '</div>';
-    }
-    els.filters.innerHTML = html;
+    els.filters.innerHTML = filterBtn('cat', 'all', 'All projects', state.all.length, true) +
+      ordered(Object.keys(cat), DISCIPLINES).map(function (v) { return filterBtn('cat', U.slugify(v), v, cat[v], false); }).join('');
+    var keys = ordered(Object.keys(status), STATUSES);
+    els.statuses.innerHTML = keys.length
+      ? '<span class="status-filter-label" aria-hidden="true">Status</span>' + filterBtn('status', 'all', 'Any', state.all.length, true) +
+        keys.map(function (v) { return filterBtn('status', U.slugify(v), v, status[v], false); }).join('')
+      : '';
   }
 
   function matches(p) {
-    if (state.filter !== 'all') {
-      var ok = valuesOf(p).some(function (v) { return U.slugify(v) === state.filter; });
-      if (!ok) return false;
-    }
+    if (state.cat !== 'all' && U.slugify(p.category || '') !== state.cat) return false;
+    if (state.status !== 'all' && U.slugify(p.status || '') !== state.status) return false;
     if (state.query) {
       var hay = [p.title, p.subtitle, p.location, p.category, p.project_type, p.status, p.client].filter(Boolean).join(' ').toLowerCase();
       return state.query.split(/\s+/).every(function (term) { return hay.indexOf(term) !== -1; });
@@ -76,8 +62,8 @@
   function renderMore() {
     var before = state.shown;
     state.shown = Math.min(state.filtered.length, state.shown + PAGE_SIZE);
-    els.grid.innerHTML = SD.ui.workGrid(state.filtered.slice(0, state.shown));
-    var cards = els.grid.querySelectorAll('.project-card');
+    els.grid.innerHTML = state.filtered.slice(0, state.shown).map(SD.ui.portfolioCard).join('');
+    var cards = els.grid.querySelectorAll('.pf-card');
     for (var i = 0; i < before && i < cards.length; i++) cards[i].classList.add('is-in');
     els.more.hidden = state.shown >= state.filtered.length;
     SD.motion.reveal(els.grid);
@@ -99,7 +85,7 @@
       }
       els.grid.classList.remove('is-filtering');
       var n = state.filtered.length;
-      els.count.textContent = U.pad(n) + ' / ' + U.pad(state.all.length);
+      els.count.textContent = 'Showing ' + n + ' of ' + state.all.length;
       els.status.textContent = n + (n === 1 ? ' project' : ' projects') + ' shown';
     };
     if (animate && !U.prefersReducedMotion()) {
@@ -110,17 +96,19 @@
 
   function syncUrl() {
     var params = new URLSearchParams(window.location.search);
-    if (state.filter !== 'all') params.set('filter', state.filter); else params.delete('filter');
+    if (state.cat !== 'all') params.set('filter', state.cat); else params.delete('filter');
+    if (state.status !== 'all') params.set('status', state.status); else params.delete('status');
     if (state.query) params.set('q', state.query); else params.delete('q');
     var qs = params.toString();
     window.history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : ''));
   }
 
-  function setFilter(key, animate) {
-    var exists = els.filters.querySelector('[data-filter="' + CSS.escape(key) + '"]');
-    state.filter = exists ? key : 'all';
-    els.filters.querySelectorAll('.filter-btn').forEach(function (b) {
-      b.setAttribute('aria-pressed', b.getAttribute('data-filter') === state.filter ? 'true' : 'false');
+  function setFilter(group, key, animate) {
+    var box = group === 'status' ? els.statuses : els.filters;
+    var exists = box.querySelector('[data-filter="' + CSS.escape(key) + '"]');
+    state[group] = exists ? key : 'all';
+    box.querySelectorAll('.filter-btn').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-filter') === state[group] ? 'true' : 'false');
     });
     render(animate);
     syncUrl();
@@ -130,6 +118,7 @@
     els.grid = document.querySelector('[data-portfolio-grid]');
     if (!els.grid) return;
     els.filters = document.querySelector('[data-filters]');
+    els.statuses = document.querySelector('[data-status-filters]');
     els.search = document.querySelector('[data-search]');
     els.more = document.querySelector('[data-load-more]');
     els.count = document.querySelector('[data-count]');
@@ -154,11 +143,16 @@
 
     state.query = (U.param('q') || '').toLowerCase().slice(0, 80).trim();
     if (state.query) els.search.value = state.query;
-    setFilter(U.param('filter') || 'all', false);
+    var st = U.param('status');
+    if (st && els.statuses.querySelector('[data-filter="' + CSS.escape(st) + '"]')) state.status = st;
+    setFilter('status', state.status, false);
+    setFilter('cat', U.param('filter') || 'all', false);
 
-    els.filters.addEventListener('click', function (e) {
-      var btn = e.target.closest('.filter-btn');
-      if (btn) setFilter(btn.getAttribute('data-filter'), true);
+    [els.filters, els.statuses].forEach(function (box) {
+      box.addEventListener('click', function (e) {
+        var btn = e.target.closest('.filter-btn');
+        if (btn) setFilter(btn.getAttribute('data-group'), btn.getAttribute('data-filter'), true);
+      });
     });
     els.search.addEventListener('input', U.debounce(function () {
       state.query = els.search.value.toLowerCase().trim();
@@ -172,7 +166,7 @@
       if (link) link.focus({ preventScroll: false });
     });
     els.grid.addEventListener('click', function (e) {
-      if (e.target.closest('[data-reset]')) { els.search.value = ''; state.query = ''; setFilter('all', true); }
+      if (e.target.closest('[data-reset]')) { els.search.value = ''; state.query = ''; setFilter('status', 'all', false); setFilter('cat', 'all', true); }
     });
   }
 

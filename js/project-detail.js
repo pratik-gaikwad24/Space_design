@@ -287,12 +287,12 @@
     ], 'sd-project-jsonld');
 
     /* Related */
-    var rel = await SD.api.relatedProjects(p.category, p.id, 3);
+    var rel = await SD.api.relatedProjects(p.category, p.id, 4);
     var holder = $('[data-related-list]');
     if (!rel.data || !rel.data.length) {
       holder.innerHTML = '<p class="related-empty">More projects will be published soon.</p>';
     } else {
-      holder.innerHTML = '<div class="related-list">' + rel.data.map(function (r, i) { return SD.ui.projectCard(r, i, 's', ''); }).join('') + '</div>';
+      holder.innerHTML = '<div class="pf-grid">' + rel.data.map(SD.ui.portfolioCard).join('') + '</div>';
       SD.motion.reveal(holder);
     }
   }

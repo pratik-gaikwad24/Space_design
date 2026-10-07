@@ -7,7 +7,7 @@
 <meta name="description" content="How Space Design collects, uses and protects personal data submitted through this website, and your rights under India’s DPDP Act.">
 <link rel="canonical" href="https://your-domain.com/privacy-policy.html">
 <meta name="robots" content="index, follow">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#0E2436">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Space Design">
 <meta property="og:locale" content="en_IN">
@@ -17,13 +17,14 @@
 <meta property="og:image" content="https://your-domain.com/assets/img/og-default.jpg">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="assets/fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/theme.css">
 <link rel="stylesheet" href="css/accessibility.css">
 <script src="js/boot.js"></script>
 </head>
-<body data-page="privacy">
+<body data-page="privacy" class="has-overlay-header">
 <!-- PARTIAL:header -->
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="scroll-progress" aria-hidden="true"><span></span></div>
@@ -39,13 +40,15 @@
     <nav class="primary-nav" aria-label="Primary">
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
+        <li><a href="about.html">About Us</a></li>
         <li><a href="services.html">Services</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="portfolio.html">Projects</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
-    <a class="btn btn--sm header-cta" href="contact.html">Start a conversation <span class="btn-arrow" aria-hidden="true">→</span></a>
+    <a class="header-icon" href="tel:+919833175033" aria-label="Call Space Design: 98331 75033">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5.2 3.8h3.1l1.6 4.1-2.1 1.3a11.2 11.2 0 0 0 5 5l1.3-2.1 4.1 1.6v3.1a2 2 0 0 1-2 2A15.6 15.6 0 0 1 3.2 5.8a2 2 0 0 1 2-2z"/></svg>
+    </a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
       <span class="menu-toggle-label" data-menu-label>Menu</span>
       <span class="menu-toggle-icon" aria-hidden="true"><i></i><i></i></span>
@@ -56,27 +59,28 @@
 <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile" hidden data-mobile-menu>
   <ul class="mobile-menu-list">
     <li><a href="index.html"><span>01</span>Home</a></li>
-    <li><a href="about.html"><span>02</span>About</a></li>
+    <li><a href="about.html"><span>02</span>About Us</a></li>
     <li><a href="services.html"><span>03</span>Services</a></li>
-    <li><a href="portfolio.html"><span>04</span>Portfolio</a></li>
+    <li><a href="portfolio.html"><span>04</span>Projects</a></li>
     <li><a href="contact.html"><span>05</span>Contact</a></li>
   </ul>
   <div class="mobile-menu-foot">
     <div>
-      <p class="label label--blue mb-4">Navi Mumbai</p>
+      <p class="label mb-4">Navi Mumbai</p>
       <a href="tel:+912246043901">022-46043901</a>
     </div>
     <div>
-      <p class="label label--blue mb-4">Pune</p>
+      <p class="label mb-4">Pune</p>
       <a href="tel:+912029910526">020-29910526</a>
     </div>
-    <a class="btn" href="contact.html">Start a conversation <span class="btn-arrow" aria-hidden="true">→</span></a>
+    <a class="btn" href="contact.html">Get in touch <span class="btn-arrow" aria-hidden="true">→</span></a>
   </div>
 </nav>
 <!-- /PARTIAL:header -->
 
 <main id="main" tabindex="-1">
-  <section class="page-hero" aria-labelledby="page-title">
+  <section class="page-hero page-hero--short" aria-labelledby="page-title">
+    <div class="page-hero-bg bg-tagore-nagar-building-17" aria-hidden="true"></div>
     <div class="hero-grid-lines" aria-hidden="true"></div>
     <div class="container page-hero-inner">
       <div class="page-hero-top">
@@ -94,6 +98,7 @@
         <p class="lead">How personal data from this website is collected, used, stored and protected.</p>
       </div>
     </div>
+    <span class="page-hero-cue" aria-hidden="true"></span>
   </section>
 
   <section class="legal container">
@@ -191,14 +196,6 @@
 <!-- PARTIAL:footer -->
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-signature">
-      <p class="footer-tagline">Designing spaces.<br><span class="serif-accent">Shaping experiences.</span></p>
-      <div class="footer-signature-aside">
-        <p class="footer-meta"><span>30 years of experience</span><span>Navi Mumbai · Pune</span></p>
-        <a class="btn btn--light" href="contact.html">Start a conversation <span class="btn-arrow" aria-hidden="true">→</span></a>
-      </div>
-    </div>
-
     <div class="footer-grid">
       <div class="footer-brand">
         <a class="brand" href="index.html" aria-label="Space Design, home">
@@ -209,6 +206,7 @@
           </span>
         </a>
         <p>Project management consultancy for housing-society redevelopment, with architecture, planning and interiors. 30 years of experience. MHADA Grade 1 empanelled. Led by Ar. Milind Fulzele.</p>
+        <a class="btn btn--light btn--sm" href="contact.html">Get in touch <span class="btn-arrow" aria-hidden="true">→</span></a>
       </div>
 
       <div class="footer-col footer-col--office">
@@ -243,12 +241,12 @@
       </div>
 
       <nav class="footer-col" aria-label="Footer">
-        <h2>Studio</h2>
+        <h2>Explore</h2>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="about.html">About Us</a></li>
           <li><a href="services.html">Services</a></li>
-          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="portfolio.html">Projects</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>

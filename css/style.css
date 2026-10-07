@@ -8,6 +8,34 @@
    No third-party font CDN: nothing is requested from Google.
    --------------------------------------------------------------------- */
 @font-face {
+  font-family: "Roboto";
+  src: url("../assets/fonts/roboto-latin-300-normal.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("../assets/fonts/roboto-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("../assets/fonts/roboto-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("../assets/fonts/roboto-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
   font-family: "Inter Tight";
   src: url("../assets/fonts/inter-tight-latin-wght-normal.woff2") format("woff2-variations"),
        url("../assets/fonts/inter-tight-latin-wght-normal.woff2") format("woff2");
@@ -44,19 +72,20 @@
    1. Tokens
    --------------------------------------------------------------------- */
 :root {
-  /* Brand colours */
+  /* Brand colours: blue theme built from the logo (#44789F blue, #15191D ink) */
   --space-blue: #3F7196;            /* logo blue #44789F, deepened for AA text contrast */
   --space-blue-dark: #2E5675;
   --space-blue-light: #8DBBDE;      /* accessible accent on dark grounds */
   --space-white: #FFFFFF;
-  --space-off-white: #F7F8FA;
-  --space-charcoal: #15191D;
-  --space-dark: #0D1115;
-  --space-grey: #555D65;            /* large muted display text */
-  --space-grey-text: #3D444B;       /* body-size muted text (darker for readability) */
-  --space-light-grey: #E7EBEF;
-  --space-border: #C9D1D8;          /* crisper hairlines (was #DDE3E8) */
-  --space-edge: rgba(21, 25, 29, 0.22); /* 1px edge around images */
+  --space-off-white: #F1F5F8;        /* pale blue-grey band */
+  --space-panel: #E3ECF2;           /* blue-grey band behind project grids */
+  --space-charcoal: #12263A;        /* navy ink, from logo blue */
+  --space-dark: #0E2436;             /* deep navy for dark bands */
+  --space-grey: #6F8291;            /* large muted display text only */
+  --space-grey-text: #4E5F6C;       /* small muted text, AA on white and pale bands */
+  --space-light-grey: #DCE5EC;
+  --space-border: #C3D1DC;
+  --space-edge: rgba(14, 36, 54, 0.12);
 
   /* Semantic */
   --bg: var(--space-white);
@@ -70,8 +99,8 @@
   --success: #1B6B3A;
 
   /* Type */
-  --font-sans: "Inter Tight", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
-  --font-serif: "Instrument Serif", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-sans: "Roboto", "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  --font-serif: "Roboto", "Helvetica Neue", "Segoe UI", Arial, sans-serif; /* theme is all-sans; kept as a token for existing rules */
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, "Liberation Mono", monospace;
 
   --fs-micro: 0.6875rem;                               /* 11px */

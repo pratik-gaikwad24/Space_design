@@ -201,6 +201,29 @@
     }).join('');
   }
 
+  /** Compact project card used site-wide (home, projects, related lists): image above, details below. */
+  function portfolioCard(p) {
+    var m = p.featured_media;
+    var href = 'portfolio-detail.html?slug=' + encodeURIComponent(p.slug);
+    var status = p.status ? '<span class="pf-badge pf-badge--' + esc(slugify(p.status)) + '">' + esc(p.status) + '</span>' : '';
+    return '' +
+      '<article class="pf-card" data-reveal>' +
+        '<a class="pf-card-link" href="' + esc(href) + '">' +
+          '<div class="pf-card-media ' + fitClass(m) + '">' +
+            mediaThumb(m, { width: 640, sizes: '(max-width: 560px) 100vw, (max-width: 900px) 50vw, (max-width: 1200px) 33vw, 25vw' }) +
+            status +
+            (p.is_demo ? '<span class="demo-tag">Demo · replace before launch</span>' : '') +
+          '</div>' +
+          '<div class="pf-card-body">' +
+            (p.category ? '<p class="pf-card-cat mb-0">' + esc(p.category) + '</p>' : '') +
+            '<h3 class="pf-card-title">' + esc(p.title) + '</h3>' +
+            (p.location ? '<p class="pf-card-loc mb-0">' + esc(p.location) + '</p>' : '') +
+            '<span class="pf-card-more" aria-hidden="true">View project</span>' +
+          '</div>' +
+        '</a>' +
+      '</article>';
+  }
+
   function demoBanner() {
     return '<div class="demo-banner" role="note"><strong>DEMO MODE</strong><span>Supabase is not configured yet, so the projects shown are clearly labelled demo placeholders, not Space Design projects. Add your Supabase keys in <code>js/config.js</code> and publish real projects from the admin to replace them.</span></div>';
   }
@@ -211,5 +234,5 @@
     prefersReducedMotion: prefersReducedMotion, saveData: saveData, isSmallScreen: isSmallScreen,
     mediaUrl: mediaUrl, srcset: srcset, announce: announce, fitClass: fitClass
   };
-  SD.ui = { projectCard: projectCard, mediaThumb: mediaThumb, demoBanner: demoBanner, workLayout: workLayout, workGrid: workGrid };
+  SD.ui = { projectCard: projectCard, portfolioCard: portfolioCard, mediaThumb: mediaThumb, demoBanner: demoBanner, workLayout: workLayout, workGrid: workGrid };
 })();

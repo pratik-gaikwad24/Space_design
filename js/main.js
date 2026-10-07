@@ -27,7 +27,7 @@
     els.forEach(function (el, i) {
       var d = el.getAttribute('data-delay');
       if (d) el.style.setProperty('--delay', parseInt(d, 10) + 'ms');
-      else if (el.closest('.project-grid, .work-grid')) el.style.setProperty('--delay', (i % 2) * 120 + 'ms');
+      else if (el.closest('.project-grid, .work-grid, .pf-grid')) el.style.setProperty('--delay', (i % 2) * 120 + 'ms');
       if (!io) { el.classList.add('is-in'); return; }
       // A fully clipped element never "intersects" in Chrome, so image reveals
       // are observed through their parent.
