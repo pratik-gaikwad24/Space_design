@@ -474,21 +474,29 @@ insert into public.locations (slug, label, city, address, phones, mobiles, email
 on conflict (slug) do nothing;
 
 insert into public.services (slug, number, title, summary, category_key, sort_order, process) values
-  ('project-management', '01', 'Redevelopment PMC',
+  ('project-management', '01', 'Redevelopment',
    'Independent project management consultancy for housing societies, from the first feasibility study to handover.',
    'Redevelopment', 1,
    '[{"title": "Society appointment", "text": "Society appoints PMC for redevelopment guidance."}, {"title": "Property study & feasibility", "text": "Land potential, FSI, rules and project feasibility."}, {"title": "Member consultation", "text": "Benefits and requirements explained; member inputs collected."}, {"title": "Tender & developer selection", "text": "Offers invited, proposals compared, developer selected."}, {"title": "Agreement & approvals", "text": "Legal documentation, planning and government approvals."}, {"title": "Project monitoring", "text": "Quality, timelines, construction progress and transparency."}, {"title": "Handover & completion", "text": "Possession, amenities and completion for society members."}]'),
-  ('architecture', '02', 'Architecture',
-   'Architecture for redevelopment and new buildings, with smart, efficient and affordable space planning.',
+  ('self-redevelopment', '02', 'Self-Redevelopment',
+   'Project management consultancy for housing societies that redevelop their own building, without handing it to a developer.',
    'Redevelopment', 2,
+   '[{"title": "Feasibility", "text": "Land potential, FSI, rules and project viability."}, {"title": "Member consent", "text": "Proposal explained to members and resolutions passed."}, {"title": "Finance", "text": "Project funding arranged with the bank."}, {"title": "Approvals", "text": "Design, planning and government approvals."}, {"title": "Construction", "text": "Contractor appointment and site monitoring."}, {"title": "Handover", "text": "Possession and completion for society members."}]'),
+  ('development', '03', 'Development',
+   'Planning, design and project management for new residential and mixed-use developments.',
+   'Redevelopment', 3,
+   '[{"title": "Site study", "text": "Plot, FSI, rules and development potential."}, {"title": "Design", "text": "Building plans and project concept."}, {"title": "Approvals", "text": "Planning and municipal approvals."}, {"title": "Execution", "text": "Construction management through completion."}]'),
+  ('architecture', '04', 'Architecture',
+   'Architecture for redevelopment and new buildings, with smart, efficient and affordable space planning.',
+   'Redevelopment', 4,
    '[{"title": "Brief", "text": "Requirements, plot, FSI and applicable rules."}, {"title": "Planning", "text": "Efficient layouts for rehab and sale tenements."}, {"title": "Approvals", "text": "Drawings for planning and municipal approvals."}, {"title": "Execution", "text": "Working drawings and site supervision."}]'),
-  ('planning', '03', 'Planning',
+  ('planning', '05', 'Planning',
    'MHADA layout planning and layout revisions for large housing schemes.',
-   'Layout Planning', 3,
+   'Layout Planning', 5,
    '[{"title": "Study", "text": "Existing layout, land areas and site conditions."}, {"title": "Framework", "text": "Residential, commercial, amenity and open-space areas."}, {"title": "Layout", "text": "Plots, roads and circulation."}, {"title": "Documentation", "text": "Area statements and drawings for approval."}]'),
-  ('interior-design', '04', 'Interior Design',
+  ('interior-design', '06', 'Interior Design',
    'Interiors that bring together space, light, material and detail.',
-   'Interior Design', 4,
+   'Interior Design', 6,
    '[{"title": "Brief", "text": "Needs, use patterns and character of the space."}, {"title": "Layout", "text": "Space planning and furniture arrangement."}, {"title": "Materials", "text": "Finishes, lighting and detailing."}, {"title": "Execution", "text": "Coordination on site through completion."}]')
 on conflict (slug) do nothing;
 

@@ -920,7 +920,7 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
    --------------------------------------------------------------------- */
 /* Overview: four cards overlapping the bottom of the banner */
 .svc-overview { position: relative; z-index: 2; margin-top: clamp(-3.5rem, -2rem - 2vw, -2rem); padding-bottom: clamp(3rem, 2rem + 3vw, 5rem); }
-.svc-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(0.75rem, 0.5rem + 1vw, 1.5rem); }
+.svc-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(0.75rem, 0.5rem + 1vw, 1.5rem); }
 .svc-card {
   position: relative;
   display: flex; flex-direction: column;
