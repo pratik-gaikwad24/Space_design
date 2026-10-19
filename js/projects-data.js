@@ -32,7 +32,7 @@
       short_description: 'Proposed redevelopment of Building No. 18, Tagore Nagar, Vikhroli: three wings of ground plus 22 upper floors with a parking tower.',
       description: 'Proposed redevelopment of Building No. 18, Tagore Nagar, Vikhroli, for Nalanda Co-operative Housing Society Ltd. The scheme provides three wings of ground plus 22 upper floors, planned for maximum consumption of FSI, with a parking tower.',
       details: specs(['Developer: M/s Haware Properties', 'Plot area: 1,241.53 sq m', 'FSI (including fungible): 8.46', 'Tenements: 32 rehab + 217 sale', 'Building: Wing A, Wing B and Wing C, each ground + 22 upper floors', 'Building with parking tower; maximum consumption of FSI', '12 tenements per floor', 'Units: 1 BHK 375.00 sq ft · 2 BHK 650.00 sq ft']),
-      media: [render('tagore-nagar-building-18', 532, 900, 'Rendering of a residential tower with angular facade, Building No. 18, Tagore Nagar, Vikhroli')]
+      media: [render('tagore-nagar-building-18', 1560, 1600, 'Rendering of a residential tower with angular facade, Building No. 18, Tagore Nagar, Vikhroli')]
     },
     {
       slug: 'pragati-icon', title: 'Pragati Icon', featured: true, sort_order: 20,
@@ -65,7 +65,7 @@
       short_description: 'Ongoing redevelopment of Building No. 3, Pant Nagar, Ghatkopar: shops on the first floor and 94 tenements above.',
       description: 'Proposed redevelopment of Building No. 3, Pant Nagar, Ghatkopar, for Shree Sai Prasad Co-operative Housing Society Ltd., planned for maximum consumption of FSI with a parking tower.',
       details: specs(['Developer: M/s Vardhman Developers', 'Plot area: 1,089.33 sq m', 'FSI (including fungible): 5.95', 'Tenements: 30 rehab + 64 sale (94)', 'Building: ground + 1st floor shops + 2nd to 15th upper floors', 'Structure: RCC', 'Building with parking tower; maximum consumption of FSI', '7 tenements per floor', 'Units: 1 BHK 473.00 sq ft · 2 BHK 620.00 sq ft · 2 BHK 630.00 sq ft']),
-      media: [render('pant-nagar-building-3', 617, 970, 'Rendering of a residential tower with flowing gold-toned bands, Building No. 3, Pant Nagar, Ghatkopar')]
+      media: [render('pant-nagar-building-3', 1087, 1600, 'Rendering of a residential tower with flowing gold-toned bands, Building No. 3, Pant Nagar, Ghatkopar')]
     },
     {
       slug: 'maharshi-nagar-colony-pune', title: 'Maharshi Nagar Colony, Pune', featured: true, sort_order: 50,
@@ -87,7 +87,7 @@
       short_description: 'Ongoing redevelopment of Building No. 17, Tagore Nagar, Vikhroli: 128 tenements in a 22-storey RCC tower with a parking tower.',
       description: 'Proposed redevelopment of Building No. 17, Tagore Nagar, Vikhroli, for Nandadeep Co-operative Housing Society Ltd., planned for maximum consumption of FSI with a parking tower.',
       details: specs(['Developer: M/s Priti Infra Builders LLP', 'Plot area: 832.50 sq m', 'FSI (including fungible): 8.57', 'Tenements: 32 rehab + 96 sale (128)', 'Building: ground (part) + stilt (part) + 22 upper floors', 'Structure: RCC', 'Building with parking tower; maximum consumption of FSI', '6 tenements per floor', 'Units (RCA): 1 BHK 409.00 sq ft · 1 BHK 443.00 sq ft · 2 BHK 508.00 sq ft · 2 BHK 587.00 sq ft · 2 BHK 608.00 sq ft']),
-      media: [render('tagore-nagar-building-17', 565, 1047, 'Rendering of a residential tower with a commercial podium, Building No. 17, Tagore Nagar, Vikhroli')]
+      media: [render('tagore-nagar-building-17', 965, 1600, 'Rendering of a residential tower with a commercial podium, Building No. 17, Tagore Nagar, Vikhroli')]
     },
     {
       slug: 'pragati-reventa', title: 'Pragati Reventa', featured: false, sort_order: 70,
@@ -98,7 +98,7 @@
       short_description: 'Redevelopment of Building No. 48, Pant Nagar, Ghatkopar: 79 tenements in a 16-storey RCC building.',
       description: 'Pragati Reventa is the redevelopment of Building No. 48, Pant Nagar, Ghatkopar, for Sindhudurga Co-operative Housing Society Ltd.',
       details: specs(['Plot area: 867.00 sq m', 'FSI (including fungible): 6.51', 'Tenements: 30 rehab + 49 sale (79)', 'Building: ground (part) + stilt (part) + 16 upper floors', 'Structure: RCC', '6 tenements per floor', 'Units (RCA): 1 BHK 369.00 sq ft · 1 BHK 541.00 sq ft · 2 BHK 719.00 sq ft · 2 BHK 657.00 sq ft · 2 BHK 574.00 sq ft']),
-      media: [render('pragati-reventa', 565, 940, 'Rendering of Pragati Reventa, a pale residential tower, Pant Nagar, Ghatkopar')]
+      media: [render('pragati-reventa', 1098, 1600, 'Rendering of Pragati Reventa, a pale residential tower, Pant Nagar, Ghatkopar')]
     },
     {
       slug: 'tagore-nagar-building-38', title: 'Building No. 38, Tagore Nagar', featured: false, sort_order: 80,

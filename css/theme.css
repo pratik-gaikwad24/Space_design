@@ -383,7 +383,7 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
   display: flex; align-items: flex-end; justify-content: center;
   overflow: hidden;
 }
-.about-split-media img { height: 94%; width: auto; max-width: 100%; object-fit: contain; }
+.about-split-media img { width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
 .about-split-copy .apa-title { margin-bottom: 1.5rem; }
 .about-split-copy > p { color: var(--space-grey-text); max-width: 60ch; }
 .about-disciplines {
@@ -840,16 +840,14 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
   color: var(--space-white);
   overflow: hidden;
 }
+.founder-mark { justify-content: flex-end; }
+.founder-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
 .founder-mark::before {
   content: "";
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 32px 32px;
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.15) 45%, transparent 70%);
 }
-.founder-initials { position: relative; font-size: clamp(5rem, 3rem + 6vw, 8.5rem); font-weight: 300; line-height: 0.9; letter-spacing: -0.04em; color: var(--space-blue-light); }
-.founder-years { position: relative; font-size: var(--fs-micro); font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255, 255, 255, 0.8); }
+.founder-years { position: relative; z-index: 2; font-size: var(--fs-micro); font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255, 255, 255, 0.8); }
 .founder-years strong { display: block; font-size: 2.5rem; font-weight: 300; letter-spacing: 0; color: var(--space-white); margin-bottom: 0.35rem; }
 .founder-body { padding: clamp(1.75rem, 1.25rem + 2.5vw, 3.5rem); }
 .founder-body .apa-title { margin-bottom: 0.35rem; }
@@ -858,6 +856,16 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
 .founder-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 2rem; margin: 2rem 0 0; padding-top: 1.75rem; border-top: 1px solid var(--space-light-grey); }
 .founder-facts dt { font-size: var(--fs-micro); font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--space-grey-text); margin-bottom: 0.3rem; }
 .founder-facts dd { margin: 0; line-height: 1.5; }
+.founder-members { margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid var(--space-light-grey); }
+.founder-members-label { font-size: var(--fs-micro); font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--space-grey-text); margin: 0 0 0.9rem; }
+.founder-members-list { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem 2.25rem; }
+.founder-members-list img { display: block; width: auto; height: 64px; }
+.founder-members-list li + li img { height: 36px; max-width: 100%; }
+@media (max-width: 600px) {
+  .founder-members-list img { height: 56px; }
+  .founder-members-list li + li img { height: auto; width: 100%; }
+  .founder-members-list li + li { flex: 1 1 100%; }
+}
 
 /* Team: compact cards with an initials badge */
 .team-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(0.85rem, 0.5rem + 0.8vw, 1.25rem); }
@@ -886,13 +894,48 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
 /* Developers: a single slim row of name tags */
 .dev-strip { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; text-align: center; }
 .dev-strip .kicker::after { content: ""; display: inline-block; width: 28px; height: 1px; margin-left: 0.9rem; vertical-align: middle; background: var(--space-blue); }
-.dev-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; }
-.dev-list li {
-  padding: 0.55rem 1.1rem;
+.dev-strip .kicker { text-wrap: balance; }
+/* Developer logos: circular badges in an endless right-to-left marquee */
+.dev-marquee {
+  --dev-size: 132px;
+  --dev-gap: 1.25rem;
+  width: 100%;
+  overflow: hidden;
+  container-type: inline-size;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+.dev-track { display: flex; width: max-content; animation: dev-scroll 40s linear infinite; }
+.dev-marquee:hover .dev-track { animation-play-state: paused; }
+/* Each copy of the list is wider than the strip, so a logo is never on screen twice */
+.dev-list {
+  display: flex; justify-content: space-around; gap: var(--dev-gap);
+  min-width: calc(100cqw + var(--dev-size) + var(--dev-gap));
+  padding: 0.5rem var(--dev-gap) 0.5rem 0;
+}
+.dev-logo {
+  flex: none;
+  display: flex; align-items: center; justify-content: center;
+  width: var(--dev-size); height: var(--dev-size);
+  border-radius: 50%;
   border: 1px solid var(--space-border);
-  font-size: var(--fs-sm);
-  color: var(--space-charcoal);
   background: var(--space-white);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+.dev-logo img { width: 78%; height: 78%; object-fit: contain; }
+.dev-logo--fill img { width: 100%; height: 100%; object-fit: cover; }
+@keyframes dev-scroll { to { transform: translateX(-50%); } }
+/* Authority logos (services page): the same circular badges in a static, centred row */
+.auth-list { --dev-size: 132px; display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem 2rem; }
+@media (max-width: 900px) { .auth-list { --dev-size: 112px; gap: 1.25rem 1.5rem; } }
+@media (max-width: 600px) { .auth-list { --dev-size: 92px; gap: 1rem; } }
+@media (max-width: 900px) { .dev-marquee { --dev-size: 112px; --dev-gap: 1rem; } }
+@media (max-width: 600px) { .dev-marquee { --dev-size: 92px; --dev-gap: 0.9rem; } }
+@media (prefers-reduced-motion: reduce) {
+  .dev-marquee { overflow-x: auto; }
+  .dev-track { animation: none; }
+  .dev-list[aria-hidden="true"] { display: none; }
 }
 
 /* Closing call-to-action band */
@@ -908,11 +951,11 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
   .why-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .team-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .founder { grid-template-columns: 1fr; }
-  .founder-mark { min-height: 0; flex-direction: row; align-items: flex-end; gap: 2rem; }
+  .founder-mark { min-height: 460px; }
 }
 @media (max-width: 600px) {
   .why-cards, .team-cards, .founder-facts { grid-template-columns: 1fr; }
-  .founder-mark { flex-direction: column; align-items: flex-start; }
+  .founder-mark { min-height: 380px; }
 }
 
 /* ---------------------------------------------------------------------
@@ -969,6 +1012,10 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
 .svc-media.fit-sky { background: linear-gradient(180deg, #D3E1EC 0%, #F1F5F8 100%); }
 .svc-media.fit-sky img { object-fit: contain; object-position: center bottom; padding-top: 1.25rem; }
 .svc-media.fit-white { background: var(--space-white); }
+/* Full building renders: a taller frame so the whole tower reads */
+.svc-media--render { aspect-ratio: 4 / 5; }
+.svc-media--render img { object-position: center 35%; }
+.svc-media--top img { object-position: center 8%; }
 .svc-media.fit-white img { object-fit: contain; padding: 1.25rem; }
 .svc-copy .apa-title { margin-bottom: 1rem; }
 .svc-lead { font-size: var(--fs-md); font-weight: 300; line-height: 1.6; color: var(--space-charcoal); margin-bottom: 1rem; }
@@ -1256,7 +1303,7 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
 .hero-slide-title, .page-hero-title, .page-hero-title span,
 .apa-title, .cta-band-title, .project-hero-title,
 .svc-card-title, .pf-card-title, .why-card h3, .team-card-name,
-.office-mini-city, .founder-initials, .founder-years strong,
+.office-mini-city, .founder-years strong,
 .stats-grid dd, .mobile-menu-list a, .faq-item summary .h-md,
 .service-block-title, .nf-title, .legal h2, .legal h1 {
   font-family: var(--font-display);
@@ -1288,3 +1335,6 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
 .bg-tagore-nagar-building-18 { background-image: url("../assets/img/projects/tagore-nagar-building-18.webp"); }
 .bg-titwala-layout { background-image: url("../assets/img/projects/titwala-layout.webp"); }
 .bg-vp-realty-tagore-nagar { background-image: url("../assets/img/projects/vp-realty-tagore-nagar.webp"); }
+.bg-natasha-atlantis { background-image: url("../assets/img/projects/natasha-atlantis.webp"); }
+.bg-ujwala-residency { background-image: url("../assets/img/projects/ujwala-residency.webp"); }
+.bg-akashdeep-nehru-nagar { background-image: url("../assets/img/projects/akashdeep-nehru-nagar.webp"); }
