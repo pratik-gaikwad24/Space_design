@@ -910,8 +910,19 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
 /* Each copy of the list is wider than the strip, so a logo is never on screen twice */
 .dev-list {
   display: flex; justify-content: space-around; gap: var(--dev-gap);
-  min-width: calc(100cqw + var(--dev-size) + var(--dev-gap));
+  min-width: calc(100cqw + var(--dev-size) + 1.5rem + var(--dev-gap));
   padding: 0.5rem var(--dev-gap) 0.5rem 0;
+}
+/* A logo circle with the developer's name underneath */
+.dev-item {
+  flex: none;
+  display: flex; flex-direction: column; align-items: center; gap: 0.7rem;
+  width: calc(var(--dev-size) + 1.5rem);
+}
+.dev-name {
+  font-size: var(--fs-xs); font-weight: 500; line-height: 1.35;
+  text-align: center; color: var(--space-charcoal);
+  text-wrap: balance;
 }
 .dev-logo {
   flex: none;
