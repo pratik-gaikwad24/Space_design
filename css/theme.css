@@ -903,7 +903,9 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
 .dev-logo--fill img { width: 100%; height: 100%; object-fit: cover; }
 @keyframes dev-scroll { to { transform: translateX(-50%); } }
 /* Authority logos (services page): the same circular badges in a static, centred row */
-.auth-list { --dev-size: 132px; display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem 2rem; }
+.auth-list { --dev-size: 132px; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 1.75rem 2rem; }
+.auth-list .dev-name { font-weight: 700; letter-spacing: 0.06em; }
+.auth-full { display: block; margin-top: 0.25rem; font-size: var(--fs-micro); font-weight: 400; letter-spacing: 0; line-height: 1.4; color: var(--space-grey-text); }
 @media (max-width: 900px) { .auth-list { --dev-size: 112px; gap: 1.25rem 1.5rem; } }
 @media (max-width: 600px) { .auth-list { --dev-size: 92px; gap: 1rem; } }
 @media (max-width: 900px) { .dev-marquee { --dev-size: 112px; --dev-gap: 1rem; } }

@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Replace https://your-domain.com with the production domain.
+  Replace https://www.spacedesign.space with the production domain.
   Project pages (portfolio-detail.html?slug=...) are added by listing each
   published slug below. See README "Sitemap" for the SQL query that
   generates these <url> entries.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://your-domain.com/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://your-domain.com/about.html</loc><changefreq>yearly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://your-domain.com/services.html</loc><changefreq>yearly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://your-domain.com/portfolio.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://your-domain.com/contact.html</loc><changefreq>yearly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://your-domain.com/privacy-policy.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
-  <url><loc>https://your-domain.com/terms.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
-  <url><loc>https://your-domain.com/cookie-policy.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
-  <url><loc>https://your-domain.com/refund-policy.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
-  <url><loc>https://your-domain.com/accessibility.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
-  <!-- PROJECTS: add one line per published project, e.g.
-  <url><loc>https://your-domain.com/portfolio-detail.html?slug=project-slug</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
-  -->
+  <url><loc>https://www.spacedesign.space/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.spacedesign.space/about.html</loc><changefreq>yearly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.spacedesign.space/services.html</loc><changefreq>yearly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.spacedesign.space/portfolio.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.spacedesign.space/contact.html</loc><changefreq>yearly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.spacedesign.space/privacy-policy.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://www.spacedesign.space/terms.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://www.spacedesign.space/cookie-policy.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://www.spacedesign.space/refund-policy.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://www.spacedesign.space/accessibility.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <!-- Projects (one per entry in js/projects-data.js) -->
+  <url><loc>https://www.spacedesign.space/portfolio-detail.html?slug=tagore-nagar-building-18</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.spacedesign.space/portfolio-detail.html?slug=pragati-icon</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.spacedesign.space/portfolio-detail.html?slug=haware-legacy</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.spacedesign.space/portfolio-detail.html?slug=pant-nagar-building-3</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.spacedesign.space/portfolio-detail.html?slug=maharshi-nagar-colony-pune</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.spacedesign.space/portfolio-detail.html?slug=tagore-nagar-building-17</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.spacedesign.space/portfolio-detail.html?slug=pragati-reventa</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.spacedesign.space/portfolio-detail.html?slug=tagore-nagar-building-38</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.spacedesign.space/portfolio-detail.html?slug=kannamwar-nagar-building-80</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.spacedesign.space/portfolio-detail.html?slug=saint-tukaram-nagar-pune</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.spacedesign.space/portfolio-detail.html?slug=titwala-layout-kalyan</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
 </urlset>

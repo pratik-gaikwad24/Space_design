@@ -1,9 +1,9 @@
 # Space Design — robots.txt
-# Replace your-domain.com with the production domain before launch.
+# Production domain: www.spacedesign.space
 
 User-agent: *
 Allow: /
 Disallow: /partials/
 Disallow: /tools/
 
-Sitemap: https://your-domain.com/sitemap.xml
+Sitemap: https://www.spacedesign.space/sitemap.xml

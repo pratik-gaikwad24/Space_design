@@ -139,15 +139,15 @@ It's a static site, so upload the folder as-is (there's no build command).
 - **Vercel:** framework preset "Other", no build command, output = root. `vercel.json` supplies the headers. Vercel serves `404.html` automatically.
 - **Others (Apache/Nginx/S3):** copy the headers from `_headers` into the server configuration and set `404.html` as the error document.
 
-Before deploying, replace `https://your-domain.com` everywhere (§10), then test every page with the CSP active: open the browser console and look for "Refused to…" messages.
+The domain is set to `https://www.spacedesign.space` (§10). Before going live, test every page with the CSP active: open the browser console and look for "Refused to…" messages.
 
 ## 10. Domain configuration and sitemap
 
 1. Point the domain's DNS to your host and enable HTTPS (all the hosts above do this automatically).
-2. Find and replace `https://your-domain.com` with the real origin in: all `*.html` (canonical, OG and JSON-LD), `sitemap.xml`, `robots.txt` and `js/config.js` (`SITE_URL`).
-3. Choose one canonical host (with or without `www`) and redirect the other one to it.
-4. `sitemap.xml` lists the static pages. Add one `<url>` per project: `https://your-domain.com/portfolio-detail.html?slug=<slug>`.
-5. Submit `https://your-domain.com/sitemap.xml` in **Google Search Console** and **Bing Webmaster Tools**. Also claim and verify the **Google Business Profile** for each office (Vashi and Shivaji Nagar) and use the exact same name, address and phone details as the website.
+2. The site's address is `https://www.spacedesign.space`. If it ever changes, find and replace it in: all `*.html` (canonical, OG and JSON-LD), `sitemap.xml`, `robots.txt` and `js/config.js` (`SITE_URL`).
+3. The site uses `www.spacedesign.space`: redirect `spacedesign.space` (without www) to it at your host.
+4. `sitemap.xml` lists the static pages and all projects. When you add a project, add one `<url>`: `https://www.spacedesign.space/portfolio-detail.html?slug=<slug>`.
+5. Submit `https://www.spacedesign.space/sitemap.xml` in **Google Search Console** and **Bing Webmaster Tools**. Also claim and verify the **Google Business Profile** for each office (Vashi and Shivaji Nagar) and use the exact same name, address and phone details as the website.
 
 ## 11. Security checklist
 
@@ -169,7 +169,7 @@ Before deploying, replace `https://your-domain.com` everywhere (§10), then test
 - [ ] Confirm the brochure discrepancies listed under "Content sources" below
 
 **Technical**
-- [ ] Domain placeholders replaced (§10)
+- [ ] Domain connected at the host, HTTPS on, and `spacedesign.space` redirecting to `www.spacedesign.space` (§10)
 - [ ] Send a test enquiry from a phone and check it arrives on WhatsApp
 - [ ] Lighthouse (Performance, Accessibility, SEO) on the key pages after real images are in place
 - [ ] Keyboard-only and screen-reader pass (NVDA/VoiceOver) on Home, Portfolio, Project, Contact
