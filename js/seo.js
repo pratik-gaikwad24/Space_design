@@ -76,21 +76,6 @@
       department: BUSINESS.offices.map(function (o) { return { '@id': SITE + '/#' + o.id }; })
     };
   }
-  function offices() {
-    return BUSINESS.offices.map(function (o) {
-      return {
-        '@type': 'ProfessionalService',
-        '@id': SITE + '/#' + o.id,
-        name: o.name,
-        parentOrganization: { '@id': SITE + '/#organization' },
-        url: SITE + '/contact.html',
-        image: SITE + '/assets/img/og-default.jpg',
-        address: { '@type': 'PostalAddress', streetAddress: o.streetAddress, addressLocality: o.locality, addressRegion: 'Maharashtra', postalCode: o.postalCode, addressCountry: 'IN' },
-        telephone: o.telephone,
-        email: o.email
-      };
-    });
-  }
   function person() {
     return { '@type': 'Person', '@id': SITE + '/#milind-fulzele', name: BUSINESS.principal, honorificPrefix: 'Ar.', jobTitle: 'Founder and Principal Architect', worksFor: { '@id': SITE + '/#organization' }, alumniOf: { '@type': 'CollegeOrUniversity', name: 'Sir J.J. College of Architecture, University of Mumbai' }, memberOf: { '@type': 'Organization', name: 'The Indian Institute of Architects' } };
   }
@@ -138,9 +123,6 @@
     if (vids.length) o.video = vids;
     return JSON.parse(JSON.stringify(o)); // strip undefined
   }
-  function faq(items) {
-    return { '@type': 'FAQPage', mainEntity: items.map(function (q) { return { '@type': 'Question', name: q.q, acceptedAnswer: { '@type': 'Answer', text: q.a } }; }) };
-  }
 
   /** Inject/replace a JSON-LD block. */
   function jsonLd(graph, id) {
@@ -166,35 +148,23 @@
     return breadcrumb(items);
   }
 
-  /** Optional admin-editable overrides stored in site_settings.seo_pages. */
-  async function applyPageOverrides() {
-    var key = document.body && document.body.dataset.page;
-    if (!key || !SD.api || !SD.supabaseConfigured || key === 'project' || key === 'admin') return;
-    try {
-      var res = await SD.api.getSettings(['seo_pages']);
-      var o = res.data && res.data.seo_pages && res.data.seo_pages[key];
-      if (o && (o.title || o.description)) setMeta({ title: o.title, description: o.description });
-    } catch (e) { /* ignore */ }
-  }
-
   function init() {
     var page = document.body && document.body.dataset.page;
     // Home and contact carry the full static entity graph; other pages get the
     // organisation reference + breadcrumbs so every page links to the entity.
-    if (page && page !== 'home' && page !== 'project' && page !== 'admin') {
+    if (page && page !== 'home' && page !== 'project') {
       var graph = [organization(), person()];
       var bc = breadcrumbFromDom();
       if (bc) graph.push(bc);
       jsonLd(graph, 'sd-entity-jsonld');
     }
-    applyPageOverrides();
   }
 
   SD.seo = {
     SITE: SITE, BUSINESS: BUSINESS, abs: abs,
     setMeta: setMeta, jsonLd: jsonLd,
-    organization: organization, offices: offices, person: person, webPage: webPage,
-    breadcrumb: breadcrumb, project: project, imageObject: imageObject, faq: faq
+    organization: organization, person: person, webPage: webPage,
+    breadcrumb: breadcrumb, project: project, imageObject: imageObject
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

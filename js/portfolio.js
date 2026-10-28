@@ -11,7 +11,7 @@
   var PAGE_SIZE = 12; // three full rows of four cards
   var DISCIPLINES = ['Redevelopment', 'Architecture', 'Layout Planning', 'Planning', 'Interior Design', 'Project Management'];
 
-  var state = { all: [], filtered: [], cat: 'all', query: '', shown: 0, demo: false };
+  var state = { all: [], filtered: [], cat: 'all', query: '', shown: 0 };
   var els = {};
 
   function ordered(values, preferred) {
@@ -119,11 +119,6 @@
       return;
     }
     state.all = res.data || [];
-    state.demo = !!res.demo;
-    if (state.demo) {
-      var b = document.querySelector('[data-demo-banner]');
-      if (b) { b.innerHTML = SD.ui.demoBanner(); b.hidden = false; }
-    }
     var total = document.querySelector('[data-project-total]');
     if (total && state.all.length) total.textContent = U.pad(state.all.length) + ' projects';
 

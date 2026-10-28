@@ -18,7 +18,7 @@
     return '<figure class="pv-item' + (main ? ' pv-item--main' : '') + '">' +
       '<button type="button" class="pv-btn" data-lb-group="gallery" data-lb-index="' + i + '" aria-label="Open image ' + (i + 1) + ' of ' + total + (m.alt_text ? ': ' + esc(m.alt_text) : '') + '">' +
         '<span class="pv-frame ' + U.fitClass(m) + '">' +
-          '<img src="' + esc(U.mediaUrl(m.media_url, main ? 1920 : 1280)) + '" alt="' + esc(m.alt_text || '') + '"' +
+          '<img src="' + esc(U.safeUrl(m.media_url)) + '" alt="' + esc(m.alt_text || '') + '"' +
           (main ? ' fetchpriority="high"' : ' loading="lazy"') + ' decoding="async"' +
           (m.width && m.height ? ' width="' + Number(m.width) + '" height="' + Number(m.height) + '"' : '') + '>' +
         '</span>' +
@@ -139,7 +139,7 @@
 
     $('[data-p-title]').textContent = p.title;
     $('[data-p-crumb]').textContent = p.title;
-    $('[data-p-hero]').innerHTML = (p.is_demo ? SD.ui.demoBanner() : '') + showcase(p);
+    $('[data-p-hero]').innerHTML = showcase(p);
 
     /* SEO */
     var url = SD.seo.SITE + '/portfolio-detail.html?slug=' + encodeURIComponent(p.slug);
@@ -151,8 +151,7 @@
       canonical: url,
       image: ogImg,
       imageAlt: p.featured_media && p.featured_media.alt_text,
-      type: 'article',
-      noindex: !!p.is_demo
+      type: 'article'
     });
     SD.seo.jsonLd([
       SD.seo.webPage({ url: url, name: p.title, description: desc, type: 'WebPage' }),

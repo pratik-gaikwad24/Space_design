@@ -5,9 +5,8 @@
    client. Figures are transcribed from the profile; obvious typing errors
    were corrected (see README → "Content sources").
 
-   Used when Supabase is NOT configured, so the site shows real work from
-   day one. Once Supabase is connected, the same projects are loaded from the
-   database instead (supabase/seed-projects.sql inserts them).
+   This list is the site's only project source. To add a project, add an
+   entry here and put its image in assets/img/projects/ (see README).
    ===================================================================== */
 (function () {
   'use strict';
@@ -154,5 +153,16 @@
     p.featured_media = p.media[0];
   });
 
-  SD.builtin = { projects: P };
+  /** Same { data, error } shape the pages expect, served from the list above. */
+  SD.api = {
+    listProjects: function (opts) {
+      opts = opts || {};
+      var list = P.filter(function (p) { return !opts.featured || p.featured; });
+      return Promise.resolve({ data: opts.limit ? list.slice(0, opts.limit) : list, error: null });
+    },
+    getProject: function (slug) {
+      var p = P.filter(function (d) { return d.slug === slug; })[0] || null;
+      return Promise.resolve({ data: p, error: null });
+    }
+  };
 })();

@@ -116,9 +116,7 @@
 <div class="table-wrap"><table>
 <thead><tr><th scope="col">Name</th><th scope="col">Type</th><th scope="col">Purpose</th><th scope="col">Duration</th></tr></thead>
 <tbody>
-<tr><td><code>sd_enquiry_times</code></td><td>sessionStorage</td><td>Counts enquiry submissions in this tab to prevent repeated sending</td><td>Deleted when the tab is closed</td></tr>
 <tr><td><code>sd_consent_v1</code></td><td>localStorage</td><td>Remembers your cookie choice, only if optional analytics is enabled in future and you make a choice</td><td>Until you clear it or change your choice</td></tr>
-<tr><td><code>sd-admin-auth</code></td><td>localStorage</td><td>Keeps authorised administrators signed in. Admin area only; never set for visitors</td><td>Until sign-out or session expiry</td></tr>
 </tbody></table></div>
 <h2 id="analytics">Analytics</h2>
 <p>No analytics tool is currently installed. If analytics is added in future, it will:</p>
@@ -239,9 +237,7 @@
 <!-- /PARTIAL:footer -->
 <!-- PARTIAL:scripts -->
 <script src="js/config.js" defer></script>
-<script src="js/vendor/supabase.js" defer></script>
 <script src="js/utils.js" defer></script>
-<script src="js/supabase.js" defer></script>
 <script src="js/projects-data.js" defer></script>
 <script src="js/seo.js" defer></script>
 <script src="js/cookie-consent.js" defer></script>

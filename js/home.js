@@ -1,7 +1,6 @@
 /* =====================================================================
    SPACE DESIGN — Home page
-   Hero slider · optional first-slide image from site settings ·
-   count-up figures · featured works (shared project cards) with "Load more" · testimonials.
+   Hero slider · count-up figures · featured works (shared project cards) with "Load more" · testimonials.
    ===================================================================== */
 (function () {
   'use strict';
@@ -87,18 +86,6 @@
     show(0);
     setPaused(userPaused);
     requestAnimationFrame(function () { root.classList.add('is-ready'); });
-  }
-
-  /* ---------- Optional first-slide image from site_settings.home_hero ---------- */
-  async function heroMedia() {
-    if (!SD.supabaseConfigured) return;
-    var res = await SD.api.getSettings(['home_hero']);
-    var h = res.data && res.data.home_hero;
-    var url = h && U.safeUrl(h.image_url);
-    if (!url) return;
-    // Set through the CSSOM (allowed by the CSP), not an inline style attribute.
-    var bg = document.querySelector('.hero-slide .hero-slide-bg');
-    if (bg) bg.style.backgroundImage = 'url("' + url.replace(/"/g, '%22') + '")';
   }
 
   /* ---------- Count-up figures ---------- */
@@ -199,7 +186,6 @@
     counters();
     works();
     testimonials();
-    heroMedia();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

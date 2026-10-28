@@ -19,13 +19,6 @@ body {
 }
 p { color: inherit; }
 
-.serif-accent {
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-weight: 300;
-  color: var(--space-grey);
-}
-
 .label,
 .kicker {
   font-size: var(--fs-micro);
@@ -44,13 +37,12 @@ p { color: inherit; }
 }
 .label--blue { color: var(--space-blue); }
 
-.h-xl, .h-lg, .display, .page-hero-title, .project-hero-title, .contact-title,
-.service-title, .office-city, .nf-title, .cta-blue-title, .years-heading {
+.h-xl, .h-lg, .page-hero-title, .nf-title{
   font-weight: 300;
   text-transform: none;
   letter-spacing: -0.01em;
 }
-.h-xl .muted, .page-hero-title .muted, .nf-title .muted, .display .muted { font-weight: 300; }
+.h-xl .muted, .page-hero-title .muted, .nf-title .muted{ font-weight: 300; }
 
 /* ---------------------------------------------------------------------
    2. Buttons — thin frame, small tracked caps, short rules either side
@@ -189,7 +181,7 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
    --------------------------------------------------------------------- */
 .section { padding-block: clamp(4rem, 2.5rem + 4vw, 6.5rem); }
 .section--alt { background: var(--space-off-white); }
-.section--dark { background: var(--space-dark); }
+
 .apa-section { padding-block: clamp(4rem, 2.5rem + 4vw, 6.5rem); }
 .apa-section--grey { background: var(--space-panel); }
 
@@ -550,35 +542,13 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
 /* Entrance: subtitle drops, title fades, intro rises */
 .js .page-hero .coords { animation: banner-drop 1s var(--ease-out) both; }
 .js .page-hero .page-hero-title { animation: banner-fade 1.8s ease 0.25s both; }
-.js .page-hero .page-hero-foot, .js .page-hero .service-index { animation: banner-rise 1.2s var(--ease-out) 0.6s both; }
+.js .page-hero .page-hero-foot{ animation: banner-rise 1.2s var(--ease-out) 0.6s both; }
 .js .page-hero .page-hero-title .line-mask > span { transform: none; }
 @keyframes banner-drop { from { opacity: 0; transform: translateY(-24px); } to { opacity: 1; transform: none; } }
 @keyframes banner-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes banner-rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 
 /* Services: jump links as a row of framed buttons inside the banner */
-.page-hero .service-index {
-  order: 4;
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem 1.5rem;
-  margin-top: clamp(2rem, 1.5rem + 2vw, 3rem);
-  border: 0;
-}
-.page-hero .service-index li { border: 0; }
-.page-hero .service-index a {
-  display: inline-flex; align-items: center; gap: 0.6rem;
-  padding: 0.75rem 1.4rem;
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  color: var(--space-white);
-  font-size: var(--fs-micro);
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: background-color 0.3s ease-in, color 0.3s ease-in, border-color 0.3s ease-in;
-}
-.page-hero .service-index a span { color: var(--space-blue-light); }
-.page-hero .service-index a:hover, .page-hero .service-index a:focus-visible { background: var(--space-white); color: var(--space-charcoal); border-color: var(--space-white); }
-.page-hero .service-index a:hover span { color: var(--space-blue); }
 
 /* Scroll cue: a line that keeps dropping */
 .page-hero-cue {
@@ -600,10 +570,6 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
 .page-hero--short { min-height: 62vh; min-height: 62svh; }
 
 /* Closing call-to-action band */
-.cta-blue { background: var(--space-dark); }
-.cta-blue-title { font-weight: 300; }
-.cta-blue-title .outline { -webkit-text-stroke-width: 1px; }
-.cta-blue .label { color: var(--space-blue-light); }
 
 /* ---------------------------------------------------------------------
    10b. Contact — quick contact strip, form + office sidebar
@@ -768,7 +734,6 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
 .pf-card-media.fit-white { background: var(--space-white); border-bottom: 1px solid var(--space-light-grey); }
 .pf-card-media.fit-white img { object-fit: contain; padding: 0.75rem; }
 .pf-card-link:hover .pf-card-media img, .pf-card-link:focus-visible .pf-card-media img { transform: scale(1.05); }
-
 
 .pf-card-body { display: flex; flex-direction: column; flex: 1; padding: 1.1rem 1.25rem 1.25rem; }
 .pf-card-cat { font-size: 0.625rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--space-blue); margin-bottom: 0.45rem; }
@@ -1011,6 +976,8 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
 .svc-block--alt { background: var(--space-off-white); }
 .svc-split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 1rem + 5vw, 6rem); align-items: center; }
 .svc-block--alt .svc-media { order: 2; }
+/* Mirror the columns too, so the image keeps the same width on either side */
+.svc-block--alt .svc-split { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
 .svc-media {
   position: relative;
   margin: 0;
@@ -1081,7 +1048,7 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
 
 @media (max-width: 1100px) { .svc-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 900px) {
-  .svc-split, .faq-layout { grid-template-columns: 1fr; }
+  .svc-split, .svc-block--alt .svc-split, .faq-layout { grid-template-columns: 1fr; }
   .svc-block--alt .svc-media { order: 0; }
   .svc-media { max-height: 60vh; }
 }
@@ -1206,8 +1173,7 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
    13. Responsive QA fixes
    --------------------------------------------------------------------- */
 /* Light, sentence-case headings everywhere (no leftover heavy caps) */
-.service-block-title, .principal-name, .legal h2,
-.cta-blue-title, .cta-blue-title span {
+ .legal h2{
   font-weight: 300;
   text-transform: none;
   letter-spacing: -0.01em;
@@ -1234,7 +1200,7 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
 .form { gap: 1.4rem; }
 .form-row { gap: 1.4rem; }
 .field { gap: 0.45rem; align-content: start; }
-.field label, .field .field-label { font-weight: 500; color: var(--space-charcoal); }
+.field label{ font-weight: 500; color: var(--space-charcoal); }
 .field input:not([type="checkbox"]), .field select, .field textarea {
   min-height: 48px;
   padding: 0.75rem 0.95rem;
@@ -1312,11 +1278,10 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
    --------------------------------------------------------------------- */
 :root { --font-display: "Instrument Serif", "Iowan Old Style", "Palatino Linotype", Georgia, serif; }
 .hero-slide-title, .page-hero-title, .page-hero-title span,
-.apa-title, .cta-band-title, .project-hero-title,
+.apa-title, .cta-band-title,
 .svc-card-title, .pf-card-title, .why-card h3, .team-card-name,
 .office-mini-city, .founder-years strong,
-.stats-grid dd, .mobile-menu-list a, .faq-item summary .h-md,
-.service-block-title, .nf-title, .legal h2, .legal h1 {
+.stats-grid dd, .mobile-menu-list a, .faq-item summary .h-md, .nf-title, .legal h2, .legal h1 {
   font-family: var(--font-display);
   font-weight: 400;
   letter-spacing: -0.005em;
@@ -1336,15 +1301,13 @@ body.menu-open .site-header .brand-mark { filter: brightness(0) invert(1); }
    so the Content-Security-Policy can keep style-src 'self')
    --------------------------------------------------------------------- */
 .bg-haware-legacy { background-image: url("../assets/img/projects/haware-legacy.webp"); }
-.bg-kannamwar-nagar-building-80 { background-image: url("../assets/img/projects/kannamwar-nagar-building-80.webp"); }
-.bg-maharshi-nagar-layout { background-image: url("../assets/img/projects/maharshi-nagar-layout.webp"); }
+
 .bg-pant-nagar-building-3 { background-image: url("../assets/img/projects/pant-nagar-building-3.webp"); }
 .bg-pragati-icon { background-image: url("../assets/img/projects/pragati-icon.webp"); }
-.bg-pragati-reventa { background-image: url("../assets/img/projects/pragati-reventa.webp"); }
-.bg-saint-tukaram-nagar-layout { background-image: url("../assets/img/projects/saint-tukaram-nagar-layout.webp"); }
+
 .bg-tagore-nagar-building-17 { background-image: url("../assets/img/projects/tagore-nagar-building-17.webp"); }
 .bg-tagore-nagar-building-18 { background-image: url("../assets/img/projects/tagore-nagar-building-18.webp"); }
-.bg-titwala-layout { background-image: url("../assets/img/projects/titwala-layout.webp"); }
+
 .bg-vp-realty-tagore-nagar { background-image: url("../assets/img/projects/vp-realty-tagore-nagar.webp"); }
 .bg-natasha-atlantis { background-image: url("../assets/img/projects/natasha-atlantis.webp"); }
 .bg-ujwala-residency { background-image: url("../assets/img/projects/ujwala-residency.webp"); }

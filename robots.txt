@@ -3,8 +3,6 @@
 
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /supabase/
 Disallow: /partials/
 Disallow: /tools/
 

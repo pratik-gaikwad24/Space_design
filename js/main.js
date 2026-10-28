@@ -1,6 +1,6 @@
 /* =====================================================================
    SPACE DESIGN — Motion & shared behaviours
-   IntersectionObserver reveals, lazy video, cursor label, footer year.
+   IntersectionObserver reveals, lazy video, footer year.
    No animation libraries. Respects prefers-reduced-motion.
    ===================================================================== */
 (function () {
@@ -55,33 +55,10 @@
     vids.forEach(function (v) { vio.observe(v); });
   }
 
-  /* ---------- Cursor label over project media (fine pointer only, decorative) ---------- */
-  function cursor() {
-    if (reduce || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-    var c = document.createElement('div');
-    c.className = 'cursor-view';
-    c.setAttribute('aria-hidden', 'true');
-    c.textContent = 'View';
-    document.body.appendChild(c);
-    var raf;
-    document.addEventListener('pointermove', function (e) {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(function () {
-        c.style.setProperty('--x', e.clientX + 'px');
-        c.style.setProperty('--y', e.clientY + 'px');
-        var over = e.target.closest && e.target.closest('[data-cursor] .project-card-media');
-        c.classList.toggle('is-visible', !!over);
-      });
-    }, { passive: true });
-    document.addEventListener('pointerleave', function () { c.classList.remove('is-visible'); });
-  }
-
-
   function init() {
     document.querySelectorAll('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
     reveal(document);
     lazyVideos(document);
-    cursor();
 
     // External links opened in a new tab always get rel protection.
     document.querySelectorAll('a[target="_blank"]').forEach(function (a) {

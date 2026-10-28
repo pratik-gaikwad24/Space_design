@@ -20,9 +20,11 @@
   function validPhone(raw) {
     var digits = raw.replace(/[^\d]/g, '');
     if (!/^\+?[0-9 ()\-]{7,20}$/.test(raw)) return false;
-    // Indian mobile (10 digits starting 6-9, optional 91/0 prefix) or landline with STD code (10–11 digits)
+    // Indian mobile (10 digits starting 6-9, optional 91/0 prefix) or landline with STD code (0 or 91, then 10 digits)
+    var national = digits.replace(/^(?:91|0)(?=\d{10}$)/, '');
+    if (/^(\d)\1+$/.test(national)) return false; // 0000000000, 9999999999…
     if (/^(?:91|0)?[6-9]\d{9}$/.test(digits)) return true;
-    if (/^(?:91)?0?\d{10}$/.test(digits)) return true;
+    if (/^(?:0|91)[1-8]\d{9}$/.test(digits)) return true;
     // International numbers
     return raw.trim().charAt(0) === '+' && digits.length >= 8 && digits.length <= 15;
   }
