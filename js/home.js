@@ -116,7 +116,7 @@
     if (!grid) return;
     var more = document.querySelector('[data-works-more]');
     var all = document.querySelector('[data-works-all]');
-    var res = await SD.api.listProjects({});
+    var res = await SD.api.listProjects();
     grid.setAttribute('aria-busy', 'false');
 
     if (res.error) {

@@ -5,8 +5,9 @@
    client. Figures are transcribed from the profile; obvious typing errors
    were corrected (see README → "Content sources").
 
-   This list is the site's only project source. To add a project, add an
-   entry here and put its image in assets/img/projects/ (see README).
+   Projects are managed in the admin (Supabase `projects` table). This
+   built-in list is the fallback if the database can't be reached, and the
+   source of supabase/seed-projects.sql.
    ===================================================================== */
 (function () {
   'use strict';
@@ -69,7 +70,7 @@
     {
       slug: 'maharshi-nagar-colony-pune', title: 'Maharshi Nagar Colony, Pune', featured: true, sort_order: 50,
       subtitle: 'MHADA layout planning',
-      category: 'Layout Planning', project_type: 'Housing Layout', status: 'Ongoing',
+      category: 'Planning', project_type: 'Housing Layout', status: 'Ongoing',
       location: 'Maharshi Nagar, Pune', area: '33,834.38 sq m plot',
       client: null,
       short_description: 'Revision of the MHADA layout at Maharshi Nagar, Pune: residential, commercial, amenity and recreational plots across a 33,834 sq m site.',
@@ -124,7 +125,7 @@
     {
       slug: 'saint-tukaram-nagar-pune', title: 'Saint Tukaram Nagar, Pune', featured: false, sort_order: 100,
       subtitle: 'MHADA layout planning',
-      category: 'Layout Planning', project_type: 'Housing Layout', status: null,
+      category: 'Planning', project_type: 'Housing Layout', status: null,
       location: 'Saint Tukaram Nagar, Pune', area: '40.50 ha',
       client: null,
       short_description: 'MHADA layout at Saint Tukaram Nagar, Pune: a 40.5-hectare scheme of residential, commercial, amenity and open-space areas.',
@@ -135,7 +136,7 @@
     {
       slug: 'titwala-layout-kalyan', title: 'Titwala Layout, Kalyan', featured: false, sort_order: 110,
       subtitle: 'MHADA layout planning',
-      category: 'Layout Planning', project_type: 'Housing Layout', status: 'Ongoing',
+      category: 'Planning', project_type: 'Housing Layout', status: 'Ongoing',
       location: 'Titwala, Kalyan', area: '11.6701 ha housing scheme',
       client: null,
       short_description: 'Revision of the MHADA layout at Titwala, Kalyan: an 11.67-hectare housing scheme with roads, open space, a primary school and commercial complex.',
@@ -147,22 +148,61 @@
 
   P.forEach(function (p, i) {
     p.id = 'builtin-' + i;
-    p.published = true;
-    p.year = null;
-    p.services = p.category === 'Layout Planning' ? ['Planning'] : [];
     p.featured_media = p.media[0];
   });
 
-  /** Same { data, error } shape the pages expect, served from the list above. */
+  /* ---------------------------------------------------------------------
+     Data source: the Supabase `projects` table (published rows), read over
+     its REST API so public pages don't need the Supabase library. If the
+     database can't be reached, the built-in list above is used instead.
+     --------------------------------------------------------------------- */
+  var cfg = window.SD_CONFIG || {};
+  var remote = null; // one request per page, shared by all callers
+
+  /** A database row → the shape the pages use (media, featured_media…). */
+  function fromRow(r) {
+    var media = (Array.isArray(r.images) ? r.images : []).filter(function (m) { return m && m.url; }).map(function (m, i) {
+      return { id: r.id + '-' + i, media_type: m.kind === 'plan' ? 'plan' : 'image', media_url: m.url,
+        alt_text: m.alt || r.title, caption: m.caption || '', width: m.width || null, height: m.height || null };
+    });
+    return {
+      id: r.id, slug: r.slug, title: r.title, subtitle: r.subtitle, category: r.category, project_type: r.project_type,
+      status: r.status, location: r.location, area: r.area, client: r.client, short_description: r.short_description,
+      description: r.description, details: r.details, featured: !!r.featured, sort_order: r.sort_order,
+      media: media, featured_media: media[0] || null
+    };
+  }
+
+  function fetchRemote() {
+    if (remote) return remote;
+    if (!cfg.SUPABASE_URL || !cfg.SUPABASE_KEY || !window.fetch) return (remote = Promise.resolve(null));
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var timer = ctrl && setTimeout(function () { ctrl.abort(); }, 6000);
+    var url = cfg.SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/projects?select=*&published=eq.true&order=sort_order.asc,created_at.desc';
+    remote = fetch(url, { headers: { apikey: cfg.SUPABASE_KEY, Accept: 'application/json' }, signal: ctrl ? ctrl.signal : undefined })
+      .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+      .then(function (rows) { return Array.isArray(rows) ? rows.map(fromRow) : null; })
+      .catch(function (err) {
+        if (window.console) console.warn('[Space Design] projects database unavailable, using built-in list:', err.message || err);
+        return null;
+      })
+      .then(function (list) { if (timer) clearTimeout(timer); return list; });
+    return remote;
+  }
+
+  function source() {
+    return fetchRemote().then(function (list) { return list || P; });
+  }
+
+  /** Same { data, error } shape the pages expect. */
   SD.api = {
-    listProjects: function (opts) {
-      opts = opts || {};
-      var list = P.filter(function (p) { return !opts.featured || p.featured; });
-      return Promise.resolve({ data: opts.limit ? list.slice(0, opts.limit) : list, error: null });
+    listProjects: function () {
+      return source().then(function (all) { return { data: all, error: null }; });
     },
     getProject: function (slug) {
-      var p = P.filter(function (d) { return d.slug === slug; })[0] || null;
-      return Promise.resolve({ data: p, error: null });
+      return source().then(function (all) {
+        return { data: all.filter(function (d) { return d.slug === slug; })[0] || null, error: null };
+      });
     }
   };
 })();

@@ -813,7 +813,7 @@ body.menu-open { overflow: hidden; }
 
 
 
-.play-badge::before { content: ""; width: 0; height: 0; border-left: 7px solid var(--space-blue); border-top: 4.5px solid transparent; border-bottom: 4.5px solid transparent; }
+
 
 
 
@@ -1182,8 +1182,8 @@ body.menu-open { overflow: hidden; }
 }
 
 
-.video-frame { position: relative; background: var(--space-dark); aspect-ratio: 16 / 9; }
-.video-frame video { width: 100%; height: 100%; object-fit: contain; background: #000; }
+
+
 
 
 

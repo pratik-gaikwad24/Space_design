@@ -1,6 +1,6 @@
 /* =====================================================================
    SPACE DESIGN — Project page (portfolio-detail.html?slug=...)
-   Shows the project itself: its name and its images, nothing else.
+   Shows the project: its name, images, description, key facts, units and related projects.
    Images open in an accessible lightbox. Per-project SEO / JSON-LD is kept.
    ===================================================================== */
 (function () {
@@ -10,8 +10,6 @@
   var esc = U.esc;
 
   function $(s) { return document.querySelector(s); }
-
-  function isPdf(m) { return /pdf/i.test(m.mime_type || '') || /\.pdf(\?|$)/i.test(m.media_url || ''); }
 
   /* ---------- Showcase: main image large, any others in a grid ---------- */
   function figure(m, i, total, main) {
@@ -26,45 +24,14 @@
     '</figure>';
   }
 
-  function videoItem(m, title) {
-    var src = U.safeUrl(m.media_url);
-    var poster = U.safeUrl(m.poster_url);
-    var captions = U.safeUrl(m.captions_url);
-    var type = m.mime_type || (/\.webm(\?|$)/i.test(src) ? 'video/webm' : 'video/mp4');
-    return '<figure class="pv-item pv-item--video"><div class="video-frame">' +
-      '<video controls playsinline preload="none"' + (captions ? ' crossorigin="anonymous"' : '') +
-        (poster ? ' poster="' + esc(poster) + '"' : '') + ' aria-label="' + esc(m.alt_text || m.caption || title + ' video') + '">' +
-        '<source src="' + esc(src) + '" type="' + esc(type) + '">' +
-        (captions ? '<track kind="captions" src="' + esc(captions) + '" srclang="en" label="English" default>' : '') +
-        'Your browser cannot play this video. <a href="' + esc(src) + '">Download the video</a>.' +
-      '</video></div></figure>';
-  }
-
-  function pdfItem(m) {
-    return '<a class="pv-pdf" href="' + esc(U.safeUrl(m.media_url)) + '" target="_blank" rel="noopener noreferrer">' +
-      esc(m.caption || m.alt_text || 'Drawing') + ' (PDF)<span class="visually-hidden"> opens in a new tab</span></a>';
-  }
-
   function showcase(p) {
-    var media = p.media || [];
-    var fm = p.featured_media;
-    // Images, renders and image plans/drawings, featured image first.
-    var pics = media.filter(function (m) { return m.media_type !== 'video' && !isPdf(m) && m.media_url; });
-    if (fm && fm.media_type !== 'video') {
-      pics = [fm].concat(pics.filter(function (m) { return m.media_url !== fm.media_url; }));
-    }
-    var vids = media.filter(function (m) { return m.media_type === 'video'; });
-    var pdfs = media.filter(isPdf);
+    // Photos, renders and plans; the cover (first image) leads.
+    var pics = (p.media || []).filter(function (m) { return m.media_url; });
     groups.gallery = pics;
-
-    if (!pics.length && !vids.length) {
-      return '<p class="pv-empty">Images of this project will be published soon.</p>';
-    }
-    var html = pics.length ? figure(pics[0], 0, pics.length, true) : '';
-    var rest = pics.slice(1).map(function (m, i) { return figure(m, i + 1, pics.length, false); }).join('') +
-      vids.map(function (m) { return videoItem(m, p.title); }).join('');
+    if (!pics.length) return '<p class="pv-empty">Images of this project will be published soon.</p>';
+    var html = figure(pics[0], 0, pics.length, true);
+    var rest = pics.slice(1).map(function (m, i) { return figure(m, i + 1, pics.length, false); }).join('');
     if (rest) html += '<div class="pv-grid">' + rest + '</div>';
-    if (pdfs.length) html += '<div class="pv-pdfs">' + pdfs.map(pdfItem).join('') + '</div>';
     return html;
   }
 
@@ -116,6 +83,100 @@
     dlg.addEventListener('close', function () { img.src = 'data:,'; if (trigger) trigger.focus(); });
   }
 
+  /* ---------- Project details ---------- */
+  // Project type pre-selected on the contact form, by project category.
+  var CONTACT_TYPE = { 'Redevelopment': 'Society Redevelopment (PMC)' };
+
+  /**
+   * Split the free-text `details` (one fact per line) into:
+   *   facts      "Label: value" lines → a key-facts list
+   *   units      the "Units…:" line → one entry per flat type
+   *   highlights lines without a label
+   */
+  function parseDetails(text) {
+    var out = { facts: [], units: [], highlights: [] };
+    String(text || '').split('\n').forEach(function (line) {
+      line = line.trim();
+      if (!line) return;
+      var m = /^([^:]{2,40}):\s*(.+)$/.exec(line);
+      if (!m) { out.highlights.push(line); return; }
+      if (/^units?\b/i.test(m[1])) {
+        out.unitsNote = /\(([^)]+)\)/.exec(m[1]) ? /\(([^)]+)\)/.exec(m[1])[1] : '';
+        out.units = m[2].split(/\s*·\s*/).filter(Boolean);
+      } else out.facts.push({ label: m[1].trim(), value: m[2].trim() });
+    });
+    return out;
+  }
+
+  function factRow(label, value) {
+    return value ? '<div class="pv-fact"><dt>' + esc(label) + '</dt><dd>' + esc(value) + '</dd></div>' : '';
+  }
+
+  function unitTile(u) {
+    // "2 BHK 584.00 sq ft" → type + size
+    var m = /^(\d\s*BHK)\s+(.+)$/i.exec(u);
+    return '<li class="pv-unit"><span class="pv-unit-type">' + esc(m ? m[1] : u) + '</span>' +
+      (m ? '<span class="pv-unit-size">' + esc(m[2]) + '</span>' : '') + '</li>';
+  }
+
+  function renderInfo(p) {
+    var d = parseDetails(p.details);
+    var hasArea = d.facts.some(function (f) { return /area/i.test(f.label); });
+    var facts =
+      factRow('Location', p.location) +
+      factRow('Status', p.status) +
+      factRow('Category', p.category) +
+      factRow('Project type', p.project_type) +
+      factRow('Society', p.client) +
+      (hasArea ? '' : factRow('Area', p.area)) +
+      d.facts.map(function (f) { return factRow(f.label, f.value); }).join('');
+
+    var about = [p.short_description, p.description].filter(Boolean)
+      .filter(function (t, i, all) { return all.indexOf(t) === i; });
+    var type = CONTACT_TYPE[p.category] || p.category || '';
+
+    var html = '<div class="container pv-info-grid">' +
+      '<div class="pv-about">' +
+        '<p class="kicker">About the project</p>' +
+        about.map(function (t, i) { return '<p class="' + (i === 0 ? 'pv-lead' : 'pv-text') + '">' + esc(t) + '</p>'; }).join('') +
+        (d.highlights.length ? '<h2 class="pv-h">Highlights</h2><ul class="pv-highlights">' +
+          d.highlights.map(function (h) { return '<li>' + esc(h) + '</li>'; }).join('') + '</ul>' : '') +
+        (d.units.length ? '<h2 class="pv-h">Unit configuration' + (d.unitsNote ? ' <span class="pv-h-note">(' + esc(d.unitsNote) + ')</span>' : '') + '</h2>' +
+          '<ul class="pv-units unstyled-list">' + d.units.map(unitTile).join('') + '</ul>' : '') +
+        '<a class="btn-frame pv-cta" href="contact.html' + (type ? '?type=' + encodeURIComponent(type) : '') + '">Discuss a similar project</a>' +
+      '</div>' +
+      '<aside class="pv-facts" aria-labelledby="facts-title"><h2 class="pv-facts-title" id="facts-title">Key facts</h2><dl>' + facts + '</dl></aside>' +
+    '</div>';
+
+    var box = $('[data-p-info]');
+    box.innerHTML = html;
+    box.hidden = false;
+  }
+
+  function renderHead(p) {
+    var sub = $('[data-p-sub]');
+    if (p.subtitle) { sub.textContent = p.subtitle; sub.hidden = false; }
+    var meta = [p.category, p.status, p.location].filter(Boolean);
+    var list = $('[data-p-meta]');
+    if (meta.length) {
+      list.innerHTML = meta.map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('');
+      list.hidden = false;
+    }
+  }
+
+  /* Up to three other projects, same category first. */
+  async function renderRelated(p) {
+    var res = await SD.api.listProjects();
+    var others = (res.data || []).filter(function (x) { return x.slug !== p.slug; });
+    var same = others.filter(function (x) { return x.category === p.category; });
+    var picks = same.concat(others.filter(function (x) { return same.indexOf(x) === -1; })).slice(0, 3);
+    if (!picks.length) return;
+    var grid = $('[data-p-related-grid]');
+    grid.innerHTML = picks.map(SD.ui.portfolioCard).join('');
+    $('[data-p-related]').hidden = false;
+    if (SD.motion) SD.motion.reveal(grid);
+  }
+
   /* ---------- Not found ---------- */
   function notFound() {
     SD.seo.setMeta({ title: 'Project not found | Space Design', noindex: true });
@@ -140,13 +201,16 @@
     $('[data-p-title]').textContent = p.title;
     $('[data-p-crumb]').textContent = p.title;
     $('[data-p-hero]').innerHTML = showcase(p);
+    renderHead(p);
+    renderInfo(p);
+    renderRelated(p);
 
     /* SEO */
     var url = SD.seo.SITE + '/portfolio-detail.html?slug=' + encodeURIComponent(p.slug);
-    var desc = p.seo_description || p.short_description || ('Project by Space Design' + (p.location ? ' in ' + p.location : '') + '.');
-    var ogImg = p.og_image || (p.featured_media && (p.featured_media.media_type === 'video' ? p.featured_media.poster_url : p.featured_media.media_url)) || 'assets/img/og-default.jpg';
+    var desc = p.short_description || ('Project by Space Design' + (p.location ? ' in ' + p.location : '') + '.');
+    var ogImg = (p.featured_media && p.featured_media.media_url) || 'assets/img/og-default.jpg';
     SD.seo.setMeta({
-      title: p.seo_title || (p.title + (p.location ? ' · ' + p.location : '') + ' | Space Design'),
+      title: p.title + (p.location ? ' · ' + p.location : '') + ' | Space Design',
       description: String(desc).slice(0, 170),
       canonical: url,
       image: ogImg,

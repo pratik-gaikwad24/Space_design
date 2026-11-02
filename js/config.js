@@ -6,6 +6,13 @@ window.SD_CONFIG = Object.freeze({
      it in the HTML files, sitemap.xml and robots.txt. */
   SITE_URL: 'https://www.spacedesign.space',
 
+  /* Supabase (projects database + admin login). Both values are PUBLIC by
+     design: the database's security rules decide what they can do.
+     NEVER put the service_role / secret key or the database password here. */
+  SUPABASE_URL: 'https://wizpqcxrlancqcoymnsj.supabase.co',
+  SUPABASE_KEY: 'sb_publishable_scG2-vpp0Jtb0kfFS6VFiQ_-GTXih5R',
+  PROJECT_IMAGES_BUCKET: 'project-images',
+
   /* Optional analytics. NOTHING is installed by default.
      If enabled, the script is loaded ONLY after the visitor opts in via the
      cookie banner. Document every tracker in cookie-policy.html first.

@@ -86,6 +86,8 @@
           <ol><li><a href="index.html">Home</a></li><li><a href="portfolio.html">Projects</a></li><li aria-current="page" data-p-crumb>Project</li></ol>
         </nav>
         <h1 class="pv-title" id="project-title" data-p-title>Loading project…</h1>
+        <p class="pv-sub" data-p-sub hidden></p>
+        <ul class="pv-meta unstyled-list" aria-label="Project summary" data-p-meta hidden></ul>
       </div>
       <a class="pv-back" href="portfolio.html">Back to projects</a>
     </div>
@@ -94,6 +96,15 @@
   <section class="pv-stage" aria-label="Project images">
     <div class="container" data-p-hero>
       <div class="pv-frame pv-frame--loading skeleton"></div>
+    </div>
+  </section>
+
+  <section class="pv-info" aria-label="Project details" data-p-info hidden></section>
+
+  <section class="pv-related" aria-labelledby="related-title" data-p-related hidden>
+    <div class="container">
+      <div class="pv-related-head"><h2 class="apa-title" id="related-title">More projects</h2><a class="link-arrow" href="portfolio.html">All projects <span class="btn-arrow" aria-hidden="true">→</span></a></div>
+      <div class="pf-grid" data-p-related-grid></div>
     </div>
   </section>
 

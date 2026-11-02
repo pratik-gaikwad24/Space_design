@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Projects admin | Space Design</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#0E2436">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="adm">
+<header class="adm-bar">
+  <a class="adm-brand" href="../index.html"><img src="../assets/icons/logo-mark-light.svg" alt="" width="30" height="30"><span>SPACE DESIGN <small>Projects admin</small></span></a>
+  <div class="adm-user" data-user hidden>
+    <span data-user-email></span>
+    <a class="adm-link" href="../portfolio.html" target="_blank" rel="noopener noreferrer">View website ↗</a>
+    <button type="button" class="adm-btn adm-btn--ghost adm-btn--light" data-logout>Log out</button>
+  </div>
+</header>
+
+<main class="adm-main" id="main">
+  <div class="adm-toast" role="status" aria-live="polite" data-toast hidden></div>
+
+  <!-- Loading -->
+  <section data-view="loading"><p class="adm-muted">Loading…</p></section>
+
+  <!-- Not configured -->
+  <section data-view="config" hidden>
+    <div class="adm-card adm-narrow">
+      <h1>Admin not connected</h1>
+      <p>Supabase is not configured. Add <code>SUPABASE_URL</code> and <code>SUPABASE_KEY</code> to <code>js/config.js</code> (see README).</p>
+    </div>
+  </section>
+
+  <!-- Sign in -->
+  <section data-view="login" hidden>
+    <form class="adm-card adm-narrow" data-login-form novalidate>
+      <h1>Sign in</h1>
+      <p class="adm-muted">For Space Design staff who manage the projects on the website.</p>
+      <div class="adm-alert" role="alert" data-login-alert hidden></div>
+      <label class="adm-field"><span>Email</span><input name="email" type="email" autocomplete="username" required></label>
+      <label class="adm-field"><span>Password</span><input name="password" type="password" autocomplete="current-password" required></label>
+      <button type="submit" class="adm-btn" data-login-submit>Sign in</button>
+      <p class="adm-muted adm-small">There is no public sign-up. Accounts are created by the site owner in Supabase.</p>
+    </form>
+  </section>
+
+  <!-- Signed in, but not an admin -->
+  <section data-view="denied" hidden>
+    <div class="adm-card adm-narrow">
+      <h1>No admin access</h1>
+      <p data-denied-text>This account can sign in, but it has not been given admin rights. Add it with the SQL in README §3, step 6.</p>
+      <button type="button" class="adm-btn" data-logout>Log out</button>
+    </div>
+  </section>
+
+  <!-- Project list -->
+  <section data-view="list" hidden>
+    <div class="adm-head">
+      <div><h1>Projects</h1><p class="adm-muted" data-count></p></div>
+      <button type="button" class="adm-btn" data-new>+ Add project</button>
+    </div>
+    <div class="adm-table-wrap">
+      <table class="adm-table">
+        <thead><tr><th scope="col" class="adm-col-img"><span class="visually-hidden">Image</span></th><th scope="col">Project</th><th scope="col">Category</th><th scope="col">Status</th><th scope="col">Order</th><th scope="col">On website</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+        <tbody data-rows></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Add / edit project -->
+  <section data-view="edit" hidden>
+    <form data-edit-form novalidate>
+      <div class="adm-head">
+        <div><button type="button" class="adm-link" data-cancel>← All projects</button><h1 data-edit-title>New project</h1></div>
+        <div class="adm-actions">
+          <a class="adm-btn adm-btn--ghost" data-view-link target="_blank" rel="noopener noreferrer" hidden>View on website ↗</a>
+          <button type="submit" class="adm-btn" data-save>Save project</button>
+        </div>
+      </div>
+      <div class="adm-alert" role="alert" data-edit-alert hidden></div>
+
+      <div class="adm-grid">
+        <div class="adm-col">
+          <fieldset class="adm-card">
+            <legend>Basics</legend>
+            <label class="adm-field"><span>Title *</span><input name="title" required maxlength="160" placeholder="e.g. Building No. 17, Tagore Nagar"></label>
+            <label class="adm-field"><span>Web address (slug) *</span><input name="slug" required maxlength="120" pattern="[a-z0-9]+(-[a-z0-9]+)*" placeholder="building-17-tagore-nagar"><small>Lowercase letters, numbers and hyphens. Filled in from the title.</small></label>
+            <label class="adm-field"><span>Subtitle</span><input name="subtitle" maxlength="300" placeholder="e.g. Redevelopment with a parking tower"></label>
+            <div class="adm-row">
+              <label class="adm-field"><span>Category</span><input name="category" list="adm-categories" maxlength="80"></label>
+              <label class="adm-field"><span>Status</span><input name="status" list="adm-statuses" maxlength="40"></label>
+            </div>
+            <div class="adm-row">
+              <label class="adm-field"><span>Project type</span><input name="project_type" maxlength="80" placeholder="e.g. Residential"></label>
+              <label class="adm-field"><span>Area</span><input name="area" maxlength="120" placeholder="e.g. 832.50 sq m plot"></label>
+            </div>
+            <label class="adm-field"><span>Location</span><input name="location" maxlength="160" placeholder="e.g. Tagore Nagar, Vikhroli, Mumbai"></label>
+            <label class="adm-field"><span>Society (client)</span><input name="client" maxlength="200" placeholder="e.g. Nandadeep Co-op. Hsg. Soc. Ltd."></label>
+          </fieldset>
+
+          <fieldset class="adm-card">
+            <legend>Description</legend>
+            <label class="adm-field"><span>Short description</span><textarea name="short_description" rows="3" maxlength="600"></textarea><small>Shown first on the project page and used for Google.</small></label>
+            <label class="adm-field"><span>Full description</span><textarea name="description" rows="5" maxlength="6000"></textarea></label>
+            <label class="adm-field"><span>Details</span><textarea name="details" rows="9" maxlength="6000" placeholder="Developer: M/s Priti Infra Builders LLP&#10;Plot area: 832.50 sq m&#10;FSI (including fungible): 8.57&#10;Tenements: 32 rehab + 96 sale (128)&#10;Building: ground + 22 upper floors&#10;Structure: RCC&#10;6 tenements per floor&#10;Units (RCA): 1 BHK 409.00 sq ft · 2 BHK 508.00 sq ft"></textarea>
+              <small>One fact per line. <b>Label: value</b> lines go in “Key facts”; lines without a colon become “Highlights”; a line starting <b>Units:</b> (or <b>Units (RCA):</b>) with sizes separated by <b>·</b> becomes the unit tiles.</small></label>
+          </fieldset>
+        </div>
+
+        <div class="adm-col">
+          <fieldset class="adm-card">
+            <legend>Images</legend>
+            <p class="adm-muted adm-small">The first image is the cover. JPEG, PNG or WebP; large photos are resized and converted to WebP automatically.</p>
+            <ul class="adm-images" data-images></ul>
+            <label class="adm-btn adm-btn--ghost adm-upload">Upload images<input type="file" accept="image/jpeg,image/png,image/webp" multiple data-upload></label>
+            <p class="adm-muted adm-small" data-upload-status></p>
+          </fieldset>
+
+          <fieldset class="adm-card">
+            <legend>Visibility</legend>
+            <label class="adm-check"><input type="checkbox" name="published"> <span>Show on the website</span></label>
+            <label class="adm-check"><input type="checkbox" name="featured"> <span>Featured (shown first on the home page)</span></label>
+            <label class="adm-field"><span>Sort order</span><input name="sort_order" type="number" step="1" value="100"><small>Lower numbers appear first.</small></label>
+          </fieldset>
+
+          <div class="adm-card adm-danger" data-delete-box hidden>
+            <p class="adm-small">Deleting removes the project and its uploaded images. This cannot be undone.</p>
+            <button type="button" class="adm-btn adm-btn--danger" data-delete>Delete project</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <datalist id="adm-categories"><option value="Redevelopment"><option value="Self-Redevelopment"><option value="Development"><option value="Architecture"><option value="Planning"><option value="Interior Design"></datalist>
+  <datalist id="adm-statuses"><option value="Completed"><option value="Ongoing"><option value="Proposed"></datalist>
+</main>
+
+<script src="../js/config.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/vendor/supabase.js"></script>
+<script src="../js/admin.js"></script>
+</body>
+</html>

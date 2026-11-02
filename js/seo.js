@@ -108,19 +108,14 @@
       '@id': url + '#project',
       name: p.title,
       url: url,
-      description: p.seo_description || p.short_description || undefined,
+      description: p.short_description || undefined,
       genre: p.category || undefined,
       keywords: [p.category, p.project_type, p.location].filter(Boolean).join(', ') || undefined,
       creator: { '@id': SITE + '/#organization' },
-      locationCreated: p.location ? { '@type': 'Place', name: p.location } : undefined,
-      dateCreated: /^\d{4}$/.test(p.year || '') ? p.year : undefined
+      locationCreated: p.location ? { '@type': 'Place', name: p.location } : undefined
     };
     var imgs = (p.media || []).filter(function (m) { return m.media_type === 'image'; }).slice(0, 6).map(imageObject);
     if (imgs.length) o.image = imgs;
-    var vids = (p.media || []).filter(function (m) { return m.media_type === 'video'; }).map(function (m) {
-      return { '@type': 'VideoObject', name: m.caption || p.title, description: m.alt_text || p.title, contentUrl: abs(m.media_url), thumbnailUrl: m.poster_url ? abs(m.poster_url) : undefined, uploadDate: m.created_at || undefined };
-    }).filter(function (v) { return v.thumbnailUrl && v.uploadDate; });
-    if (vids.length) o.video = vids;
     return JSON.parse(JSON.stringify(o)); // strip undefined
   }
 

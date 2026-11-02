@@ -3,8 +3,8 @@
 Website for **Space Design**: Architects · Planners · Interior Designers · Project Management Consultant.
 Principal Architect: **Milind Fulzele**. 30 years of experience. Offices in **Navi Mumbai** and **Pune**.
 
-- **Fully static:** raw HTML5, CSS3 and vanilla JavaScript. No frameworks, no build step, no backend, no database.
-- **Projects** come from `js/projects-data.js`; **enquiries** go to the office WhatsApp.
+- **Static front end:** raw HTML5, CSS3 and vanilla JavaScript. No frameworks, no build step.
+- **Projects** are managed in a small admin (`/admin/`) backed by **Supabase** (database, image storage, staff sign-in), with `js/projects-data.js` as the offline fallback (§3). **Enquiries** go to the office WhatsApp.
 - **Fonts:** Roboto (300/400/500/700), self-hosted in `assets/fonts/` (SIL Open Font License; no Google Fonts requests). The older Inter Tight and Instrument Serif files are no longer used.
 - **Theme:** `css/theme.css` (loaded after `style.css` and `responsive.css`) sets the monochrome look: #111 / #7E7D7D / #F2F2F2 / #ECECEC with logo blue as the accent. Home testimonials appear once quotes are added to `TESTIMONIALS` in `js/home.js`.
 - **Hosting:** any static host (Netlify, Vercel, Cloudflare Pages, GitHub Pages, S3 and others).
@@ -16,7 +16,7 @@ Principal Architect: **Milind Fulzele**. 30 years of experience. Offices in **Na
 ## Contents
 1. [Project setup](#1-project-setup)
 2. [Folder structure](#2-folder-structure)
-3. [Adding or editing projects](#3-adding-or-editing-projects)
+3. [Adding or editing projects (admin + Supabase)](#3-adding-or-editing-projects-admin--supabase)
 4. [Images](#4-images)
 5. [SEO](#5-seo)
 6. [Contact enquiries](#6-contact-enquiries)
@@ -51,6 +51,7 @@ space_design/
 ├── contact.html             Contact + WhatsApp enquiry form
 ├── privacy-policy.html  terms.html  cookie-policy.html  refund-policy.html  accessibility.html
 ├── 404.html
+├── admin/index.html         projects admin (sign in, add/edit/delete, image upload)
 ├── css/
 │   ├── style.css            design system + page styles
 │   ├── responsive.css       1920 / 1440 / 1024 / 768 / 430 / 390 / 375 compositions
@@ -61,7 +62,8 @@ space_design/
 │   ├── boot.js              sets .js class (sync, in <head>)
 │   ├── config.js            site URL, analytics switch
 │   ├── utils.js             escaping, URL safety, project card renderer
-│   ├── projects-data.js     the project list (SD.api)
+│   ├── projects-data.js     project data: Supabase REST + built-in fallback (SD.api)
+│   ├── admin.js             projects admin (uses js/vendor/supabase.js)
 │   ├── seo.js               meta updates + JSON-LD builders
 │   ├── cookie-consent.js    consent banner/preferences (inactive until analytics is enabled)
 │   ├── navigation.js        header, progress bar, accessible mobile menu
@@ -71,30 +73,46 @@ space_design/
 ├── partials/                header.html, footer.html, scripts.html (shared markup source)
 ├── tools/sync-partials.py   optional: re-applies partials to every page
 ├── tools/build-service-art.py  regenerates the services page illustrations
+├── tools/build-seed-sql.js  regenerates supabase/seed-projects.sql
+├── supabase/                schema.sql (tables, security, storage), seed-projects.sql
 ├── _headers  vercel.json    security headers for Netlify/Cloudflare and Vercel
 └── robots.txt  sitemap.xml  README.md
 ```
 
 **Shared header and footer:** every page contains the header, footer and script tags as plain HTML between `<!-- PARTIAL:… -->` markers. That keeps them crawlable and working without JavaScript. To change them, edit `partials/*.html` and run `python tools/sync-partials.py`. You can also edit each page by hand.
 
-## 3. Adding or editing projects
+## 3. Adding or editing projects (admin + Supabase)
 
-All projects live in the `P` list in `js/projects-data.js`. Each entry looks like this:
+Projects are stored in a Supabase database and managed at **`/admin/`** (for example `https://www.spacedesign.space/admin/`). Public pages read published projects through Supabase's REST API without loading the Supabase library, so they stay fast. If the database can't be reached, they fall back to the built-in list in `js/projects-data.js`.
 
-```js
-{
-  slug: 'pragati-icon', title: 'Pragati Icon', featured: true, sort_order: 20,
-  subtitle: '…', category: 'Redevelopment', project_type: 'Residential', status: 'Completed',
-  location: 'Pant Nagar, Ghatkopar, Mumbai', area: '852.50 sq m plot', client: '…',
-  short_description: '…', description: '…', details: specs([...]),
-  media: [render('pragati-icon', 639, 928, 'Alt text describing the image')]
-}
-```
+### One-time setup
+1. **Supabase project:** `https://wizpqcxrlancqcoymnsj.supabase.co` (Ireland, eu-west-1). The URL and the publishable key are in `js/config.js`. Both are public by design; never put the `service_role`/secret key or the database password in any file.
+2. **Turn off sign-ups:** Authentication → Sign In / Providers → Email → switch off "Allow new users to sign up".
+3. **Create the database:** SQL Editor → New query → paste all of `supabase/schema.sql` → Run.
+4. **Load the starting projects:** SQL Editor → paste `supabase/seed-projects.sql` → Run (the 11 projects from the company profile).
+5. **Create the admin login:** Authentication → Users → Add user → email + strong password, tick "Auto confirm user".
+6. **Make it an admin:** in the SQL Editor run (with the real email):
+   ```sql
+   insert into public.admins (user_id)
+   select id from auth.users where email = 'admin@example.com'
+   on conflict do nothing;
+   ```
+   Repeat steps 5–6 for each person who should edit projects. To remove someone: `delete from public.admins where user_id = (select id from auth.users where email = '…');`
 
-- **slug:** lowercase letters, numbers and hyphens; it becomes the page address `portfolio-detail.html?slug=…`.
-- **media:** `render(file, width, height, alt)` for renders/photos, `plan(file, alt)` for layout plans. `file` is the name of a `.webp` in `assets/img/projects/` without the extension. The first item is the cover image.
-- **category** builds the filter tabs on the Portfolio page. **featured** projects are shown first on the home page; **sort_order** sets the order (lower first).
-- Add the new project's URL to `sitemap.xml` (§10).
+### Using the admin
+- **Sign in** at `/admin/`. Accounts without admin rights are refused.
+- **Add / edit:** title, web address (slug, filled in from the title), subtitle, category, status, type, area, location, society, short and full description, and **Details**.
+- **Details format** (one fact per line): `Label: value` lines appear under *Key facts*; lines without a colon appear under *Highlights*; a line starting `Units:` or `Units (RCA):` with sizes separated by `·` becomes the unit tiles, e.g. `Units (RCA): 1 BHK 409.00 sq ft · 2 BHK 508.00 sq ft`.
+- **Images:** upload JPEG/PNG/WebP (resized to 2000 px and converted to WebP in the browser), add a short description (alt text) to each, choose *Photo/render* or *Plan/drawing*, and reorder; the first is the cover.
+- **Show on the website** publishes or hides a project; **Featured** puts it first on the home page; **Sort order** sets the order (lower first). The list page has a quick on/off switch per project.
+- **Category** builds the filter tabs on the Projects page. The six services always have a tab.
+- **Delete** removes the project and its uploaded images.
+- Add new project URLs to `sitemap.xml` (§10): `https://www.spacedesign.space/portfolio-detail.html?slug=<slug>`.
+
+### Security
+- Row Level Security in `schema.sql`: anyone can read **published** projects; only accounts listed in `public.admins` can add, edit or delete projects or upload images. This is enforced by the database, not the browser.
+- The `project-images` storage bucket is public to view (10 MB limit, JPEG/PNG/WebP), admin-only to change.
+- `tools/build-seed-sql.js` regenerates `supabase/seed-projects.sql` from `js/projects-data.js` if the built-in list changes.
 
 ## 4. Images
 
@@ -151,7 +169,9 @@ The domain is set to `https://www.spacedesign.space` (§10). Before going live, 
 
 ## 11. Security checklist
 
-- [x] No backend, database, accounts or secrets: nothing to break into or leak.
+- [x] Only the public Supabase URL and publishable key are in the code; no secret key or password.
+- [x] Row Level Security: visitors read published projects only; only listed admins can change projects or images. No public sign-up (turn it off in Supabase, §3).
+- [x] Admin pages: `noindex`, `no-store`, `no-referrer`, and disallowed in robots.txt.
 - [x] All dynamic content is HTML-escaped (`SD.utils.esc`), and URLs are filtered (`safeUrl`) to allow only http(s).
 - [x] No inline scripts or style attributes, so the strict CSP (`script-src 'self'; style-src 'self'`) works.
 - [x] External links use `rel="noopener noreferrer"`.

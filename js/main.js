@@ -1,6 +1,6 @@
 /* =====================================================================
    SPACE DESIGN — Motion & shared behaviours
-   IntersectionObserver reveals, lazy video, footer year.
+   IntersectionObserver reveals, footer year.
    No animation libraries. Respects prefers-reduced-motion.
    ===================================================================== */
 (function () {
@@ -38,27 +38,9 @@
     });
   }
 
-  /* ---------- Lazy video: <video data-lazy-video> with <source data-src> ---------- */
-  var vio = null;
-  function lazyVideos(root) {
-    var vids = (root || document).querySelectorAll('video[data-lazy-video]');
-    if (!vids.length) return;
-    function load(v) {
-      v.querySelectorAll('source[data-src]').forEach(function (s) { s.src = s.getAttribute('data-src'); s.removeAttribute('data-src'); });
-      v.removeAttribute('data-lazy-video');
-      v.load();
-    }
-    if (!('IntersectionObserver' in window)) { vids.forEach(load); return; }
-    vio = vio || new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { load(e.target); vio.unobserve(e.target); } });
-    }, { rootMargin: '200px 0px' });
-    vids.forEach(function (v) { vio.observe(v); });
-  }
-
   function init() {
     document.querySelectorAll('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
     reveal(document);
-    lazyVideos(document);
 
     // External links opened in a new tab always get rel protection.
     document.querySelectorAll('a[target="_blank"]').forEach(function (a) {
@@ -70,7 +52,7 @@
     window.SD_READY = true;
   }
 
-  SD.motion = { reveal: reveal, lazyVideos: lazyVideos, reduce: reduce };
+  SD.motion = { reveal: reveal, reduce: reduce };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

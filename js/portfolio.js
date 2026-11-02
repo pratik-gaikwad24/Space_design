@@ -9,7 +9,12 @@
   var U = SD.utils;
 
   var PAGE_SIZE = 12; // three full rows of four cards
-  var DISCIPLINES = ['Redevelopment', 'Architecture', 'Layout Planning', 'Planning', 'Interior Design', 'Project Management'];
+  // The six services always appear as tabs, in this order, even before they have projects.
+  var DISCIPLINES = ['Redevelopment', 'Self-Redevelopment', 'Development', 'Architecture', 'Planning', 'Interior Design'];
+  // Project type pre-selected on the contact form for each discipline's empty-state link.
+  var CONTACT_TYPE = { 'redevelopment': 'Society Redevelopment (PMC)' };
+  // Old filter links keep working after the "Layout Planning" tab was renamed.
+  var FILTER_ALIASES = { 'layout-planning': 'planning' };
 
   var state = { all: [], filtered: [], cat: 'all', query: '', shown: 0 };
   var els = {};
@@ -27,12 +32,26 @@
       U.esc(label) + '<sup aria-hidden="true">' + count + '</sup><span class="visually-hidden">, ' + count + ' projects</span></button>';
   }
 
-  /* Discipline tabs, built only from values actually used. */
+  /* Discipline tabs: the six services, plus any other category a project uses. */
   function buildFilters() {
     var cat = {};
+    DISCIPLINES.forEach(function (d) { cat[d] = 0; });
     state.all.forEach(function (p) { if (p.category) cat[p.category] = (cat[p.category] || 0) + 1; });
     els.filters.innerHTML = filterBtn('cat', 'all', 'All projects', state.all.length, true) +
       ordered(Object.keys(cat), DISCIPLINES).map(function (v) { return filterBtn('cat', U.slugify(v), v, cat[v], false); }).join('');
+  }
+
+  /* A discipline with no projects yet: say so, and offer a way to ask about it. */
+  function emptyDiscipline() {
+    var btn = els.filters.querySelector('[data-filter="' + CSS.escape(state.cat) + '"]');
+    var name = btn ? btn.firstChild.textContent : '';
+    var type = CONTACT_TYPE[state.cat] || name;
+    var lower = name.toLowerCase();
+    var a = /^[aeiou]/.test(lower) ? 'an ' : 'a ';
+    return '<div class="empty-state"><h2 class="h-md">' + U.esc(name) + ' projects are coming soon.</h2>' +
+      '<p>We are adding our ' + U.esc(lower) + ' work to this page. To discuss ' + a + U.esc(lower) + ' project, get in touch.</p>' +
+      '<a class="link-arrow" href="contact.html?type=' + encodeURIComponent(type) + '">Discuss ' + a + U.esc(lower) + ' project <span class="btn-arrow" aria-hidden="true">→</span></a> ' +
+      '<button type="button" class="btn btn--ghost btn--sm" data-reset>Show all projects</button></div>';
   }
 
   function matches(p) {
@@ -66,7 +85,9 @@
       els.grid.innerHTML = '';
       state.shown = 0;
       if (!state.filtered.length) {
-        els.grid.innerHTML = state.all.length
+        // Nothing found in a tab, with no search typed: that discipline has no projects yet.
+        var noneInTab = state.all.length && state.cat !== 'all' && !state.query;
+        els.grid.innerHTML = noneInTab ? emptyDiscipline() : state.all.length
           ? '<div class="empty-state"><h2 class="h-md">No projects match.</h2><p>Try a different filter or search term.</p><button type="button" class="btn btn--ghost btn--sm" data-reset>Show all projects</button></div>'
           : '<div class="empty-state"><p class="label label--blue mb-0">Portfolio</p><h2 class="h-md">Selected projects are being curated.</h2><p>Project photography and details will be published here soon.</p><a class="link-arrow" href="contact.html">Start a conversation <span class="btn-arrow" aria-hidden="true">→</span></a></div>';
         els.more.hidden = true;
@@ -94,6 +115,7 @@
   }
 
   function setFilter(key, animate) {
+    key = FILTER_ALIASES[key] || key;
     var exists = els.filters.querySelector('[data-filter="' + CSS.escape(key) + '"]');
     state.cat = exists ? key : 'all';
     els.filters.querySelectorAll('.filter-btn').forEach(function (b) {
@@ -112,7 +134,7 @@
     els.count = document.querySelector('[data-count]');
     els.status = document.querySelector('[data-status]');
 
-    var res = await SD.api.listProjects({});
+    var res = await SD.api.listProjects();
     els.grid.setAttribute('aria-busy', 'false');
     if (res.error) {
       els.grid.innerHTML = '<div class="empty-state"><h2 class="h-md">Projects could not be loaded.</h2><p>Please refresh the page in a moment.</p></div>';

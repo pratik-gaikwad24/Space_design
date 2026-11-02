@@ -144,10 +144,11 @@
 <tbody>
 <tr><td>WhatsApp (Meta)</td><td>Carries enquiries sent from the contact form or the WhatsApp button to our office</td><td>Your number, profile name and the messages you send, governed by WhatsApp’s own privacy policy; nothing is embedded or loaded on our pages</td></tr>
 <tr><td>Website hosting provider (Vercel)</td><td>Serves the website</td><td>Technical request logs</td></tr>
+<tr><td>Supabase (database and file storage)</td><td>Stores the project information and images shown on the website, and the sign-in of authorised staff who edit them</td><td>Staff email and sign-in records only; no visitor data. Requests to it may appear in its technical logs</td></tr>
 <tr><td>Email providers (Gmail, Rediffmail)</td><td>If you email us directly, or we reply to you</td><td>Your email and correspondence</td></tr>
 <tr><td>Google Maps (link only)</td><td>Opens only if you click “View location on map”</td><td>Governed by Google’s own privacy policy; no map is embedded on our pages</td></tr>
 </tbody></table></div>
-<p>The website loads no fonts, scripts or embeds from third-party servers. It has no database and no user accounts.</p>
+<p>The website loads no fonts, scripts or embeds from third-party servers. Project information and images are fetched from our Supabase database; visitors do not have accounts.</p>
 <h2 id="transfers">Where data is stored</h2>
 <p>Enquiries you send are held in our office’s WhatsApp account. WhatsApp and our hosting and email providers may process data on servers outside India, in accordance with applicable law.</p>
 <h2 id="retention">How long we keep it</h2>
@@ -159,7 +160,8 @@
 <ul>
 <li>All traffic is encrypted with HTTPS.</li>
 <li>Enquiries are read only by authorised staff on the office WhatsApp account.</li>
-<li>The website has no accounts, logins or database, so no personal data is stored on it.</li>
+<li>Visitors have no accounts, and no visitor data is stored in our database.</li>
+<li>Only authorised staff can sign in to edit projects. Access is enforced in the database itself, not only in the browser, and there is no public sign-up.</li>
 </ul>
 <p>No system is completely secure. If a personal data breach occurs, we will act in accordance with applicable law, including notifying affected individuals and authorities where required.</p>
 <h2 id="rights">Your rights</h2>

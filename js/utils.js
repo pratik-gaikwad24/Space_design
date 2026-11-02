@@ -74,28 +74,26 @@
 
   /**
    * How an image should sit in its frame:
-   *  - plans / drawings → whole sheet on white ("fit-white")
+   *  - plans → whole sheet on white ("fit-white")
    *  - tall renders (towers) → whole building on a sky gradient ("fit-sky")
    *  - everything else (photographs) → cover the frame
    */
   function fitClass(m) {
     if (!m) return '';
-    if (m.media_type === 'plan' || m.media_type === 'drawing') return 'fit-white';
+    if (m.media_type === 'plan') return 'fit-white';
     if (m.width && m.height && m.height > m.width * 1.15) return 'fit-sky';
     return '';
   }
 
   function mediaThumb(m) {
     if (!m) return '<div class="project-card-placeholder" aria-hidden="true"></div>';
-    var isVideo = m.media_type === 'video';
-    var src = isVideo ? m.poster_url : m.media_url;
+    var src = m.media_url;
     var html = '';
     if (src) {
       html += '<img src="' + esc(safeUrl(src)) + '"' +
         ' alt="' + esc(m.alt_text || '') + '" loading="lazy" decoding="async"' +
         (m.width && m.height ? ' width="' + Number(m.width) + '" height="' + Number(m.height) + '"' : '') + '>';
     }
-    if (isVideo) html += '<span class="play-badge">Video</span>';
     return html;
   }
 
